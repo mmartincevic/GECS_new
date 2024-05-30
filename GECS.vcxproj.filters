@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\ECS">
+      <UniqueIdentifier>{8d1ca2ab-6de4-440b-941f-f4aac374ca2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ECS\FSM">
+      <UniqueIdentifier>{ec45bc4e-96d3-45fb-93a6-3a6fe5fd131e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{14034b0d-9bed-441b-b223-959ce5e3975e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ECS">
+      <UniqueIdentifier>{de4cca1b-1bd5-46b0-9991-fc1f2047bec6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ECS\FSM">
+      <UniqueIdentifier>{e2651d0c-4ded-48e8-871a-dfca7a4e7072}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{7e977898-9403-4f99-b636-7d06b837f0d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\States">
+      <UniqueIdentifier>{5641008e-1be7-4d7f-a3cf-3a8755d9b727}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\States">
+      <UniqueIdentifier>{74b99e7e-1ff0-4833-92e2-bdc94470c152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Systems">
+      <UniqueIdentifier>{4ce825c2-e78c-404e-aa19-55dcb221489d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Systems">
+      <UniqueIdentifier>{43d86472-43c9-43ad-99d1-374e1f01e196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Components">
+      <UniqueIdentifier>{3ebe16ce-eed7-4613-8603-3ee30d401595}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Components">
+      <UniqueIdentifier>{be4ddfe6-36e6-4ddf-9b10-b454025d8d1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Utils">
+      <UniqueIdentifier>{57bdb00d-473b-4d70-89dc-d0e7896296b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Utils">
+      <UniqueIdentifier>{ac1a518e-f540-425d-a9ce-a746a26fab8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Input">
+      <UniqueIdentifier>{a1197c97-f468-43ec-a09d-f45becefa38c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\API.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\ComponentManager.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\Engine.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\FPS.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\IComponent.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\SystemManager.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Game.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\FSM\FSM.cpp">
+      <Filter>Source Files\ECS\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\FSM\FState.cpp">
+      <Filter>Source Files\ECS\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\States\StateInitializer.cpp">
+      <Filter>Source Files\Game\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Systems\RenderSystem.cpp">
+      <Filter>Source Files\Game\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\ISystem.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Components\Drawable.cpp">
+      <Filter>Source Files\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Utils\Vector2D.cpp">
+      <Filter>Source Files\Game\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Utils\Rectangle.cpp">
+      <Filter>Source Files\Game\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\EntityManager.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Components\Transform.cpp">
+      <Filter>Source Files\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\IdFactory.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="include\tinyxml2\tinyxml2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\XMLSettingsParser.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\XMLSettingsParser.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Components\Texture.cpp">
+      <Filter>Source Files\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\IType.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Utils\CBox2DDebugRender.cpp">
+      <Filter>Source Files\Game\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Systems\PhysicsSystem.cpp">
+      <Filter>Source Files\Game\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\States\MainState.cpp">
+      <Filter>Source Files\Game\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Systems\InputSystem.cpp">
+      <Filter>Source Files\Game\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\States\Player\PlayerIdleState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\States\Player\PlayerWalkingRightState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\States\Player\PlayerWalkingLeftState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\States\Player\PlayerFallingState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Systems\CollisionSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\Wall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\States\Player\PlayerJumpingState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ECS\API.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Component.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ComponentManager.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ComponentMap.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\definitions.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ECS.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Engine.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Event.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\EventDispatcher.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\helpers.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\IComponent.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ISystem.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\IType.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Logger.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\System.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\SystemManager.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Uncopiable.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\States\StateInitializer.h">
+      <Filter>Header Files\Game\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameConfiguration.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\FPS.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Game.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\FSM\FSM.h">
+      <Filter>Header Files\ECS\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\FSM\FState.h">
+      <Filter>Header Files\ECS\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Systems\RenderSystem.h">
+      <Filter>Header Files\Game\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\Drawable.h">
+      <Filter>Header Files\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Utils\Vector2D.h">
+      <Filter>Header Files\Game\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Utils\Rectangle.h">
+      <Filter>Header Files\Game\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Entity.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ComponentType.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\Transform.h">
+      <Filter>Header Files\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\Mesh.h">
+      <Filter>Header Files\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\IdFactory.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tinyxml2\tinyxml2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\Texture.h">
+      <Filter>Header Files\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TextureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\TextureResource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Wall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\World.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Utils\CBox2DDebugRender.h">
+      <Filter>Header Files\Game\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\BodyComponent.h">
+      <Filter>Header Files\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\DynamicBody.h">
+      <Filter>Header Files\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Utils\GameHelper.h">
+      <Filter>Header Files\Game\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\States\MainState.h">
+      <Filter>Header Files\Game\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Systems\PhysicsSystem.h">
+      <Filter>Header Files\Game\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\RigidBody.h">
+      <Filter>Header Files\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Utils\SDL_Wrapper.h">
+      <Filter>Header Files\Game\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Input\InputBuffer.h">
+      <Filter>Header Files\Game\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Systems\InputSystem.h">
+      <Filter>Header Files\Game\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\States\Player\PlayerState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\States\Player\PlayerIdleState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\States\Player\PlayerWalkingRightState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\States\Player\PlayerJumpingState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\States\Player\PlayerFallingState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\States\Player\PlayerWalkingLeftState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Systems\CollisionSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\GroundBody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Events\CollisionEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\BoundingBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Systems\CollisionSide.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\States\Player\PlayerStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="config\settings.xml" />
+  </ItemGroup>
+</Project>

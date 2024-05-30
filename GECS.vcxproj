@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{e1c90cfe-7245-4be4-baa9-6d51d98e8cc8}</ProjectGuid>
+    <RootNamespace>GECS</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)include\box2d;$(SolutionDir)include\tinyxml2;$(SolutionDir)include\SDL2-2.30.3\lib\x64;$(SolutionDir)include\SDL2-2.30.3\include;$(SolutionDir)include\SDL2_image-2.8.2\lib\x64;$(SolutionDir)include\SDL2_image-2.8.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\include\box2d;$(SolutionDir)include\tinyxml2;$(SolutionDir)include\SDL2-2.30.3\lib\x64;$(SolutionDir)include\SDL2_image-2.8.2\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\box2d;$(SolutionDir)include\tinyxml2;$(SolutionDir)include\SDL2-2.30.3\lib\x64;$(SolutionDir)include\SDL2-2.30.3\include;$(SolutionDir)include\SDL2_image-2.8.2\lib\x64;$(SolutionDir)include\SDL2_image-2.8.2\include;C:\Users\djomla\Desktop\gecsnew\GECS\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ECS\API.cpp" />
+    <ClCompile Include="ECS\ComponentManager.cpp" />
+    <ClCompile Include="ECS\Engine.cpp" />
+    <ClCompile Include="ECS\FSM\FSM.cpp" />
+    <ClCompile Include="ECS\FSM\FState.cpp" />
+    <ClCompile Include="ECS\IComponent.cpp" />
+    <ClCompile Include="ECS\IdFactory.cpp" />
+    <ClCompile Include="ECS\IType.cpp" />
+    <ClCompile Include="ECS\SystemManager.cpp" />
+    <ClCompile Include="ECS\EntityManager.h" />
+    <ClCompile Include="Game\Objects\Player.cpp" />
+    <ClCompile Include="Game\Objects\Wall.cpp" />
+    <ClCompile Include="Game\States\Player\PlayerFallingState.cpp" />
+    <ClCompile Include="Game\States\Player\PlayerIdleState.cpp" />
+    <ClCompile Include="Game\States\Player\PlayerJumpingState.cpp" />
+    <ClCompile Include="Game\States\Player\PlayerWalkingLeftState.cpp" />
+    <ClCompile Include="Game\States\Player\PlayerWalkingRightState.cpp" />
+    <ClCompile Include="Game\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="Game\Systems\InputSystem.cpp" />
+    <ClCompile Include="Game\States\MainState.cpp" />
+    <ClCompile Include="Game\Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="Game\TextureManager.cpp" />
+    <ClCompile Include="ECS\XMLSettingsParser.cpp" />
+    <ClCompile Include="ECS\XMLSettingsParser.h" />
+    <ClCompile Include="Game\Components\Drawable.cpp" />
+    <ClCompile Include="Game\Components\Texture.cpp" />
+    <ClCompile Include="Game\Components\Transform.cpp" />
+    <ClCompile Include="Game\FPS.cpp" />
+    <ClCompile Include="Game\States\StateInitializer.cpp" />
+    <ClCompile Include="ECS\ISystem.cpp" />
+    <ClCompile Include="Game\Systems\RenderSystem.cpp" />
+    <ClCompile Include="Game\Game.cpp" />
+    <ClCompile Include="Game\Utils\CBox2DDebugRender.cpp" />
+    <ClCompile Include="Game\Utils\Rectangle.cpp" />
+    <ClCompile Include="Game\Utils\Vector2D.cpp" />
+    <ClCompile Include="include\tinyxml2\tinyxml2.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ECS\API.h" />
+    <ClInclude Include="ECS\Component.h" />
+    <ClInclude Include="ECS\ComponentManager.h" />
+    <ClInclude Include="ECS\ComponentMap.h" />
+    <ClInclude Include="ECS\ComponentType.h" />
+    <ClInclude Include="ECS\definitions.h" />
+    <ClInclude Include="ECS\ECS.h" />
+    <ClInclude Include="ECS\Engine.h" />
+    <ClInclude Include="ECS\Event.h" />
+    <ClInclude Include="ECS\EventDispatcher.h" />
+    <ClInclude Include="ECS\FSM\FState.h" />
+    <ClInclude Include="ECS\helpers.h" />
+    <ClInclude Include="ECS\IComponent.h" />
+    <ClInclude Include="ECS\IdFactory.h" />
+    <ClInclude Include="ECS\ISystem.h" />
+    <ClInclude Include="ECS\IType.h" />
+    <ClInclude Include="ECS\Logger.h" />
+    <ClInclude Include="ECS\Timer.h" />
+    <ClInclude Include="Game\Components\BodyComponent.h" />
+    <ClInclude Include="Game\Components\BoundingBox.h" />
+    <ClInclude Include="Game\Components\DynamicBody.h" />
+    <ClInclude Include="Game\Components\GroundBody.h" />
+    <ClInclude Include="Game\Events\CollisionEvent.h" />
+    <ClInclude Include="Game\Input\InputBuffer.h" />
+    <ClInclude Include="Game\Objects\GameObject.h" />
+    <ClInclude Include="Game\States\Player\PlayerFallingState.h" />
+    <ClInclude Include="Game\States\Player\PlayerIdleState.h" />
+    <ClInclude Include="Game\States\Player\PlayerJumpingState.h" />
+    <ClInclude Include="Game\States\Player\PlayerState.h" />
+    <ClInclude Include="Game\States\Player\PlayerStates.h" />
+    <ClInclude Include="Game\States\Player\PlayerWalkingLeftState.h" />
+    <ClInclude Include="Game\States\Player\PlayerWalkingRightState.h" />
+    <ClInclude Include="Game\Systems\CollisionSide.h" />
+    <ClInclude Include="Game\Systems\CollisionSystem.h" />
+    <ClInclude Include="Game\Systems\InputSystem.h" />
+    <ClInclude Include="Game\Components\RigidBody.h" />
+    <ClInclude Include="Game\Components\TextureResource.h" />
+    <ClInclude Include="Game\Objects\Player.h" />
+    <ClInclude Include="Game\Objects\Wall.h" />
+    <ClInclude Include="Game\States\MainState.h" />
+    <ClInclude Include="Game\Systems\PhysicsSystem.h" />
+    <ClInclude Include="Game\TextureManager.h" />
+    <ClInclude Include="Game\Components\Mesh.h" />
+    <ClInclude Include="ECS\System.h" />
+    <ClInclude Include="ECS\SystemManager.h" />
+    <ClInclude Include="ECS\Uncopiable.h" />
+    <ClInclude Include="ECS\FSM\FSM.h" />
+    <ClInclude Include="ECS\Entity.h" />
+    <ClInclude Include="Game\Components\Drawable.h" />
+    <ClInclude Include="Game\Components\Texture.h" />
+    <ClInclude Include="Game\Components\Transform.h" />
+    <ClInclude Include="Game\FPS.h" />
+    <ClInclude Include="Game\GameConfiguration.h" />
+    <ClInclude Include="Game\States\StateInitializer.h" />
+    <ClInclude Include="Game\Systems\RenderSystem.h" />
+    <ClInclude Include="Game\Game.h" />
+    <ClInclude Include="Game\Utils\CBox2DDebugRender.h" />
+    <ClInclude Include="Game\Utils\GameHelper.h" />
+    <ClInclude Include="Game\Utils\Rectangle.h" />
+    <ClInclude Include="Game\Utils\SDL_Wrapper.h" />
+    <ClInclude Include="Game\Utils\Vector2D.h" />
+    <ClInclude Include="Game\World.h" />
+    <ClInclude Include="include\tinyxml2\tinyxml2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="config\settings.xml" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

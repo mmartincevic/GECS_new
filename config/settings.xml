@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+  <game>
+      <name>Super Fun Game</name>
+      <version>1.0.3</version>
+  </game>
+  <textures>
+    <loading_screen>Resources/ECS/gecslogo.png</loading_screen>
+    <warrior>
+      <textureid>warrior</textureid>
+      <path>Resources/ECS/warrior_idle.png</path>
+    </warrior>
+  </textures>
+</settings>
