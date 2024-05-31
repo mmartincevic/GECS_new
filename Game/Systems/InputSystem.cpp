@@ -55,6 +55,10 @@ void InputSystem::PreUpdate(float dt)
                     break;
                 }
             }
+            else if (event.type == SDL_KEYUP)
+            {
+                playerEntity->ToggleState();
+            }
         }
 
         if (inputBuffer.MatchesCombo({ SDL_SCANCODE_UP, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN })) {

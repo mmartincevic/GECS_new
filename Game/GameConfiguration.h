@@ -28,6 +28,9 @@ static constexpr float						DELTA_TIME_STEP{ 1.0f / 60.0f };
 
 static constexpr float						PLAYER_SPEED{ 2.0f };
 
+static constexpr float						PLAYER_UPDATE_SPEED{ 0.1f };
+
+
 class GameConfiguration 
 {
 

@@ -12,12 +12,11 @@
 void PlayerJumpingState::Enter(Player* player) {
     // Set the texture for walking state
     gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "JUMP IT");
-
     auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(player->GetID());
 
     if (transformComponent)
     {
-        m_JumpTo = transformComponent->GetPosition()->y - 100.0f;
+        m_JumpTo = transformComponent->Position().y - 100.0f;
     }
 }
 
@@ -40,16 +39,17 @@ void PlayerJumpingState::HandleInput(Player* player, const InputBuffer inputBuff
             }
         }
     }
-    else
-    {
-        //player->ChangeState(new PlayerIdleState());
-    }
+}
+
+void PlayerJumpingState::Toggle(Player* player)
+{
+    //player->ChangeState(std::make_shared<PlayerIdleState>());
 }
 
 void PlayerJumpingState::Update(Player* player, float deltaTime)
 {
     auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(player->GetID());
-    float newY = transformComponent->GetPosition()->y;
+    float newY = transformComponent->Position().y;
     newY -= PLAYER_SPEED * deltaTime;
 
     if (newY > m_JumpTo)

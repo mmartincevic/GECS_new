@@ -7,6 +7,7 @@
 #include "../Game/Objects/Player.h"
 #include "../Game/GameConfiguration.h"
 #include "../Game/Components/Transform.h"
+#include "../Game/Components/RigidBody.h"
 
 
 void PlayerWalkingRightState::Enter(Player* player) {
@@ -33,17 +34,21 @@ void PlayerWalkingRightState::HandleInput(Player* player, const InputBuffer inpu
             }
         }
     }
-    else
-    {
-        player->ChangeState(std::make_shared<PlayerIdleState>());
-    }
+}
+
+void PlayerWalkingRightState::Toggle(Player* player)
+{
+    player->ChangeState(std::make_shared<PlayerIdleState>());
 }
 
 void PlayerWalkingRightState::Update(Player* player, float deltaTime) {
     auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(player->GetID());
-    float newX = transformComponent->GetPosition()->x;
-    newX += PLAYER_SPEED * deltaTime;
-    transformComponent->SetPositionX(newX);
+    auto rigidBody = gecs::ECS_Engine.components().GetComponentForEntity<RigidBody>(player->GetID());
+    rigidBody->UnsetForce();
+    rigidBody->ApplyForceX(PLAYER_SPEED);
+    rigidBody->Update(deltaTime);
+    transformComponent->UpdatePositionX(rigidBody->Position());
+
 }
 
 void PlayerWalkingRightState::Render(Player* player) {

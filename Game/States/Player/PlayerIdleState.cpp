@@ -12,6 +12,8 @@ void PlayerIdleState::Enter(Player* player) {
     gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "IDLE");
 }
 
+void PlayerIdleState::Toggle(Player* player) {}
+
 void PlayerIdleState::HandleInput(Player* player, const InputBuffer inputBuffer) 
 {
     if (!inputBuffer.IsEmpty())

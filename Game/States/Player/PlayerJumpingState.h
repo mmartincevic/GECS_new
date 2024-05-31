@@ -17,6 +17,7 @@ class PlayerJumpingState : public PlayerState {
 
         void Update(Player* player, float deltaTime) override;
         void Render(Player* player) override;
+        void Toggle(Player* player) override;
 
         PlayerStates getState() const { return PlayerStates::JUMPING; }
 

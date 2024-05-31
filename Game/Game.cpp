@@ -2,6 +2,7 @@
 #include "Utils/SDL_Wrapper.h"
 #include "TextureManager.h"
 #include "World.h"
+#include "Utils/Timer.h"
 
 Game::Game(const char* name) :
 	m_GameTitle(name),
@@ -45,7 +46,8 @@ void Game::Run()
 	if (!m_RUN) return;
 	gecs::ECS_Engine.events().subscribe("GAME_QUIT", this, &Game::Terminate);
 
-	const float TargetFrameTime = 16.67f;
+	const float TargetFrameTime = 6.67f;
+	//const float TargetFrameTime = 1.5f;
 	auto lastTime = std::chrono::steady_clock::now();
 
 	// Run application
@@ -53,16 +55,12 @@ void Game::Run()
 	{
 		auto currentTime = std::chrono::steady_clock::now();
 		float deltaTime = std::chrono::duration<float, std::milli>(currentTime - lastTime).count();
-
+		
 		if (SDL_Wrapper::getInstance().getWindow() == nullptr)
 			return;
-
-		// Update box2d physics world
-		//World::Get().GetPhysicsWorld()->Step(DELTA_TIME_STEP, 8, 4);
-		//World::Get().GetPhysicsWorld()->Step(DELTA_TIME_STEP, 8, 4);
-
+		
 		// Update Engine
-		gecs::ECS_Engine.Update(deltaTime);
+		gecs::ECS_Engine.Update(Timer::Instance().DeltaTime());
 
 		//	// Update FPS counter
 		this->m_DeltaTime = this->m_FPS.Update();
@@ -81,6 +79,7 @@ void Game::Run()
 		}
 
 		lastTime = currentTime;
+		Timer::Instance().Tick();
 	}; // MAIN GAME LOOP!
 };
 

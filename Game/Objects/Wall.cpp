@@ -12,8 +12,8 @@ void Wall::Draw(float dt)
 
     TextureManager::Instance().Draw(
         SDL_Wrapper::getInstance().getRenderer(), textureComponent->getTextureId(),
-        transformComponent->GetPosition()->x, transformComponent->GetPosition()->y, 
-        transformComponent->GetWidth(), transformComponent->GetHeight(), 0);
+        transformComponent->Position().x, transformComponent->Position().y, 
+        transformComponent->Width(), transformComponent->Height(), 0);
 }
 
 void Wall::DrawBoundingBox()
@@ -24,10 +24,10 @@ void Wall::DrawBoundingBox()
 
     // Create a rectangle to represent the bounding box
     SDL_Rect boundingBox;
-    boundingBox.x = transformComponent->GetPosition()->x;
-    boundingBox.y = transformComponent->GetPosition()->y;
-    boundingBox.w = transformComponent->GetWidth();
-    boundingBox.h = transformComponent->GetHeight();
+    boundingBox.x = transformComponent->Position().x;
+    boundingBox.y = transformComponent->Position().y;
+    boundingBox.w = transformComponent->Width();
+    boundingBox.h = transformComponent->Height();
 
     // Draw the rectangle outline
     SDL_RenderDrawRect(SDL_Wrapper::getInstance().getRenderer(), &boundingBox);

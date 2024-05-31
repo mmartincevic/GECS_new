@@ -12,12 +12,14 @@
 #include "ECS/XMLSettingsParser.h"
 
 //gecs::XMLSettingsParser& parser = gecs::XMLSettingsParser::getInstance();
+/*if (!parser.loadSettings("config/settings.xml")) {
+		std::cout << "CANT LOAD IT" << '\n';
+	}*/
+
 
 int main(int argc, const char* args[])
 {
-	/*if (!parser.loadSettings("config/settings.xml")) {
-		std::cout << "CANT LOAD IT" << '\n';
-	}*/
+	
 
 	//std::string gameTitle = parser.getSetting("game.name");
 	Game* g_GameInstance = new Game(GAME_TITLE);
@@ -32,13 +34,6 @@ int main(int argc, const char* args[])
 
 	delete g_GameInstance;
 	g_GameInstance = nullptr;
-
-	/*ECS_Engine.events().triggerEvent("PLAYER_RUNNING", {});
-
-	ECS_Engine.events().subscribe("PLAYER_RUNNING", [](const Event& params) {
-		std::cout << "IDEMO" << std::endl;
-	});
-	ECS_Engine.events().triggerEvent("PLAYER_RUNNING", {});*/
 
 	return 0;
 };

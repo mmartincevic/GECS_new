@@ -6,7 +6,7 @@
 #include "../ECS/ECS.h"
 #include "../ECS/Component.h"
 
-
+#include "../Utils/Vector2D.h"
 #include "../Utils/GameHelper.h"
 #include "../World.h"
 
@@ -14,84 +14,48 @@
 struct RigidBody : public gecs::Component<RigidBody>
 {
     public:
-        RigidBody(gecs::ComponentTypeId typeId, gecs::EntityId ownerId)
-            : gecs::Component<RigidBody>(typeId, ownerId) {}
+        RigidBody(gecs::ComponentTypeId typeId, gecs::EntityId ownerId, float mass = 1.0f, float gravity = 9.8f)
+            : gecs::Component<RigidBody>(typeId, ownerId), m_Mass(mass), m_Gravity(gravity) {}
+
+        // Gravity & mass
+        inline void SetMass(float mass) { m_Mass = mass; }
+        inline void SetGravity(float gravity) { m_Gravity = gravity; }
+
+        // Force
+        inline void ApplyForce(Vector2D force) { m_Force = force; }
+        inline void ApplyForceX(float forcex) { m_Force.x = forcex; }
+        inline void ApplyForceY(float forcey) { m_Force.y = forcey; }
+        inline void UnsetForce() { m_Force = Vector2D(0, 0); }
+
+        // Friction
+        inline void ApplyFriction(Vector2D friction) { m_Friction = friction; }
+        inline void UnsetFriction() { m_Friction = Vector2D(0, 0); }
+
+        // Getters
+        inline float GetMass() const { return m_Mass; }
+        inline Vector2D Position() const { return m_Position; }
+        inline Vector2D Velocity() const { return m_Velocity; }
+        inline Vector2D Acceleration() const { return m_Acceleration; }
+
+        // Update
+        void Update(float deltaTime)
+        {
+            m_Acceleration.x = (m_Force.x + m_Friction.x) / m_Mass;
+            m_Acceleration.y = m_Gravity + (m_Force.y / m_Mass);
+            m_Velocity = m_Acceleration * deltaTime;
+            m_Position = m_Velocity * deltaTime;
+        }
+
+    private:
+        float m_Mass;
+        float m_Gravity;
+
+        Vector2D m_Force;
+        Vector2D m_Friction;
+        Vector2D m_Position;
+        Vector2D m_Velocity;
+        Vector2D m_Acceleration;
 };
 
-
-//struct RigidBody : public gecs::Component<RigidBody>
-//{
-//    public:
-//        RigidBody(gecs::ComponentTypeId typeId, gecs::EntityId ownerId, 
-//            float sizeX, float sizeY, float posX, float posY, float angle)
-//            : gecs::Component<RigidBody>(typeId, ownerId) {
-//
-//            m_SizeX = sizeX;
-//            m_SizeY = sizeY;
-//
-//            b2Vec2 Size = b2Vec2(sizeX, sizeY);
-//            b2Vec2 SizeHalf = b2Vec2(Size.x * 0.5f, Size.y * 0.5f);
-//            b2Vec2 Position = b2Vec2(posX, posY);
-//
-//            b2BodyDef BodyDefinition;
-//            BodyDefinition.type = b2BodyType::b2_staticBody;
-//            BodyDefinition.angle = angle;
-//            BodyDefinition.position = GameHelper::Get().PixelToMeter(Position);
-//            b2PolygonShape Shape;
-//
-// 
-//            Shape.SetAsBox(
-//                GameHelper::Get().PixelToMeter(SizeHalf.x),
-//                GameHelper::Get().PixelToMeter(SizeHalf.y),
-//                GameHelper::Get().PixelToMeter(b2Vec2(0.0f, 0.0f)), 0.0f);
-//
-//            b2FixtureDef FixtureDefinition;
-//            FixtureDefinition.shape = &Shape;
-//            FixtureDefinition.friction = 0.2f;
-//            FixtureDefinition.restitution = 0.6f;
-//            FixtureDefinition.density = 1.0f;
-//            body_ = World::Get().GetPhysicsWorld()->CreateBody(&BodyDefinition);
-//            body_->CreateFixture(&FixtureDefinition);
-//        }
-//
-//        [[nodiscard]] inline float GetPositionX()
-//        {
-//            const b2Vec2& position = body_->GetPosition();
-//            return GameHelper::Get().MeterToPixel(body_->GetPosition().x) - m_SizeX / 2;
-//        }
-//
-//        [[nodiscard]] inline float GetPositionY()
-//        {
-//            const b2Vec2& position = body_->GetPosition();
-//            return GameHelper::Get().MeterToPixel(body_->GetPosition().y) - m_SizeY / 2;
-//        }
-//
-//        [[nodiscard]] inline float GetWidth() const
-//        {
-//            return m_SizeX;
-//        }
-//
-//        [[nodiscard]] inline float GetHeight() const
-//        {
-//            return m_SizeY;
-//        }
-//
-//        [[nodiscard]] inline double GetAngleDegrees() const
-//        {
-//            float radianAngle = body_->GetAngle();
-//            double pi = 3.14159;
-//            return(radianAngle * (180 / pi));
-//        }
-//
-//        [[nodiscard]] inline b2Body* GetBody() const
-//        {
-//            return body_;
-//        }
-//
-//    protected:
-//        b2Body* body_;
-//        float m_SizeX;
-//        float m_SizeY;
-//};
-#endif
+#endif // RIGIDBODY_COMPONENT_H__
 

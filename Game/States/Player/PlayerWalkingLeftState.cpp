@@ -6,6 +6,7 @@
 #include "../Game/Objects/Player.h"
 #include "../Game/GameConfiguration.h"
 #include "../Game/Components/Transform.h"
+#include "../Game/Components/RigidBody.h"
 
 void PlayerWalkingLeftState::Enter(Player* player) {
     // Set the texture for walking state
@@ -31,18 +32,21 @@ void PlayerWalkingLeftState::HandleInput(Player* player, const InputBuffer input
             }
         }
     }
-    else
-    {
-        player->ChangeState(std::make_shared<PlayerIdleState>());
-    }
+}
+
+void PlayerWalkingLeftState::Toggle(Player* player)
+{
+    player->ChangeState(std::make_shared<PlayerIdleState>());
 }
 
 void PlayerWalkingLeftState::Update(Player* player, float deltaTime) 
 {
     auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(player->GetID());
-    float newX = transformComponent->GetPosition()->x;
-    newX -= PLAYER_SPEED * deltaTime;
-    transformComponent->SetPositionX(newX);
+    auto rigidBody = gecs::ECS_Engine.components().GetComponentForEntity<RigidBody>(player->GetID());
+    rigidBody->UnsetForce();
+    rigidBody->ApplyForceX(-PLAYER_SPEED);
+    rigidBody->Update(deltaTime);
+    transformComponent->UpdatePositionX(rigidBody->Position());
 }
 
 void PlayerWalkingLeftState::Render(Player* player) {

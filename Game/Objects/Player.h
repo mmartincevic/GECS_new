@@ -18,6 +18,7 @@ class Player : public gecs::Entity {
         BoundingBox GetBoundingBox();
 
         void HandleInput(const InputBuffer inputBuffer);
+        void ToggleState();
 
         void Update(float deltaTime);
         void Draw(float deltaTime);

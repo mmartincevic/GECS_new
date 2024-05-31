@@ -31,17 +31,14 @@ void Player::HandleInput(const InputBuffer inputBuffer) {
     }
 }
 
+void Player::ToggleState() {
+    currentState->Toggle(this);
+}
+
 void Player::Update(float deltaTime) {
     if (currentState) {
         currentState->Update(this, deltaTime);
     }
-    // Check if we need to transition back to IdleState
-    if (!movementKeyPressed) {
-        //ChangeState(new PlayerIdleState());
-    }
-
-    // Reset movement key pressed flag
-    movementKeyPressed = false;
 }
 
 void Player::Render() {
@@ -68,8 +65,8 @@ void Player::Draw(float dt)
         transformComponent->GetWidth(), transformComponent->GetHeight(), 0, frame);*/
     TextureManager::Instance().Draw(
         SDL_Wrapper::getInstance().getRenderer(), textureComponent->getTextureId(),
-        transformComponent->GetPosition()->x, transformComponent->GetPosition()->y,
-        transformComponent->GetWidth(), transformComponent->GetHeight(), 0);
+        transformComponent->Position().x, transformComponent->Position().y,
+        transformComponent->Width(), transformComponent->Height(), 0);
 
 }
 

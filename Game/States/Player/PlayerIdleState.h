@@ -14,6 +14,7 @@ class PlayerIdleState : public PlayerState {
         virtual void HandleInput(Player* player, const InputBuffer inputBuffer) override;
         void Update(Player* player, float deltaTime) override;
         void Render(Player* player) override;
+        void Toggle(Player* player) override;
 
         PlayerStates getState() const {
             return PlayerStates::IDLE;

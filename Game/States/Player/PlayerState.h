@@ -18,6 +18,7 @@ class PlayerState : public gecs::Uncopiable
         virtual void Enter(Player* player) = 0;
         virtual void HandleInput(Player* player, const InputBuffer inputBuffer) = 0;
         virtual void Update(Player* player, float deltaTime) = 0;
+        virtual void Toggle(Player* player) = 0;
         virtual void Render(Player* player) = 0;
         virtual PlayerStates getState() const = 0;
 };
