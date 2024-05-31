@@ -92,7 +92,7 @@ void CollisionSystem::Update(float dt)
 
         if (player->GetState() != PlayerStates::FALLING && player->GetCollisionState() == CollisionSide::NONE)
         {
-            player->ChangeState(std::make_shared<PlayerFallingState>());
+            //player->ChangeState(std::make_shared<PlayerFallingState>());
         }
     }
 };

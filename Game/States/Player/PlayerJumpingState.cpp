@@ -8,6 +8,7 @@
 #include "../Game/Objects/Player.h"
 #include "../Game/GameConfiguration.h"
 #include "../Game/Components/Transform.h"
+#include "../Game/Components/RigidBody.h"
 
 void PlayerJumpingState::Enter(Player* player) {
     // Set the texture for walking state
@@ -43,12 +44,12 @@ void PlayerJumpingState::HandleInput(Player* player, const InputBuffer inputBuff
 
 void PlayerJumpingState::Toggle(Player* player)
 {
-    //player->ChangeState(std::make_shared<PlayerIdleState>());
+    player->ChangeState(std::make_shared<PlayerFallingState>());
 }
 
 void PlayerJumpingState::Update(Player* player, float deltaTime)
 {
-    auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(player->GetID());
+   /* auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(player->GetID());
     float newY = transformComponent->Position().y;
     newY -= PLAYER_SPEED * deltaTime;
 
@@ -60,7 +61,14 @@ void PlayerJumpingState::Update(Player* player, float deltaTime)
     {
 
         player->ChangeState(std::make_shared<PlayerFallingState>());
-    }
+    }*/
+    gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "JUMPING");
+    auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(player->GetID());
+    auto rigidBody = gecs::ECS_Engine.components().GetComponentForEntity<RigidBody>(player->GetID());
+    rigidBody->UnsetForce();
+    rigidBody->ApplyForceY(-20);
+    rigidBody->Update(deltaTime);
+    transformComponent->UpdatePositionY(rigidBody->Position());
 }
 
 void PlayerJumpingState::Render(Player* player) {}
