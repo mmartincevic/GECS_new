@@ -1,5 +1,6 @@
 #ifndef COLLISION_EVENT_H__
 #define COLLISION_EVENT_H__
+
 #pragma once
 
 #include "../../ECS/API.h"

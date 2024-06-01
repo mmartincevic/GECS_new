@@ -22,12 +22,10 @@ void PlayerFallingState::HandleInput(Player* player, const InputBuffer inputBuff
 void PlayerFallingState::Update(Player* player, float deltaTime) {
     if (player->GetCollisionState() == CollisionSide::NONE && player->GetCollisionState() != CollisionSide::BOTTOM) 
     {
+        player->PlayerRigidBody()->UnsetForceY();
         gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "FALLING");
-        auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(player->GetID());
-        auto rigidBody = gecs::ECS_Engine.components().GetComponentForEntity<RigidBody>(player->GetID());
-        rigidBody->UnsetForce();
-        rigidBody->Update(deltaTime);
-        transformComponent->UpdatePosition(rigidBody->Position());
+        player->PlayerRigidBody()->Update(deltaTime);
+        player->PlayerTransform()->UpdatePosition(player->PlayerRigidBody()->Position());
     } 
     else
     {

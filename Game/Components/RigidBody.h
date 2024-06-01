@@ -15,7 +15,7 @@ struct RigidBody : public gecs::Component<RigidBody>
 {
     public:
         RigidBody(gecs::ComponentTypeId typeId, gecs::EntityId ownerId, float mass = 1.0f, float gravity = 9.8f)
-            : gecs::Component<RigidBody>(typeId, ownerId), m_Mass(mass), m_Gravity(gravity) {}
+            : gecs::Component<RigidBody>(typeId, ownerId), m_Mass(mass), m_Gravity(gravity), m_Force(Vector2D(0,0)) {}
 
         // Gravity & mass
         inline void SetMass(float mass) { m_Mass = mass; }
@@ -26,6 +26,8 @@ struct RigidBody : public gecs::Component<RigidBody>
         inline void ApplyForceX(float forcex) { m_Force.x = forcex; }
         inline void ApplyForceY(float forcey) { m_Force.y = forcey; }
         inline void UnsetForce() { m_Force = Vector2D(0, 0); }
+        inline void UnsetForceY() { m_Force.y = 0.0f; }
+        inline void UnsetForceX() { m_Force.x = 0.0f; }
 
         // Friction
         inline void ApplyFriction(Vector2D friction) { m_Friction = friction; }

@@ -13,12 +13,16 @@
 void PlayerJumpingState::Enter(Player* player) {
     // Set the texture for walking state
     gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "JUMP IT");
-    auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(player->GetID());
+    m_IsJumping = true;
+    m_InitialY = player->PlayerTransform()->Position().y;
+}
 
-    if (transformComponent)
-    {
-        m_JumpTo = transformComponent->Position().y - 100.0f;
-    }
+float PlayerJumpingState::CalculateJumpHeight(float elapsedTime) {
+    // Map elapsed time to the range [0, PI] to simulate the sine wave
+    float t = (elapsedTime / m_JumpDuration) * M_PI;
+    // Calculate the height based on the sine wave
+    float height = m_InitialY - m_JumpHeight * std::sin(t);
+    return height;
 }
 
 void PlayerJumpingState::HandleInput(Player* player, const InputBuffer inputBuffer)
@@ -49,26 +53,18 @@ void PlayerJumpingState::Toggle(Player* player)
 
 void PlayerJumpingState::Update(Player* player, float deltaTime)
 {
-   /* auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(player->GetID());
-    float newY = transformComponent->Position().y;
-    newY -= PLAYER_SPEED * deltaTime;
-
-    if (newY > m_JumpTo)
+    if (player->PlayerTransform()->Position().y > (m_InitialY - m_JumpHeight))
     {
-        transformComponent->SetPositionY(newY);
+        float nextPositionY = CalculateJumpHeight(deltaTime);
+        auto jumpForce = (player->PlayerTransform()->Position().y - nextPositionY);
+        player->PlayerRigidBody()->ApplyForceY(-100.0f);
+        player->PlayerRigidBody()->Update(deltaTime);
+        player->PlayerTransform()->UpdatePosition(player->PlayerRigidBody()->Position());
     }
-    else 
+    else
     {
-
         player->ChangeState(std::make_shared<PlayerFallingState>());
-    }*/
-    gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "JUMPING");
-    auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(player->GetID());
-    auto rigidBody = gecs::ECS_Engine.components().GetComponentForEntity<RigidBody>(player->GetID());
-    rigidBody->UnsetForce();
-    rigidBody->ApplyForceY(-20);
-    rigidBody->Update(deltaTime);
-    transformComponent->UpdatePositionY(rigidBody->Position());
+    }
 }
 
 void PlayerJumpingState::Render(Player* player) {}

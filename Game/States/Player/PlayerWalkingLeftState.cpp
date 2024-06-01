@@ -41,12 +41,9 @@ void PlayerWalkingLeftState::Toggle(Player* player)
 
 void PlayerWalkingLeftState::Update(Player* player, float deltaTime) 
 {
-    auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(player->GetID());
-    auto rigidBody = gecs::ECS_Engine.components().GetComponentForEntity<RigidBody>(player->GetID());
-    rigidBody->UnsetForce();
-    rigidBody->ApplyForceX(-PLAYER_SPEED);
-    rigidBody->Update(deltaTime);
-    transformComponent->UpdatePositionX(rigidBody->Position());
+    player->PlayerRigidBody()->ApplyForceX(-PLAYER_SPEED);
+    player->PlayerRigidBody()->Update(deltaTime);
+    player->PlayerTransform()->UpdatePositionX(player->PlayerRigidBody()->Position());
 }
 
 void PlayerWalkingLeftState::Render(Player* player) {

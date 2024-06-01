@@ -8,7 +8,6 @@
 #include "PlayerState.h"
 
 #include "../Game/Input/InputBuffer.h"
-#include "../Game/Events/CollisionEvent.h"
 
 class PlayerFallingState : public PlayerState {
     public:

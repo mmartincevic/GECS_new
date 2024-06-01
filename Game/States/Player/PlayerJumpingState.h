@@ -21,7 +21,13 @@ class PlayerJumpingState : public PlayerState {
 
         PlayerStates getState() const { return PlayerStates::JUMPING; }
 
+        float CalculateJumpHeight(float elapsedTime);
+
     private:
-        float m_JumpTo = 0.0f;
+        float       m_JumpHeight        = 50.0f;
+        float       m_JumpDuration      = 2.0f;
+        float       m_EpsedJumpTime     = 0.0f;
+        bool        m_IsJumping         = false;
+        float       m_InitialY          = 0.0f;
 };
 #endif

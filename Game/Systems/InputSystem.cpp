@@ -8,7 +8,7 @@
 
 void InputSystem::Update(float dt)
 {
-    inputBuffer.RemoveOldInputs(std::chrono::milliseconds(0));
+    inputBuffer.RemoveOldInputs(std::chrono::milliseconds(50));
     inputBuffer.RemoveOldComboInputs(std::chrono::milliseconds(300));
     auto players = gecs::ECS_Engine.entities().GetEntity<Player>();
     for (auto player : players)
@@ -57,7 +57,21 @@ void InputSystem::PreUpdate(float dt)
             }
             else if (event.type == SDL_KEYUP)
             {
-                playerEntity->ToggleState();
+                switch (event.key.keysym.sym)
+                {
+                    case SDLK_UP:
+                    case SDLK_w:
+                    case SDLK_RIGHT:
+                    case SDLK_d:
+                    case SDLK_LEFT:
+                    case SDLK_a:
+                    case SDLK_DOWN:
+                    case SDLK_s:
+                        //playerEntity->PlayerRigidBody()->UnsetForce();
+                        playerEntity->ToggleState();
+                        break;
+                }
+
             }
         }
 

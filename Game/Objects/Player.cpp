@@ -1,13 +1,29 @@
 #include "Player.h"
 
 #include "../Game/Input/InputBuffer.h"
-
 #include "../Utils/SDL_Wrapper.h"
 #include "../States/Player/PlayerIdleState.h"
-#include "../Components/Transform.h"
-#include "../Components/Texture.h"
 #include "../TextureManager.h"
+#include "../Events/CollisionEvent.h"
 
+Player::Player(gecs::EntityId _id)
+    : currentState(nullptr), 
+    m_PlayerTransformComponent(nullptr),
+    m_PlayerRigidBodyComponent(nullptr),
+    m_PlayerTextureComponent(nullptr),
+    gecs::Entity(_id)
+{}
+
+
+void Player::SetCollisionState(CollisionSide collisionSide) 
+{ 
+    m_Collisioning = collisionSide; 
+}
+
+CollisionSide Player::GetCollisionState() const
+{ 
+    return m_Collisioning; 
+}
 
 PlayerStates Player::GetState()
 {
@@ -21,6 +37,7 @@ PlayerStates Player::GetState()
 
 void Player::ChangeState(std::shared_ptr<PlayerState> newState) {
     if (currentState != nullptr && currentState == newState) { return; }
+    //delete currentState;
     currentState = newState;
     currentState->Enter(this);
 }
@@ -72,10 +89,6 @@ void Player::Draw(float dt)
 
 BoundingBox Player::GetCollisionBox(float dt) 
 {
-    /*auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(this->GetID());
-    BoundingBox bbox = transformComponent->GetBoundingBox();
-    return bbox;*/
-    //return currentState->GetBoundingBox(this, dt);
     BoundingBox bbox = this->GetBoundingBox();
     bbox.width += dt;
     bbox.height += dt;
@@ -106,6 +119,33 @@ void Player::DrawBoundingBox(bool draw_collision_box, float dt)
     SDL_RenderDrawRect(SDL_Wrapper::getInstance().getRenderer(), &boundingBox);
 }
 
+
+Texture* Player::PlayerTexture()
+{
+    if (m_PlayerTextureComponent == nullptr)
+    {
+        m_PlayerTextureComponent = gecs::ECS_Engine.components().GetComponentForEntity<Texture>(GetID()).get();
+    }
+    return m_PlayerTextureComponent;
+}
+
+Transform* Player::PlayerTransform()
+{
+    if (m_PlayerTransformComponent == nullptr)
+    {
+        m_PlayerTransformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(GetID()).get();
+    }
+    return m_PlayerTransformComponent;
+}
+
+RigidBody* Player::PlayerRigidBody()
+{
+    if (m_PlayerRigidBodyComponent == nullptr)
+    {
+         m_PlayerRigidBodyComponent = gecs::ECS_Engine.components().GetComponentForEntity<RigidBody>(GetID()).get();
+    }
+    return m_PlayerRigidBodyComponent;
+}
 
 
 void Player::HandleCollision(const CollisionEvent& event) {

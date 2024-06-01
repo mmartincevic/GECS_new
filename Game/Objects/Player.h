@@ -4,13 +4,18 @@
 
 #include "../../ECS/API.h"
 #include "../../ECS/Entity.h"
-#include "../States/Player/PlayerState.h"
-#include "GameObject.h"
+
 #include "../Events/CollisionEvent.h"
+#include "../States/Player/PlayerState.h"
+
+#include "../Components/Transform.h"
+#include "../Components/RigidBody.h"
+#include "../Components/Texture.h"
 
 class Player : public gecs::Entity {
     public:
-        Player(gecs::EntityId _id) : currentState(nullptr), gecs::Entity(_id) {}
+        Player(gecs::EntityId _id);
+
 
         void ChangeState(std::shared_ptr<PlayerState> newState);
         PlayerStates GetState();
@@ -29,18 +34,23 @@ class Player : public gecs::Entity {
 
         void Render();
 
-        // Method to mark movement key as pressed
-        inline void setMovementKeyPressed() { movementKeyPressed = true; }
-
         bool IsKeyPressed(SDL_Keycode key);
 
-        void SetCollisionState(CollisionSide collisionSide) { m_Collisioning = collisionSide; }
-        inline CollisionSide GetCollisionState() const { return m_Collisioning; }
+        void SetCollisionState(CollisionSide collisionSide);
+        CollisionSide GetCollisionState() const;
+
+
+        Transform*  PlayerTransform();
+        RigidBody* PlayerRigidBody();
+        Texture*   PlayerTexture();
 
     protected:
         std::shared_ptr<PlayerState> currentState;
-        bool movementKeyPressed         = false;
-        CollisionSide m_Collisioning    = CollisionSide::NONE;
+        bool movementKeyPressed                                 = false;
+        CollisionSide               m_Collisioning              = CollisionSide::NONE;
+        Transform*                  m_PlayerTransformComponent  = nullptr;
+        RigidBody*                  m_PlayerRigidBodyComponent  = nullptr;
+        Texture*                    m_PlayerTextureComponent    = nullptr;
 };
 
 #endif // __ECS_ENTITY_H__
