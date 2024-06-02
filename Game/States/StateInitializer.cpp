@@ -4,6 +4,7 @@
 #include "../Systems/RenderSystem.h"
 #include "../Systems/InputSystem.h"
 #include "../Systems/CollisionSystem.h"
+#include "../Systems/CameraSystem.h"
 #include "../ECS/definitions.h"
 #include "../Components/Drawable.h"
 #include "../Components/Transform.h"
@@ -41,6 +42,7 @@ void StateInitializer::Enter(gecs::FSM& stater)
 	gecs::ECS_Engine.systems().addSystem<CollisionSystem>();
 	gecs::ECS_Engine.systems().addSystem<RenderSystem>();
 	gecs::ECS_Engine.systems().addSystem<InputSystem>();
+	gecs::ECS_Engine.systems().addSystem<CameraSystem>();
 
 
 	gecs::ComponentTypeId mComponent = gecs::ComponentTypeId().make(gecs::ComponentTypes::RENDERABLES);
@@ -54,6 +56,7 @@ void StateInitializer::Enter(gecs::FSM& stater)
 	//gecs::ECS_Engine.components().AddEntityComponent(playerId, DynamicBody(mComponent, playerId, 1000.0f, 200.0f, 100.0f, 200.0f, 0.0f));
 	gecs::ECS_Engine.components().AddEntityComponent(playerId, DynamicBody(mComponent, playerId));
 	gecs::ECS_Engine.components().AddEntityComponent(playerId, RigidBody(mComponent, playerId));
+
 
 	playerObj->ChangeState(std::make_shared<PlayerFallingState>());
 	gecs::EntityId wall_small = gecs::ECS_Engine.entities().Create<Wall>();

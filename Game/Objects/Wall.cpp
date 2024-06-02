@@ -3,7 +3,7 @@
 #include "../Components/Transform.h"
 #include "../Components/Texture.h"
 #include "../TextureManager.h"
-
+#include "../World/World.h"
 
 void Wall::Draw(float dt)
 {
@@ -21,11 +21,12 @@ void Wall::DrawBoundingBox()
     // Set the draw color (RGBA)
     SDL_SetRenderDrawColor(SDL_Wrapper::getInstance().getRenderer(), 255, 0, 0, 255);  // Red color
     auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(this->GetID());
+    Vector2D cameraPos = World::Instance().Camera()->Position();
 
     // Create a rectangle to represent the bounding box
     SDL_Rect boundingBox;
-    boundingBox.x = transformComponent->Position().x;
-    boundingBox.y = transformComponent->Position().y;
+    boundingBox.x = transformComponent->Position().x - cameraPos.x;
+    boundingBox.y = transformComponent->Position().y - cameraPos.y;
     boundingBox.w = transformComponent->Width();
     boundingBox.h = transformComponent->Height();
 

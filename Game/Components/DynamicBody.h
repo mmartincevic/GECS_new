@@ -7,7 +7,6 @@
 #include "../ECS/Component.h"
 
 #include "../Utils/GameHelper.h"
-#include "../World.h"
 
 struct DynamicBody : public gecs::Component<DynamicBody>
 {

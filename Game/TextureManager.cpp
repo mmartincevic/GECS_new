@@ -1,5 +1,9 @@
 #include "TextureManager.h"
 #include <iostream>
+
+#include "../Game/Utils/Vector2D.h"
+#include "../Game/World/World.h"
+
 bool TextureManager::Load(SDL_Renderer* renderer, std::string textureId, std::string filename)
 {
 	SDL_Surface* surface = IMG_Load(filename.c_str());
@@ -41,12 +45,14 @@ void TextureManager::Clean()
 void TextureManager::Draw(SDL_Renderer* renderer, std::string textureId, int x, int y, int width, 
 	int height, double angle, SDL_RendererFlip flip)
 {
+	Vector2D cameraPos = World::Instance().Camera()->Position();
+
 	SDL_Rect srcRect, dstRect;
 	srcRect.x = srcRect.y = 0;
 	SDL_QueryTexture(m_TextureMap[textureId], nullptr, nullptr, &srcRect.w, &srcRect.h);
 
-	dstRect.x = x;
-	dstRect.y = y;
+	dstRect.x = x - cameraPos.x;
+	dstRect.y = y - cameraPos.y;
 	dstRect.w = width;
 	dstRect.h = height;
 

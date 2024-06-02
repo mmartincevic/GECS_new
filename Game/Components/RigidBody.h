@@ -8,7 +8,6 @@
 
 #include "../Utils/Vector2D.h"
 #include "../Utils/GameHelper.h"
-#include "../World.h"
 
 
 struct RigidBody : public gecs::Component<RigidBody>

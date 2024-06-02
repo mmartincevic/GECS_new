@@ -5,6 +5,7 @@
 #include "../States/Player/PlayerIdleState.h"
 #include "../TextureManager.h"
 #include "../Events/CollisionEvent.h"
+#include "../World/World.h"
 
 Player::Player(gecs::EntityId _id)
     : currentState(nullptr), 
@@ -107,11 +108,12 @@ void Player::DrawBoundingBox(bool draw_collision_box, float dt)
     SDL_SetRenderDrawColor(SDL_Wrapper::getInstance().getRenderer(), 255, 0, 0, 255);  // Red color
     //auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(this->GetID());
 
+    Vector2D cameraPos = World::Instance().Camera()->Position();
     BoundingBox bbox = (draw_collision_box) ? GetCollisionBox(dt) : GetBoundingBox();
     //// Create a rectangle to represent the bounding box
     SDL_Rect boundingBox;
-    boundingBox.x = bbox.x;
-    boundingBox.y = bbox.y;
+    boundingBox.x = bbox.x - cameraPos.x;
+    boundingBox.y = bbox.y - cameraPos.y;
     boundingBox.w = bbox.width;
     boundingBox.h = bbox.height;
 

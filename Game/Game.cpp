@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "Utils/SDL_Wrapper.h"
 #include "TextureManager.h"
-#include "World.h"
+#include "World/World.h"
 #include "Utils/Timer.h"
 
 Game::Game(const char* name) :
@@ -25,7 +25,7 @@ void Game::InitializeSDL()
 
 void Game::InitializePhysics()
 {
-	World::Get().InitializePhysics();
+	//;World::Get().InitializePhysics();
 };
 
 
@@ -35,6 +35,7 @@ void Game::Initialize(int width, int height, bool fullscreen)
 	m_WindowHeight	= height;
 	m_Fullscreen	= fullscreen;
 	m_RUN			= TRUE;
+	World::Instance().Camera()->SetSceneLimit(m_WindowWidth, m_WindowHeight);
 };
 
 double OldTime = 0.0;

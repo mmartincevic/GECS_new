@@ -14,6 +14,11 @@ void PlayerJumpingState::Enter(Player* player) {
     // Set the texture for walking state
     gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "JUMP IT");
     m_IsJumping = true;
+    m_JumpHeight = 50.0f;
+    m_Time = 20.0f;
+    m_EpsedJumpTime = 0.0f;
+    m_JumpDuration = 10.0f;
+    m_IsJumping = false;
     m_InitialY = player->PlayerTransform()->Position().y;
 }
 
@@ -53,16 +58,20 @@ void PlayerJumpingState::Toggle(Player* player)
 
 void PlayerJumpingState::Update(Player* player, float deltaTime)
 {
-    if (player->PlayerTransform()->Position().y > (m_InitialY - m_JumpHeight))
+
+    float nextPositionY = CalculateJumpHeight(deltaTime);
+
+    // If this is first frame of jumping
+    if (m_JumpDuration > 0)
     {
-        float nextPositionY = CalculateJumpHeight(deltaTime);
-        auto jumpForce = (player->PlayerTransform()->Position().y - nextPositionY);
-        player->PlayerRigidBody()->ApplyForceY(-100.0f);
+        m_JumpDuration -= deltaTime;
+        player->PlayerRigidBody()->ApplyForceY(-PLAYER_JUMPING_SPEED);
         player->PlayerRigidBody()->Update(deltaTime);
         player->PlayerTransform()->UpdatePosition(player->PlayerRigidBody()->Position());
     }
     else
     {
+        m_IsJumping = false;
         player->ChangeState(std::make_shared<PlayerFallingState>());
     }
 }

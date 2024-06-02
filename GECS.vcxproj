@@ -153,6 +153,7 @@
     <ClCompile Include="Game\States\Player\PlayerJumpingState.cpp" />
     <ClCompile Include="Game\States\Player\PlayerWalkingLeftState.cpp" />
     <ClCompile Include="Game\States\Player\PlayerWalkingRightState.cpp" />
+    <ClCompile Include="Game\Systems\CameraSystem.cpp" />
     <ClCompile Include="Game\Systems\CollisionSystem.cpp" />
     <ClCompile Include="Game\Systems\InputSystem.cpp" />
     <ClCompile Include="Game\States\MainState.cpp" />
@@ -172,6 +173,8 @@
     <ClCompile Include="Game\Utils\Rectangle.cpp" />
     <ClCompile Include="Game\Utils\Timer.cpp" />
     <ClCompile Include="Game\Utils\Vector2D.cpp" />
+    <ClCompile Include="Game\World\World.cpp" />
+    <ClCompile Include="Game\World\WorldCamera.cpp" />
     <ClCompile Include="include\tinyxml2\tinyxml2.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -208,6 +211,7 @@
     <ClInclude Include="Game\States\Player\PlayerStates.h" />
     <ClInclude Include="Game\States\Player\PlayerWalkingLeftState.h" />
     <ClInclude Include="Game\States\Player\PlayerWalkingRightState.h" />
+    <ClInclude Include="Game\Systems\CameraSystem.h" />
     <ClInclude Include="Game\Systems\CollisionSide.h" />
     <ClInclude Include="Game\Systems\CollisionSystem.h" />
     <ClInclude Include="Game\Systems\InputSystem.h" />
@@ -238,7 +242,8 @@
     <ClInclude Include="Game\Utils\SDL_Wrapper.h" />
     <ClInclude Include="Game\Utils\Timer.h" />
     <ClInclude Include="Game\Utils\Vector2D.h" />
-    <ClInclude Include="Game\World.h" />
+    <ClInclude Include="Game\World\WorldCamera.h" />
+    <ClInclude Include="Game\World\World.h" />
     <ClInclude Include="include\tinyxml2\tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>

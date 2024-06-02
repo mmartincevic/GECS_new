@@ -14,7 +14,7 @@
 #include "../Objects/Wall.h"
 
 #include "../Utils/GameHelper.h"
-#include "../World.h"
+#include "../World/World.h"
 
 void RenderSystem::Update(float dt)
 {
@@ -34,6 +34,9 @@ void RenderSystem::Update(float dt)
 		wall->Draw(dt);
 		wall->DrawBoundingBox();
 	}
+
+	SDL_Rect camera = World::Instance().Camera()->GetViewBox();
+	SDL_RenderCopy(SDL_Wrapper::getInstance().getRenderer(), nullptr, nullptr, &camera);
 
 	SDL_RenderPresent(SDL_Wrapper::getInstance().getRenderer());
 };

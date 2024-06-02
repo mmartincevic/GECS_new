@@ -1,11 +1,12 @@
 #ifndef INPUT_BUFFER_H
 #define INPUT_BUFFER_H
-
+#define _ITERATOR_DEBUG_LEVEL 2
 #include <iostream>
 #include <deque>
 #include <chrono>
 #include <vector>
 #include <SDL.h>
+
 
 struct InputEvent {
     SDL_Scancode key;
@@ -101,7 +102,7 @@ class InputBuffer {
                 auto frontTimestamp = queue.front().timestamp;
                 auto timeDifference = std::chrono::duration_cast<std::chrono::milliseconds>(now - frontTimestamp).count();
 
-                if (timeDifference > duration.count()) 
+                if (timeDifference >= duration.count()) 
                 {
                     std::cout << "Removing input: " + std::string(SDL_GetKeyName(SDL_GetKeyFromScancode(queue.front().key))) << std::endl;
                     queue.pop_front();
