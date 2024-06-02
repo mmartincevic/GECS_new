@@ -52,12 +52,25 @@ void TextureManager::Draw(SDL_Renderer* renderer, std::string textureId, int x, 
 	SDL_QueryTexture(m_TextureMap[textureId], nullptr, nullptr, &srcRect.w, &srcRect.h);
 
 	dstRect.x = x - cameraPos.x;
-	dstRect.y = y - cameraPos.y;
+	//dstRect.y = y - cameraPos.y;
+	dstRect.y = y;
 	dstRect.w = width;
 	dstRect.h = height;
 
 	SDL_RenderCopyEx(renderer, m_TextureMap[textureId], &srcRect, &dstRect, angle, nullptr, flip);
 }
+
+void TextureManager::Draw(std::string textureId, int x, int y, 
+	int width, int height, float scalex, float scaley, float ratio, 
+	double angle, SDL_RendererFlip flip)
+{
+	Vector2D cameraPos = World::Instance().Camera()->Position() * ratio;
+	SDL_Rect srcRect = { 0, 0, width, height };
+	SDL_Rect dstRect = { x - cameraPos.x, y, width * scalex, height * scaley };
+	SDL_RenderCopyEx(SDL_Wrapper::getInstance().getRenderer(), m_TextureMap[textureId], &srcRect, &dstRect, angle, nullptr, flip);
+}
+
+
 
 void TextureManager::DrawFrame(SDL_Renderer* renderer, std::string textureId, int x, int y, int width, \
 	int height, int row, int frame, SDL_RendererFlip flip)

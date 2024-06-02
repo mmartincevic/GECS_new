@@ -26,6 +26,9 @@
 #include "../States/Player/PlayerIdleState.h"
 #include "../States/Player/PlayerFallingState.h"
 
+#include "../Handlers/ImageLayer.h"
+#include "../World/World.h"
+
 #define IMG_PATH "Resources/ECS/gecslogo.png"
 
 StateInitializer::StateInitializer() {}
@@ -68,7 +71,20 @@ void StateInitializer::Enter(gecs::FSM& stater)
 	TextureManager::Instance().Load(SDL_Wrapper::getInstance().getRenderer(), "wall_small", "Resources/ECS/wall_horizontal.png");
 
 
-	TextureManager::Instance().Load(SDL_Wrapper::getInstance().getRenderer(), "scene_bg", "Resources/ECS/scene_1_bg.png");
+	TextureManager::Instance().Load(SDL_Wrapper::getInstance().getRenderer(), "level_sky", "Resources/ECS/level1/sky.png");
+	TextureManager::Instance().Load(SDL_Wrapper::getInstance().getRenderer(), "level_building_behind", "Resources/ECS/level1/building_behind.png");
+	TextureManager::Instance().Load(SDL_Wrapper::getInstance().getRenderer(), "level_building", "Resources/ECS/level1/building.png");
+	TextureManager::Instance().Load(SDL_Wrapper::getInstance().getRenderer(), "level_ruins", "Resources/ECS/level1/ruins.png");
+	TextureManager::Instance().Load(SDL_Wrapper::getInstance().getRenderer(), "level_smoke", "Resources/ECS/level1/smoke.png");
+	TextureManager::Instance().Load(SDL_Wrapper::getInstance().getRenderer(), "level_road", "Resources/ECS/level1/road.png");
+
+	World::Instance().AddLayer(new ImageLayer("level_sky", 0, 0, 0.1, 0.1, 0.1));
+	World::Instance().AddLayer(new ImageLayer("level_building_behind", 0, 200, 0.3, 0.1, 0.1));
+	World::Instance().AddLayer(new ImageLayer("level_building", 0, 200, 0.3, 0.1, 0.1));
+	World::Instance().AddLayer(new ImageLayer("level_ruins", 0, 450, 0.4, 0.2, 0.1));
+	World::Instance().AddLayer(new ImageLayer("level_smoke", 0, 500, 0.4, 0.2, 0.1));
+	World::Instance().AddLayer(new ImageLayer("level_road", 0, 700, 0.5, 0.3, 0.1));
+
 
 	// Display BG image - refactor!
 	SDL_Renderer* ren = SDL_Wrapper::getInstance().getRenderer();

@@ -146,6 +146,7 @@
     <ClCompile Include="ECS\IType.cpp" />
     <ClCompile Include="ECS\SystemManager.cpp" />
     <ClCompile Include="ECS\EntityManager.h" />
+    <ClCompile Include="Game\Handlers\ImageLayer.cpp" />
     <ClCompile Include="Game\Objects\Player.cpp" />
     <ClCompile Include="Game\Objects\Wall.cpp" />
     <ClCompile Include="Game\States\Player\PlayerFallingState.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Game\Components\DynamicBody.h" />
     <ClInclude Include="Game\Components\GroundBody.h" />
     <ClInclude Include="Game\Events\CollisionEvent.h" />
+    <ClInclude Include="Game\Handlers\ImageLayer.h" />
     <ClInclude Include="Game\Input\InputBuffer.h" />
     <ClInclude Include="Game\Objects\GameObject.h" />
     <ClInclude Include="Game\States\Player\PlayerFallingState.h" />

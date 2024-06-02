@@ -23,6 +23,12 @@ class TextureManager {
         void DrawFrame(SDL_Renderer* renderer, std::string textureId, int x, int y, int width, int height, int row, int frame, double angle, SDL_RendererFlip flip = SDL_FLIP_NONE);
         void DrawFrame(SDL_Renderer* renderer, std::string textureId, int x, int y, int width, int height, int row, int frame, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
+        void Draw(std::string textureId, int x, int y, int width, 
+            int height, float scalex, float scaley, float ratio, 
+            double angle, SDL_RendererFlip flip = SDL_FLIP_NONE);
+
+        SDL_Texture* Texture(std::string textureId) { return m_TextureMap[textureId]; }
+
     private:
         TextureManager() = default;  // Default constructor
         ~TextureManager() = default; // Default destructor

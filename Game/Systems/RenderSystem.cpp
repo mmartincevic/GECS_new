@@ -22,7 +22,10 @@ void RenderSystem::Update(float dt)
 	SDL_RenderClear(SDL_Wrapper::getInstance().getRenderer());
 
 	// Draw first scene background
-	TextureManager::Instance().Draw(SDL_Wrapper::getInstance().getRenderer(), "scene_bg", 0, 0, 2000, 1024, 0, 0.3);
+	for (auto imgLayer : World::Instance().BgLayers())
+	{
+		imgLayer->Render();
+	}
 
 	auto player_entity = gecs::ECS_Engine.entities().GetEntity<Player>();
 	for (auto player : player_entity)

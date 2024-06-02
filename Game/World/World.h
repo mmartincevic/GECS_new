@@ -5,6 +5,9 @@
 
 #include "../Utils/SDL_Wrapper.h"
 #include "WorldCamera.h"
+#include <vector>
+
+#include "../Handlers/ImageLayer.h"
 
 class World {
     protected:
@@ -22,8 +25,13 @@ class World {
 
         WorldCamera* Camera();
 
+        inline std::vector<ImageLayer*> BgLayers() { return m_BgLayers; }
+        void AddLayer(ImageLayer* layer) { m_BgLayers.push_back(layer); }
+
     private:
         WorldCamera* m_Camera  = nullptr;
+        std::vector<ImageLayer*> m_BgLayers;
+        
 };
 
 #endif // GAMEWORLD_H__
