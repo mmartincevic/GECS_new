@@ -14,7 +14,7 @@ void CameraSystem::Update(float dt)
 	{
 		auto player = player_entity.front();
 		Vector2D position = player->PlayerTransform()->Position();
-		World::Instance().Camera()->Update(position);
+		World::Instance().Camera()->Update(player->PlayerTransform()->Origin());
 	}
 };
 

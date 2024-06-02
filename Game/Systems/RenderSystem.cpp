@@ -21,6 +21,9 @@ void RenderSystem::Update(float dt)
 	SDL_SetRenderDrawColor(SDL_Wrapper::getInstance().getRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(SDL_Wrapper::getInstance().getRenderer());
 
+	// Draw first scene background
+	TextureManager::Instance().Draw(SDL_Wrapper::getInstance().getRenderer(), "scene_bg", 0, 0, 2000, 1024, 0, 0.3);
+
 	auto player_entity = gecs::ECS_Engine.entities().GetEntity<Player>();
 	for (auto player : player_entity)
 	{

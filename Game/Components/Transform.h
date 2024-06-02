@@ -16,6 +16,14 @@ class Transform : public gecs::Component<Transform>
        
 
         inline Vector2D Position() const { return m_Position; }
+        inline Vector2D Origin() const
+        {
+            Vector2D origin;
+            origin.x = m_Position.x + m_Width / 2;
+            origin.y = m_Position.y + m_Height / 2;
+
+            return origin;
+        }
         inline void SetPositionX(float newX) { m_Position.x = newX; }
         inline void SetPositionY(float newY) { m_Position.y = newY; }
         inline float Width() const { return m_Width; }

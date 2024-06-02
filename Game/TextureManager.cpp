@@ -43,9 +43,9 @@ void TextureManager::Clean()
 }
 
 void TextureManager::Draw(SDL_Renderer* renderer, std::string textureId, int x, int y, int width, 
-	int height, double angle, SDL_RendererFlip flip)
+	int height, double angle, float ratio, SDL_RendererFlip flip)
 {
-	Vector2D cameraPos = World::Instance().Camera()->Position();
+	Vector2D cameraPos = World::Instance().Camera()->Position() * ratio;
 
 	SDL_Rect srcRect, dstRect;
 	srcRect.x = srcRect.y = 0;

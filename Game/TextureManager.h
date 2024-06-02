@@ -19,7 +19,7 @@ class TextureManager {
         void Drop(const std::string& textureId);
 
         void Clean();
-        void Draw(SDL_Renderer* renderer, std::string textureId, int x, int y, int width, int height, double angle, SDL_RendererFlip flip = SDL_FLIP_NONE);
+        void Draw(SDL_Renderer* renderer, std::string textureId, int x, int y, int width, int height, double angle, float ration = 1.0f, SDL_RendererFlip flip = SDL_FLIP_NONE);
         void DrawFrame(SDL_Renderer* renderer, std::string textureId, int x, int y, int width, int height, int row, int frame, double angle, SDL_RendererFlip flip = SDL_FLIP_NONE);
         void DrawFrame(SDL_Renderer* renderer, std::string textureId, int x, int y, int width, int height, int row, int frame, SDL_RendererFlip flip = SDL_FLIP_NONE);
 

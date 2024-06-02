@@ -67,6 +67,9 @@ void StateInitializer::Enter(gecs::FSM& stater)
 	TextureManager::Instance().Load(SDL_Wrapper::getInstance().getRenderer(), "warrior", "Resources/ECS/warrior.png");
 	TextureManager::Instance().Load(SDL_Wrapper::getInstance().getRenderer(), "wall_small", "Resources/ECS/wall_horizontal.png");
 
+
+	TextureManager::Instance().Load(SDL_Wrapper::getInstance().getRenderer(), "scene_bg", "Resources/ECS/scene_1_bg.png");
+
 	// Display BG image - refactor!
 	SDL_Renderer* ren = SDL_Wrapper::getInstance().getRenderer();
 	TextureManager::Instance().Load(SDL_Wrapper::getInstance().getRenderer(), "bg_intro", "Resources/ECS/bg_intro.png");

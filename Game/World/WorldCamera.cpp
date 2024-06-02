@@ -16,9 +16,9 @@ void WorldCamera::Update(Vector2D targetPosition)
 		m_ViewBox.y = 0;
 	}
 
-	if (m_ViewBox.x > (m_SceneWidth - m_ViewBox.h))
+	if (m_ViewBox.x > (2*m_SceneWidth - m_ViewBox.h))
 	{
-		m_ViewBox.x = (m_SceneWidth - m_ViewBox.h);
+		m_ViewBox.x = (2*m_SceneWidth - m_ViewBox.h);
 	}
 
 	if (m_ViewBox.y > (m_SceneHeight - m_ViewBox.h))
