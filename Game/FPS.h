@@ -25,23 +25,9 @@ public:
 
 	FPS();
 	~FPS();
-
-	///-------------------------------------------------------------------------------------------------
-	/// Fn:	float FPS::Update();
-	///
-	/// Summary:	Updates this object.
-	///
-	/// Author:	Tobias Stein
-	///
-	/// Date:	22/10/2017
-	///
-	/// Returns:	A float that specifies the delta time since last update.
-	///-------------------------------------------------------------------------------------------------
-
 	float Update();
-
 	float GetFPS() const;
 
-}; // class FPS
+};
 
 #endif // __FRAMES_PER_SECOND_H__

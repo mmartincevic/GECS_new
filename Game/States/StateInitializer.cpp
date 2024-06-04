@@ -78,12 +78,12 @@ void StateInitializer::Enter(gecs::FSM& stater)
 	TextureManager::Instance().Load(SDL_Wrapper::getInstance().getRenderer(), "level_smoke", "Resources/ECS/level1/smoke.png");
 	TextureManager::Instance().Load(SDL_Wrapper::getInstance().getRenderer(), "level_road", "Resources/ECS/level1/road.png");
 
-	World::Instance().AddLayer(new ImageLayer("level_sky", 0, 0, 0.1, 0.1, 0.1));
-	World::Instance().AddLayer(new ImageLayer("level_building_behind", 0, 200, 0.3, 0.1, 0.1));
-	World::Instance().AddLayer(new ImageLayer("level_building", 0, 200, 0.3, 0.1, 0.1));
-	World::Instance().AddLayer(new ImageLayer("level_ruins", 0, 450, 0.4, 0.2, 0.1));
-	World::Instance().AddLayer(new ImageLayer("level_smoke", 0, 500, 0.4, 0.2, 0.1));
-	World::Instance().AddLayer(new ImageLayer("level_road", 0, 700, 0.5, 0.3, 0.1));
+	World::Instance().AddLayer(new ImageLayer("level_sky", 0, 0, 0.1, 0.4, 0.4));
+	World::Instance().AddLayer(new ImageLayer("level_building_behind", 0, 200, 0.3, 0.6, 0.3));
+	World::Instance().AddLayer(new ImageLayer("level_building", 0, 200, 0.3, 0.3, 0.3));
+	World::Instance().AddLayer(new ImageLayer("level_ruins", 0, 450, 0.4, 0.3, 03));
+	World::Instance().AddLayer(new ImageLayer("level_smoke", 0, 500, 0.4, 0.3, 0.3));
+	World::Instance().AddLayer(new ImageLayer("level_road", 0, 700, 0.5, 0.3, 0.3));
 
 
 	// Display BG image - refactor!
@@ -99,7 +99,6 @@ void StateInitializer::UpdateState(gecs::FSM& stater)
 		/*gecs::Logger::Get().Log(gecs::LogType::GECS_INFO, "State initializer state end");
 		Toggle(stater);*/
 	}
-	//gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "Doing shit");
 }
 
 void StateInitializer::Exit(gecs::FSM& stater)
