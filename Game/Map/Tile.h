@@ -28,8 +28,8 @@ class Tile : public Layer
 		inline TileMap Tilemap() { return m_Tilemap; }
 
 	private:
-		int m_TileSize;
-		int m_NumRows;
+		//int m_TileSize;
+		//int m_NumRows;
 
 		int m_RowCount;
 		int m_ColCount;

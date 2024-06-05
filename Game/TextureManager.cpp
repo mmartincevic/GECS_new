@@ -4,6 +4,12 @@
 #include "../Game/Utils/Vector2D.h"
 #include "../Game/World/World.h"
 
+
+bool TextureManager::Load(std::string textureId, std::string filename)
+{
+	return TextureManager::Load(SDL_Wrapper::getInstance().getRenderer(), textureId, filename);
+}
+
 bool TextureManager::Load(SDL_Renderer* renderer, std::string textureId, std::string filename)
 {
 	SDL_Surface* surface = IMG_Load(filename.c_str());
@@ -70,6 +76,14 @@ void TextureManager::Draw(std::string textureId, int x, int y,
 	SDL_RenderCopyEx(SDL_Wrapper::getInstance().getRenderer(), m_TextureMap[textureId], &srcRect, &dstRect, angle, nullptr, flip);
 }
 
+
+void TextureManager::DrawTile(std::string tilesetId, int tileSize, int x, int y, int row, int frame, float ration, SDL_RendererFlip flip)
+{
+	Vector2D cameraPos = World::Instance().Camera()->Position() * ration;
+	SDL_Rect dstRect = { x, y, tileSize, tileSize };
+	SDL_Rect srcRect = { (tileSize - cameraPos.x) * frame, (tileSize - cameraPos.y) * (row - 1), tileSize, tileSize };
+	SDL_RenderCopyEx(SDL_Wrapper::getInstance().getRenderer(), m_TextureMap[tilesetId], &srcRect, &dstRect, 0, 0, flip);
+}
 
 
 void TextureManager::DrawFrame(SDL_Renderer* renderer, std::string textureId, int x, int y, int width, \

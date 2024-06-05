@@ -1,6 +1,6 @@
 #include "MapParser.h"
-
-
+#include <iostream>
+#include <sstream>
 
 bool MapParser::Load()
 {
@@ -11,20 +11,20 @@ bool MapParser::Load()
 void MapParser::Clean() {}
 
 
-Map* MapParser::Maps() {}
-
 bool MapParser::Parse(std::string id, std::string source) 
 {
 	tinyxml2::XMLDocument xml;
-	xml.LoadFile(source);
+	tinyxml2::XMLError eResult = xml.LoadFile("example.xml");
 	
-	if (xml.Error())
-	{
+	if (eResult != tinyxml2::XML_SUCCESS) {
+		std::cout << "Error loading file: " << eResult << std::endl;
 		return false;
 	}
 
 	tinyxml2::XMLElement* root = xml.RootElement();
-	int rowcount, colcount, tilesize = 0;
+	int rowcount = 0;
+	int colcount = 0;
+	int tilesize = 0;
 	root->IntAttribute("width", colcount);
 	root->IntAttribute("height", rowcount);
 	root->IntAttribute("tilesize", tilesize);
@@ -70,47 +70,45 @@ TileSet MapParser::ParseTileset(tinyxml2::XMLElement* xmlTileset)
 }
 
 
-Layer* MapParser::ParseLayer(
-	tinyxml2::XMLElement* xmlLayer, TilesetList tilesets,
-	int tilesize, int rowcount, int colcount)
-{
-	tinyxml2::XMLElement* data;
+Layer* MapParser::ParseLayer(tinyxml2::XMLElement* xmlLayer, TilesetList tilesets, int tilesize, int rowcount, int colcount) {
+	tinyxml2::XMLElement* data = nullptr;
 
-	for (tinyxml2::XMLElement* e = xmlLayer->FirstChildElement(); e != nullptr; e = e->NextSiblingElement())
-	{
-		if (e->Value() == std::string("data"))
-		{
+	for (tinyxml2::XMLElement* e = xmlLayer->FirstChildElement(); e != nullptr; e = e->NextSiblingElement()) {
+		if (strcmp(e->Value(), "data") == 0) {
 			data = e;
 			break;
 		}
 	}
 
-	std::string matrix(data->GetText());
+	if (!data) {
+		std::cerr << "No data element found in layer" << std::endl;
+		return nullptr;
+	}
+
+	const char* dataText = data->GetText();
+	if (!dataText) {
+		std::cerr << "No text found in data element" << std::endl;
+		return nullptr;
+	}
+
+	std::string matrix(dataText);
+	std::cout << "Matrix: " << matrix << std::endl; // Debug: print the matrix content
+
 	std::istringstream iss(matrix);
 	std::string id;
 
 	TileMap tilemap(rowcount, std::vector<int>(colcount, 0));
 
-	for (int row = 0; row = rowcount; ++row)
-	{
-		for (int col = 0; col = colcount; ++col)
-		{
-			getline(iss, id, ',');
+	for (int row = 0; row < rowcount; ++row) {
+		for (int col = 0; col < colcount; ++col) {
+			if (!getline(iss, id, ',')) {
+				std::cerr << "Error reading tile ID from data" << std::endl;
+				return nullptr;
+			}
 			std::stringstream convertor(id);
 			convertor >> tilemap[row][col];
-
-			if (!iss.good())
-			{
-				break;
-			}
 		}
 	}
 
-	return (new Tile(tilesize, rowcount, colcount, tilemap, tilesets));
+	return new Tile(tilesize, rowcount, colcount, tilemap, tilesets);
 }
-
-
-
-MapParser::MapParser() {}
-
-MapParser::~MapParser() {}

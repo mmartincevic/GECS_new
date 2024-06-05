@@ -14,7 +14,10 @@ class MapParser
 {
 public:
 
-	inline static MapParser* Instance() { return s_Instance = (s_Instance != nullptr) ? s_Instance : new MapParser(); }
+	static MapParser& Instance() {
+		static MapParser instance;
+		return instance;
+	}
 
 	bool Load();
 	void Clean();
@@ -27,8 +30,8 @@ private:
 
 
 private:
-	static MapParser* s_Instance;
-	MapParser();
+	MapParser() = default;  // Default constructor
+	~MapParser() = default; // Default destructor
 	std::map<std::string, Map*> m_Maps;
 };
 

@@ -15,6 +15,7 @@ class TextureManager {
             return instance;
         }
 
+        bool Load(std::string textureId, std::string filename);
         bool Load(SDL_Renderer* renderer, std::string textureId, std::string filename);
         void Drop(const std::string& textureId);
 
@@ -22,6 +23,8 @@ class TextureManager {
         void Draw(SDL_Renderer* renderer, std::string textureId, int x, int y, int width, int height, double angle, float ration = 1.0f, SDL_RendererFlip flip = SDL_FLIP_NONE);
         void DrawFrame(SDL_Renderer* renderer, std::string textureId, int x, int y, int width, int height, int row, int frame, double angle, SDL_RendererFlip flip = SDL_FLIP_NONE);
         void DrawFrame(SDL_Renderer* renderer, std::string textureId, int x, int y, int width, int height, int row, int frame, SDL_RendererFlip flip = SDL_FLIP_NONE);
+        void DrawTile(std::string tilesetId, int tileSize, int x, int y, int row, int frame, float ration = 1.0f, SDL_RendererFlip flip = SDL_FLIP_NONE);
+
 
         void Draw(std::string textureId, int x, int y, int width, 
             int height, float scalex, float scaley, float ratio, 
