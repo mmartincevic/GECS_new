@@ -29,6 +29,9 @@
 #include "../Handlers/ImageLayer.h"
 #include "../World/World.h"
 
+#include "../Map/MapParser.h"
+
+
 #define IMG_PATH "Resources/ECS/gecslogo.png"
 
 StateInitializer::StateInitializer() {}
@@ -85,6 +88,7 @@ void StateInitializer::Enter(gecs::FSM& stater)
 	World::Instance().AddLayer(new ImageLayer("level_smoke", 0, 500, 0.4, 0.3, 0.3));
 	World::Instance().AddLayer(new ImageLayer("level_road", 0, 700, 0.5, 0.3, 0.3));
 
+	MapParser::Instance().Load();
 
 	// Display BG image - refactor!
 	SDL_Renderer* ren = SDL_Wrapper::getInstance().getRenderer();

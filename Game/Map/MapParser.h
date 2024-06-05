@@ -24,7 +24,7 @@ public:
 	inline Map* Maps(std::string id) { return m_Maps[id]; }
 
 private:
-	bool Parse(std::string mapid, std::string source);
+	bool Parse(std::string mapid, const char* source);
 	TileSet ParseTileset(tinyxml2::XMLElement* xmlTileset);
 	Layer* ParseLayer(tinyxml2::XMLElement* xmlLayer, TilesetList tilesets, int tilesize, int rowcount, int colcount);
 

@@ -16,6 +16,9 @@
 #include "../Utils/GameHelper.h"
 #include "../World/World.h"
 
+#include "../Map/MapParser.h"
+
+
 void RenderSystem::Update(float dt)
 {
 	SDL_SetRenderDrawColor(SDL_Wrapper::getInstance().getRenderer(), 0, 0, 0, 255);
@@ -40,6 +43,9 @@ void RenderSystem::Update(float dt)
 		wall->Draw(dt);
 		wall->DrawBoundingBox();
 	}
+
+
+	MapParser::Instance().Maps("level1")->Render();
 
 	SDL_Rect camera = World::Instance().Camera()->GetViewBox();
 	SDL_RenderCopy(SDL_Wrapper::getInstance().getRenderer(), nullptr, nullptr, &camera);

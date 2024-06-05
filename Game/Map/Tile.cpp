@@ -21,12 +21,11 @@ void Tile::Render()
 		for (unsigned int j = 0; j < m_ColCount; ++j)
 		{
 			int tileID = m_Tilemap[i][j];
-			
 
 			if (tileID == 0) { continue; }
 			else
 			{
-				int index;
+				int index = 1;
 
 				if (m_Tilesets.size() > 1) 
 				{ 

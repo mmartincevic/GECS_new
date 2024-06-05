@@ -4,17 +4,27 @@
 
 bool MapParser::Load()
 {
-	return Parse("level1", "assets/maps/map1.tmx");
+	return Parse("level1", "resources/ECS/level1/mainlevel.tmx");
 }
 
 
-void MapParser::Clean() {}
+void MapParser::Clean() 
+{
+	std::map<std::string, Map*>::iterator it;
+	for (it = m_Maps.begin(); it != m_Maps.end(); ++it)
+	{
+		delete it->second;
+		it->second = nullptr;
+	}
+
+	m_Maps.clear();
+}
 
 
-bool MapParser::Parse(std::string id, std::string source) 
+bool MapParser::Parse(std::string id, const char* source) 
 {
 	tinyxml2::XMLDocument xml;
-	tinyxml2::XMLError eResult = xml.LoadFile("example.xml");
+	tinyxml2::XMLError eResult = xml.LoadFile(source);
 	
 	if (eResult != tinyxml2::XML_SUCCESS) {
 		std::cout << "Error loading file: " << eResult << std::endl;
@@ -22,12 +32,9 @@ bool MapParser::Parse(std::string id, std::string source)
 	}
 
 	tinyxml2::XMLElement* root = xml.RootElement();
-	int rowcount = 0;
-	int colcount = 0;
-	int tilesize = 0;
-	root->IntAttribute("width", colcount);
-	root->IntAttribute("height", rowcount);
-	root->IntAttribute("tilesize", tilesize);
+	int colcount = root->IntAttribute("width", 0);
+	int rowcount = root->IntAttribute("height", 0);
+	int tilesize = root->IntAttribute("tilewidth", 0);
 
 	TilesetList tilesets;
 	for (tinyxml2::XMLElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement())
@@ -39,10 +46,10 @@ bool MapParser::Parse(std::string id, std::string source)
 	}
 
 	Map* gamemap = new Map();
-
-	for (tinyxml2::XMLElement* e = root->FirstChildElement(); e != nullptr; e->NextSiblingElement())
+	for (tinyxml2::XMLElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement())
 	{
-		if (e->Value() == std::string("layer"))
+		std::cout << "Value : " << e->Value() << std::endl;
+ 		if (e->Value() == std::string("layer"))
 		{
 			Layer* tilelayer = ParseLayer(e, tilesets, tilesize, rowcount, colcount);
 			gamemap->m_MapLayers.push_back(tilelayer);
