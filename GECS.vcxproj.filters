@@ -186,15 +186,6 @@
     <ClCompile Include="Game\Handlers\ImageLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Map\Tile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Map\MapParser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Map\Layer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\API.h">
@@ -398,16 +389,7 @@
     <ClInclude Include="Game\Handlers\ImageLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Map\Layer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Map\Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Map\Tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Map\MapParser.h">
+    <ClInclude Include="Game\Map\TillerError.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

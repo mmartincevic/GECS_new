@@ -1,40 +1,27 @@
-#ifndef MAPTILELAYER_H
-#define MAPTILELAYER_H
+#ifndef TILE_H
+#define TILE_H
 
 #pragma once
-#include "Layer.h"
-#include <vector>
+
 #include <string>
 
-
-struct TileSet
+namespace tiller
 {
-	int FirstID, LastID;
-	int RowCount, ColCount;
-	int TileCount, TileSize;
-	std::string Name, Source;
+	struct Tile
+	{
+		unsigned	gID;
+		unsigned	lID;
+		unsigned	rFlag;
+		int			tilesetID;
+		int			layerID;
+		int			groupID;
+		float		opacity;
+		int			width;
+		int			height;
+		int			row;
+		int			col;
+		std::string imageSrc;
+	};
 };
 
-using TilesetList = std::vector<TileSet>;
-using TileMap = std::vector<std::vector<int>>;
-
-
-class Tile : public Layer
-{
-	public:
-		Tile(int tilesize, int rowcount, int colcount, TileMap tilemap, TilesetList tilesets);
-		virtual void Update() override;
-		virtual void Render() override;
-		inline TileMap Tilemap() { return m_Tilemap; }
-
-	private:
-		//int m_TileSize;
-		//int m_NumRows;
-
-		int m_RowCount;
-		int m_ColCount;
-
-		TileMap m_Tilemap;
-		TilesetList m_Tilesets;
-};
-#endif // MAPTILELAYER_H
+#endif // TILE_H

@@ -34,7 +34,7 @@ private/
 # GECS include folders
 include/*
 x64/
-.vs/
+.vs/*
 
 GECS_log.txt
 basic-log.txt

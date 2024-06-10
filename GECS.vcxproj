@@ -147,9 +147,6 @@
     <ClCompile Include="ECS\SystemManager.cpp" />
     <ClCompile Include="ECS\EntityManager.h" />
     <ClCompile Include="Game\Handlers\ImageLayer.cpp" />
-    <ClCompile Include="Game\Map\Layer.cpp" />
-    <ClCompile Include="Game\Map\MapParser.cpp" />
-    <ClCompile Include="Game\Map\Tile.cpp" />
     <ClCompile Include="Game\Objects\Player.cpp" />
     <ClCompile Include="Game\Objects\Wall.cpp" />
     <ClCompile Include="Game\States\Player\PlayerFallingState.cpp" />
@@ -208,10 +205,7 @@
     <ClInclude Include="Game\Events\CollisionEvent.h" />
     <ClInclude Include="Game\Handlers\ImageLayer.h" />
     <ClInclude Include="Game\Input\InputBuffer.h" />
-    <ClInclude Include="Game\Map\Layer.h" />
-    <ClInclude Include="Game\Map\Map.h" />
-    <ClInclude Include="Game\Map\MapParser.h" />
-    <ClInclude Include="Game\Map\Tile.h" />
+    <ClInclude Include="Game\Map\TillerError.h" />
     <ClInclude Include="Game\Objects\GameObject.h" />
     <ClInclude Include="Game\States\Player\PlayerFallingState.h" />
     <ClInclude Include="Game\States\Player\PlayerIdleState.h" />

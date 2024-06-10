@@ -16,7 +16,7 @@
 #include "../Utils/GameHelper.h"
 #include "../World/World.h"
 
-#include "../Map/MapParser.h"
+#include "../Map/Tiller.h"
 
 
 void RenderSystem::Update(float dt)
@@ -27,7 +27,7 @@ void RenderSystem::Update(float dt)
 	// Draw first scene background
 	for (auto imgLayer : World::Instance().BgLayers())
 	{
-		imgLayer->Render();
+		//imgLayer->Render();
 	}
 
 	auto player_entity = gecs::ECS_Engine.entities().GetEntity<Player>();
@@ -45,9 +45,10 @@ void RenderSystem::Update(float dt)
 	}
 
 
-	MapParser::Instance().Maps("level1")->Render();
 
 	SDL_Rect camera = World::Instance().Camera()->GetViewBox();
+
+	//MapParser::Instance().Maps("level2")->Render();
 	SDL_RenderCopy(SDL_Wrapper::getInstance().getRenderer(), nullptr, nullptr, &camera);
 
 	SDL_RenderPresent(SDL_Wrapper::getInstance().getRenderer());

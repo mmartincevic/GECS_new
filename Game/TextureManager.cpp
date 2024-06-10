@@ -79,10 +79,10 @@ void TextureManager::Draw(std::string textureId, int x, int y,
 
 void TextureManager::DrawTile(std::string tilesetId, int tileSize, int x, int y, int row, int frame, float ration, SDL_RendererFlip flip)
 {
-	Vector2D cameraPos = World::Instance().Camera()->Position() * ration;
+	//Vector2D cameraPos = World::Instance().Camera()->Position() * ration;
 	SDL_Rect dstRect = { x, y, tileSize, tileSize };
-	SDL_Rect srcRect = { (tileSize - cameraPos.x) * frame, (tileSize - cameraPos.y) * (row - 1), tileSize, tileSize };
-	SDL_RenderCopyEx(SDL_Wrapper::getInstance().getRenderer(), m_TextureMap[tilesetId], &srcRect, &dstRect, 0, 0, flip);
+	SDL_Rect srcRect = { (tileSize) * frame, tileSize, tileSize, tileSize };
+	SDL_RenderCopyEx(SDL_Wrapper::getInstance().getRenderer(), m_TextureMap[tilesetId], &srcRect, &dstRect, 0, nullptr, flip);
 }
 
 
@@ -95,7 +95,7 @@ void TextureManager::DrawFrame(SDL_Renderer* renderer, std::string textureId, in
 		return;
 	}
 
-	SDL_Rect srcRect = { width * frame, height * row, width, height };
+	SDL_Rect srcRect = { width * frame, height * (row - 1), width, height };
 	SDL_Rect dstRect = { x, y, width, height };
 
 	if (SDL_RenderCopyEx(renderer, m_TextureMap[textureId], &srcRect, &dstRect, 0, nullptr, flip))
