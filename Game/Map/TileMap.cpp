@@ -36,7 +36,7 @@ void TileMap::PrintRawMap() const {
 }
 
 
-std::optional<std::vector<std::vector<int>>> TileMap::RawLayer(int groupId, int layerId) const {
+std::optional<std::vector<std::vector<unsigned>>> TileMap::RawLayer(int groupId, int layerId) const {
 	auto groupIt = m_MAP.find(groupId);
 	if (groupIt != m_MAP.end()) 
 	{
@@ -49,7 +49,7 @@ std::optional<std::vector<std::vector<int>>> TileMap::RawLayer(int groupId, int 
 	return std::nullopt;
 }
 
-std::optional<std::map<int, std::vector<std::vector<int>>>> TileMap::RawGroup(int groupId) const {
+std::optional<std::map<int, std::vector<std::vector<unsigned>>>> TileMap::RawGroup(int groupId) const {
 	auto it = m_MAP.find(groupId);
 	if (it != m_MAP.end())
 	{

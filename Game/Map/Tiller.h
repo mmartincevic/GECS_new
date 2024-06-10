@@ -30,16 +30,16 @@ namespace tiller {
 		public:
 
 			static Tiller& Instance() {
-				static Tiller instance;
-				return instance;
+				static Tiller tiller_isntance;
+				return tiller_isntance;
 			}
 
-			TileError Load(std::string path, std::string tmxName);
-
+			TileError Load(std::string filePath, std::string tmxName);
+			
 			Tileset ParseTileset(tinyxml2::XMLElement* xmlTileset);
 			Tileset ParseClosedTileset(tinyxml2::XMLElement* xmlTileset);
-			std::vector<std::vector<int>> ParseLayerData(tinyxml2::XMLElement* xmlLayer, TileLayer& layer);
-			std::vector<Tile> FormatLayerData(TileGroup tileGroup, TileLayer tileLayer, std::vector<std::vector<int>> rawData);
+			std::vector<std::vector<unsigned>> ParseLayerData(tinyxml2::XMLElement* xmlLayer, TileLayer& layer);
+			std::vector<Tile> FormatLayerData(TileGroup tileGroup, TileLayer tileLayer, std::vector<std::vector<unsigned>> rawData);
 			void PrintTile(const Tile& tile);
 
 			void EnableLog() { enableLogging = true; }
@@ -51,6 +51,8 @@ namespace tiller {
 					std::cout << color << add << "TILLER - " << stringToLog << RESET << ENDL;
 				}
 			}
+			void Render();
+			inline std::map<int, Tileset>& TileSet() { return m_Map->TileSet(); }
 
 			inline TileMap* Map() { return m_Map; }
 

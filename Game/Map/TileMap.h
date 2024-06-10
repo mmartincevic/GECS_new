@@ -27,27 +27,29 @@ namespace tiller {
 			inline std::string Name() const { return m_Name; }
 			inline std::map<int, Tileset>& TileSet() { return m_Tilesets; }
 			Tileset GetTileset(int tilesetId) const;
-			inline std::map<int, std::vector< std::vector<int> >> Group(int groupId) { return m_MAP[groupId]; }
+			inline std::map<int, std::vector< std::vector<unsigned> >> Group(int groupId) { return m_MAP[groupId]; }
 			std::optional<int> FindFirstGid(int tileId) const;
 
 			void PrintRawMap() const;
 
 			inline std::vector<Tile> FormattedLayer(int groupId, int layerId) { return m_ParsedData[groupId][layerId]; }
-			inline std::vector< std::vector<int> > RawLayer(int groupId, int layerId) { return m_MAP[groupId][layerId]; }
+			inline std::vector< std::vector<unsigned> > RawLayer(int groupId, int layerId) { return m_MAP[groupId][layerId]; }
 			
 			inline void AddGroup(TileGroup group) { m_Groups.insert({ group.ID, group }); }
 			inline void AddLayer(TileLayer layer) { m_Layers.insert({ layer.ID, layer }); }
 			inline void AddTileset(Tileset tileset) { m_Tilesets.insert({ tileset.ID, tileset }); }
 
-			inline void AddRawData(int groupId, int layerId, std::vector<std::vector<int>> data) { m_MAP[groupId][layerId] = data; }
+			inline void AddRawData(int groupId, int layerId, std::vector<std::vector<unsigned>> data) { m_MAP[groupId][layerId] = data; }
 			inline void AddFormattedData(int groupId, int layerId, std::vector<Tile> data) { m_ParsedData[groupId][layerId] = data; }
 
-			std::optional<std::vector<std::vector<int>>> RawLayer(int groupId, int layerId) const;
-			std::optional<std::map<int, std::vector<std::vector<int>>>> RawGroup(int groupId) const;
+			std::optional<std::vector<std::vector<unsigned>>> RawLayer(int groupId, int layerId) const;
+			std::optional<std::map<int, std::vector<std::vector<unsigned>>>> RawGroup(int groupId) const;
 
 
 			std::optional<std::vector<Tile>> FormattedLayer(int groupId, int layerId) const;
 			std::optional<std::map<int, std::vector<Tile>>> FormattedGroup(int groupId) const;
+
+			std::map<int, std::map<int, std::vector<Tile>>> ParsedData() { return m_ParsedData; } // not working
 
 		private:
 			int m_Width;
@@ -63,7 +65,7 @@ namespace tiller {
 			std::map<int, TileGroup>	m_Groups;
 			std::map<int, TileLayer>	m_Layers;
 
-			std::map<int, std::map<int, std::vector<std::vector<int>> > > m_MAP; // <GroupID <LAYERID, TILEID>>
+			std::map<int, std::map<int, std::vector<std::vector<unsigned>> > > m_MAP; // <GroupID <LAYERID, TILEID>>
 			std::map<int, std::map<int, std::vector<Tile>>> m_ParsedData; // <GroupID <LAYERID, TILE>>
 	};
 

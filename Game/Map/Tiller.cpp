@@ -1,15 +1,45 @@
 #include "Tiller.h"
+
+#include <filesystem>
 #include <iostream>
 #include <sstream>
 
+#include <vector>
+#include <string>
+
+#include "../TextureManager.h"
+
 using namespace tiller;
 
-TileError Tiller::Load(std::string path, std::string tmxName)
+
+TileError Tiller::Load(std::string filePath, std::string tmxName)
 {
-	m_Path = path;
-	auto fullPath = path + tmxName + ".tmx";
+	m_Path = filePath;
+	auto fullPath = filePath + tmxName + ".tmx";
 	Log(GREEN, "Loading file: " + fullPath);
 	return Parse(tmxName, fullPath);
+}
+
+void Tiller::Render()
+{
+	for (auto group : m_Map->ParsedData())
+	{
+		int groupId = group.first;
+
+		for (auto layer : group.second)
+		{
+			int layerId = layer.first;
+
+			for (Tile tile : layer.second)
+			{
+				TextureManager::Instance().DrawTile(
+					tile.imageName, tile.width, tile.height, 
+					tile.displayCol, tile.displayRow,
+					tile.matrixCol, tile.matrixRow,
+					1, tile.rotation);
+			}
+		}
+	}
 }
 
 TileError Tiller::Parse(std::string mapId, std::string source)
@@ -81,7 +111,7 @@ TileError Tiller::Parse(std::string mapId, std::string source)
 					Log(YELLOW, "Loading tilelayer: " + std::to_string(tilelayer.ID), "\t");
 					m_Map->AddLayer(tilelayer);
 
-					std::vector<std::vector<int>> dataParsed = ParseLayerData(l, tilelayer);
+					std::vector<std::vector<unsigned>> dataParsed = ParseLayerData(l, tilelayer);
 
 					Log(GREEN, "SAVING DATA " + std::to_string(tilegroup.ID) + " - " + std::to_string(tilelayer.ID), "\t");
 					m_Map->AddRawData(tilegroup.ID, tilelayer.ID, dataParsed);
@@ -96,7 +126,29 @@ TileError Tiller::Parse(std::string mapId, std::string source)
 	return status;
 }
 
-std::vector<Tile> Tiller::FormatLayerData(TileGroup tileGroup, TileLayer tileLayer, std::vector<std::vector<int>> rawData)
+unsigned extractTileID(unsigned value) {
+	// Mask out the flags to get the actual tile ID
+	return value & ~(FLIPPED_HORIZONTALLY_FLAG |
+		FLIPPED_VERTICALLY_FLAG |
+		FLIPPED_DIAGONALLY_FLAG |
+		ROTATED_HEXAGONAL_120_FLAG);
+}
+
+int getRotationForTileFlip(TileFlip flip)
+{
+	switch (flip)
+	{
+	case HORIZONTAL: return 180; // Horizontal flip is equivalent to 180 degrees rotation
+	case VERTICAL: return 180; // Vertical flip is also equivalent to 180 degrees rotation
+	case DIAGONAL: return 90; // Assuming diagonal flip is a 90 degrees rotation
+	case HEXAGONAL: return 120; // Hexagonal 120 degrees rotation
+	default: return 0; // No rotation for undefined cases
+	}
+
+	return 0;
+}
+
+std::vector<Tile> Tiller::FormatLayerData(TileGroup tileGroup, TileLayer tileLayer, std::vector<std::vector<unsigned>> rawData)
 {
 	std::vector<Tile> fData;
 
@@ -121,33 +173,46 @@ std::vector<Tile> Tiller::FormatLayerData(TileGroup tileGroup, TileLayer tileLay
 					FLIPPED_DIAGONALLY_FLAG |
 					ROTATED_HEXAGONAL_120_FLAG);
 
+
 				auto firstgid = m_Map->FindFirstGid(global_tile_id);
 
 				Tile tile;
 				tile.gID = gId;
 				tile.lID = global_tile_id - *firstgid;
-				tile.row = row;
-				tile.col = col;
+
+				int matrixRow = tile.lID / m_Map->GetTileset(*firstgid).Columns;
+				int matrixColumn = tile.lID % m_Map->GetTileset(*firstgid).Columns;
+				
+				tile.displayRow = row;
+				tile.displayCol = col;
+				tile.matrixRow = matrixRow;
+				tile.matrixCol = matrixColumn;
 				tile.groupID = tileGroup.ID;
 				tile.layerID = tileLayer.ID;
 				tile.opacity = tileGroup.Opacity; // not good
-				tile.width = tileLayer.Width;
-				tile.height = tileLayer.Height;
+				tile.width = m_Map->GetTileset(*firstgid).TileWidth;
+				tile.height = m_Map->GetTileset(*firstgid).TileHeight;
 				tile.imageSrc = m_Map->GetTileset(*firstgid).ImgSource;
+				tile.imageName = m_Map->GetTileset(*firstgid).Name;
 				tile.tilesetID = *firstgid;
 
+				int finalRotation = 0;
+
 				if (flipped_horizontally) {
-					tile.rFlag = FLIPPED_HORIZONTALLY_FLAG;
+					finalRotation += getRotationForTileFlip(tiller::TileFlip::HORIZONTAL);
 				}
 				else if (flipped_vertically) {
-					tile.rFlag = FLIPPED_VERTICALLY_FLAG;
+					finalRotation += getRotationForTileFlip(tiller::TileFlip::VERTICAL);
 				}
 				else if (flipped_diagonally) {
-					tile.rFlag = FLIPPED_DIAGONALLY_FLAG;
+					finalRotation += getRotationForTileFlip(tiller::TileFlip::DIAGONAL);
 				}
 				else if (rotated_hex120) {
-					tile.rFlag = ROTATED_HEXAGONAL_120_FLAG;
+					finalRotation += getRotationForTileFlip(tiller::TileFlip::HEXAGONAL);
 				}
+				finalRotation = finalRotation % 360;
+
+				tile.rotation = finalRotation;
 
 				fData.push_back(tile);
 			}
@@ -157,9 +222,9 @@ std::vector<Tile> Tiller::FormatLayerData(TileGroup tileGroup, TileLayer tileLay
 	return fData;
 }
 
-std::vector<std::vector<int>> Tiller::ParseLayerData(tinyxml2::XMLElement* xmlLayer, TileLayer& layer) {
+std::vector<std::vector<unsigned>> Tiller::ParseLayerData(tinyxml2::XMLElement* xmlLayer, TileLayer& layer) {
 	tinyxml2::XMLElement* data = nullptr;
-	std::vector<std::vector<int>> dataParsed(layer.Height, std::vector<int>(layer.Width, 0));
+	std::vector<std::vector<unsigned>> dataParsed(layer.Height, std::vector<unsigned>(layer.Width, 0));
 
 	for (tinyxml2::XMLElement* e = xmlLayer->FirstChildElement(); e != nullptr; e = e->NextSiblingElement()) {
 		if (strcmp(e->Value(), "data") == 0) {
@@ -210,8 +275,17 @@ Tileset Tiller::ParseTileset(tinyxml2::XMLElement* xmlTileset)
 	tileset.Columns = xmlTileset->IntAttribute("columns");
 	tileset.LastID = (tileset.ID + tileset.TileCount) - 1;
 	tileset.RowCount = tileset.TileCount / tileset.Columns;
+
 	tinyxml2::XMLElement* image = xmlTileset->FirstChildElement();
-	tileset.ImgSource = image->Attribute("source");
+	std::string imgSource = image->Attribute("source");
+
+	std::filesystem::path imgBasePath(m_Path);
+	std::filesystem::path imgRelativePath(imgSource);
+	std::filesystem::path fullPath = imgBasePath / imgRelativePath;
+	fullPath = fullPath.lexically_normal();
+	tileset.ImgSource = fullPath.string();
+
+
 	return tileset;
 }
 
@@ -245,7 +319,15 @@ Tileset Tiller::ParseClosedTileset(tinyxml2::XMLElement* xmlTileset)
 	tileset.LastID = (tileset.ID + tileset.TileCount) - 1;
 	tileset.RowCount = tileset.TileCount / tileset.Columns;
 	tinyxml2::XMLElement* image = root->FirstChildElement();
-	tileset.ImgSource = image->Attribute("source");
+
+
+	std::string imgSource = image->Attribute("source");
+	std::filesystem::path imgBasePath(m_Path);
+	std::filesystem::path imgRelativePath(imgSource);
+	std::filesystem::path fullPath = imgBasePath / imgRelativePath;
+	fullPath = fullPath.lexically_normal();
+	tileset.ImgSource = fullPath.string();
+
 	return tileset;
 }
 
@@ -253,14 +335,16 @@ void Tiller::PrintTile(const Tile& tile) {
 	std::cout << "Tile properties:" << std::endl;
 	std::cout << "gID: " << tile.gID << std::endl;
 	std::cout << "lID: " << tile.lID << std::endl;
-	std::cout << "rFlag: " << tile.rFlag << std::endl;
 	std::cout << "tilesetID: " << tile.tilesetID << std::endl;
 	std::cout << "layerID: " << tile.layerID << std::endl;
 	std::cout << "groupID: " << tile.groupID << std::endl;
 	std::cout << "opacity: " << tile.opacity << std::endl;
 	std::cout << "width: " << tile.width << std::endl;
 	std::cout << "height: " << tile.height << std::endl;
-	std::cout << "row: " << tile.row << std::endl;
-	std::cout << "col: " << tile.col << std::endl;
+	std::cout << "DST row: " << tile.displayRow << std::endl;
+	std::cout << "DST col: " << tile.displayCol << std::endl;
+	std::cout << "SRC row: " << tile.matrixRow << std::endl;
+	std::cout << "SRC col: " << tile.matrixCol << std::endl;
 	std::cout << "imageSrc: " << tile.imageSrc << std::endl;
+	std::cout << "rotation: " << tile.rotation << std::endl;
 }

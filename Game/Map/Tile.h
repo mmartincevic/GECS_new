@@ -7,20 +7,31 @@
 
 namespace tiller
 {
+	enum TileFlip
+	{
+		HORIZONTAL,
+		VERTICAL,
+		DIAGONAL,
+		HEXAGONAL
+	};
+
 	struct Tile
 	{
 		unsigned	gID;
 		unsigned	lID;
-		unsigned	rFlag;
 		int			tilesetID;
 		int			layerID;
 		int			groupID;
 		float		opacity;
 		int			width;
 		int			height;
-		int			row;
-		int			col;
+		int			displayRow;
+		int			displayCol;
+		int			matrixRow;
+		int			matrixCol;
+		int			rotation;
 		std::string imageSrc;
+		std::string imageName;
 	};
 };
 

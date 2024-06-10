@@ -18,7 +18,7 @@ static constexpr const char*				DEFAULT_PLAYER_NAME{ "GECSY" };
 static constexpr unsigned int				GAME_WINDOW_WIDTH{ 1024 };
 
 /// Summary:	Height of the game window.
-static constexpr unsigned int				GAME_WINDOW_HEIGHT{ 768 };
+static constexpr unsigned int				GAME_WINDOW_HEIGHT{ 960 };
 
 /// Summary:	True if game should start in fullscreen mode.
 static constexpr bool						GAME_WINDOW_FULLSCREEN{ false };

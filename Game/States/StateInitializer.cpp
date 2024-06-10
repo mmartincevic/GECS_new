@@ -88,7 +88,14 @@ void StateInitializer::Enter(gecs::FSM& stater)
 	World::Instance().AddLayer(new ImageLayer("level_smoke", 0, 500, 0.4, 0.3, 0.3));
 	World::Instance().AddLayer(new ImageLayer("level_road", 0, 700, 0.5, 0.3, 0.3));
 
-	tiller::Tiller::Instance().Load("Resources/ECS/level2/", "level2");
+
+	tiller::Tiller::Instance().Load("Resources/ECS/level3/", "testlevel");
+	auto tileSets = tiller::Tiller::Instance().TileSet();
+
+	for (auto tileset : tileSets)
+	{
+		TextureManager::Instance().Load(SDL_Wrapper::getInstance().getRenderer(), tileset.second.Name, tileset.second.ImgSource);
+	}
 
 	// Display BG image - refactor!
 	SDL_Renderer* ren = SDL_Wrapper::getInstance().getRenderer();
