@@ -45,11 +45,12 @@ void RenderSystem::Update(float dt)
 	}
 
 
-
 	SDL_Rect camera = World::Instance().Camera()->GetViewBox();
 
 	//MapParser::Instance().Maps("level2")->Render();
 	tiller::Tiller::Instance().Render();
+
+	World::Instance().ImGui();
 
 	SDL_RenderCopy(SDL_Wrapper::getInstance().getRenderer(), nullptr, nullptr, &camera);
 

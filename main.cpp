@@ -11,6 +11,7 @@
 #include "Game/Game.h"
 #include "ECS/XMLSettingsParser.h"
 
+
 //gecs::XMLSettingsParser& parser = gecs::XMLSettingsParser::getInstance();
 /*if (!parser.loadSettings("config/settings.xml")) {
 		std::cout << "CANT LOAD IT" << '\n';
@@ -19,8 +20,6 @@
 
 int main(int argc, const char* args[])
 {
-	
-
 	//std::string gameTitle = parser.getSetting("game.name");
 	Game* g_GameInstance = new Game(GAME_TITLE);
 
@@ -28,6 +27,7 @@ int main(int argc, const char* args[])
 	g_GameInstance->InitializeSDL();
 	g_GameInstance->InitializePhysics();
 	g_GameInstance->InitializeECS();
+	g_GameInstance->InitializeImGui();
 
 	//// enter game main-loop
 	g_GameInstance->Run();

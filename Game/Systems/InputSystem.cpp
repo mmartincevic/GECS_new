@@ -6,6 +6,10 @@
 
 #include "../States/Player/PlayerIdleState.h"
 
+#include "imgui/imgui.h"
+#include "imgui/backends/imgui_impl_sdl2.h"
+#include "imgui/backends/imgui_impl_sdlrenderer2.h"
+
 void InputSystem::Update(float dt)
 {
     inputBuffer.RemoveOldInputs(std::chrono::milliseconds(0));
@@ -29,6 +33,8 @@ void InputSystem::PreUpdate(float dt)
 
         while (SDL_PollEvent(&event))
         {
+            ImGui_ImplSDL2_ProcessEvent(&event);
+
             if (event.type == SDL_QUIT or event.window.event == SDL_WINDOWEVENT_CLOSE) {
                 gecs::ECS_Engine.events().triggerEvent("GAME_QUIT", {});
                 return;

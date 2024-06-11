@@ -38,5 +38,6 @@ x64/
 
 GECS_log.txt
 basic-log.txt
+imgui.ini
 
 *.hg

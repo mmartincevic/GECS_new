@@ -28,6 +28,22 @@ void Game::InitializePhysics()
 	//;World::Get().InitializePhysics();
 };
 
+void Game::InitializeImGui()
+{
+	//IMGUI_CHECKVERSION();
+	//ImGui::CreateContext();
+	//ImGuiIO& io = ImGui::GetIO(); (void)io;
+	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
+	//// Setup Dear ImGui style
+	//ImGui::StyleColorsDark();
+	//ImGui::StyleColorsLight();
+
+	// Setup Platform/Renderer backends
+	/*ImGui_ImplSDL2_InitForSDLRenderer(SDL_Wrapper::getInstance().getWindow(), SDL_Wrapper::getInstance().getRenderer());
+	ImGui_ImplSDLRenderer2_Init(SDL_Wrapper::getInstance().getRenderer());*/
+}
 
 void Game::Initialize(int width, int height, bool fullscreen)
 {

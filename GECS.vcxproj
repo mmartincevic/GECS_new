@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)include\box2d;$(SolutionDir)include\tinyxml2;$(SolutionDir)include\SDL2-2.30.3\lib\x64;$(SolutionDir)include\SDL2-2.30.3\include;$(SolutionDir)include\SDL2_image-2.8.2\lib\x64;$(SolutionDir)include\SDL2_image-2.8.2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\include\box2d;$(SolutionDir)include\tinyxml2;$(SolutionDir)include\SDL2-2.30.3\lib\x64;$(SolutionDir)include\SDL2_image-2.8.2\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)include\imgui;$(SolutionDir)include\box2d;$(SolutionDir)include\tinyxml2;$(SolutionDir)include\SDL2-2.30.3\lib\x64;$(SolutionDir)include\SDL2-2.30.3\include;$(SolutionDir)include\SDL2_image-2.8.2\lib\x64;$(SolutionDir)include\SDL2_image-2.8.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)include\imgui;$(SolutionDir)\include\box2d;$(SolutionDir)include\tinyxml2;$(SolutionDir)include\SDL2-2.30.3\lib\x64;$(SolutionDir)include\SDL2_image-2.8.2\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -108,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\box2d;$(SolutionDir)include\tinyxml2;$(SolutionDir)include\SDL2-2.30.3\lib\x64;$(SolutionDir)include\SDL2-2.30.3\include;$(SolutionDir)include\SDL2_image-2.8.2\lib\x64;$(SolutionDir)include\SDL2_image-2.8.2\include;C:\Users\djomla\Desktop\gecsnew\GECS\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\imgui;$(SolutionDir)include\box2d;$(SolutionDir)include\tinyxml2;$(SolutionDir)include\SDL2-2.30.3\lib\x64;$(SolutionDir)include\SDL2-2.30.3\include;$(SolutionDir)include\SDL2_image-2.8.2\lib\x64;$(SolutionDir)include\SDL2_image-2.8.2\include;C:\Users\djomla\Desktop\gecsnew\GECS\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -179,6 +179,13 @@
     <ClCompile Include="Game\Utils\Vector2D.cpp" />
     <ClCompile Include="Game\World\World.cpp" />
     <ClCompile Include="Game\World\WorldCamera.cpp" />
+    <ClCompile Include="include\imgui\backends\imgui_impl_sdl2.cpp" />
+    <ClCompile Include="include\imgui\backends\imgui_impl_sdlrenderer2.cpp" />
+    <ClCompile Include="include\imgui\imgui.cpp" />
+    <ClCompile Include="include\imgui\imgui_demo.cpp" />
+    <ClCompile Include="include\imgui\imgui_draw.cpp" />
+    <ClCompile Include="include\imgui\imgui_tables.cpp" />
+    <ClCompile Include="include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="include\tinyxml2\tinyxml2.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
