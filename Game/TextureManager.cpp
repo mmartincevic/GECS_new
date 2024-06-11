@@ -81,9 +81,8 @@ void TextureManager::DrawTile(std::string tilesetId, int width, int height, int 
 {
 	//Uint8 alpha = 128; // 50% opacity
 	//SDL_SetTextureAlphaMod(texture, alpha);
-
-	//Vector2D cameraPos = World::Instance().Camera()->Position() * ration;
-	SDL_Rect dstRect = { x * width, y * width, width, height };
+	Vector2D cameraPos = World::Instance().Camera()->Position() * ration;
+	SDL_Rect dstRect = { (x * width) - cameraPos.x, (y * width) - cameraPos.y, width, height };
 	SDL_Rect srcRect = { srcx * width, srcy * width, width, height };
 	SDL_RenderCopyEx(SDL_Wrapper::getInstance().getRenderer(), m_TextureMap[tilesetId], &srcRect, &dstRect, rotation, nullptr, flip);
 }

@@ -84,44 +84,84 @@ TileError Tiller::Parse(std::string mapId, std::string source)
 		}
 	}
 
-	// Fetch group
-	for (tinyxml2::XMLElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement())
+	tinyxml2::XMLElement* hasGroups = root->FirstChildElement("group");
+
+	if (!hasGroups)
 	{
-		if (e->Value() == std::string("group"))
+		// Create a fake group
+		TileGroup tilegroup;
+		tilegroup.ID = 1;
+		tilegroup.Opacity = 1.0f;
+		tilegroup.Name = "no-group-fake";
+		m_Map->AddGroup(tilegroup);
+
+		Log(YELLOW, "Loading group: " + tilegroup.ID);
+		for (tinyxml2::XMLElement* l = root->FirstChildElement(); l != nullptr; l = l->NextSiblingElement())
 		{
-			TileGroup tilegroup;
-			tilegroup.ID = e->IntAttribute("id", 0);
-			tilegroup.Opacity = e->FloatAttribute("opacity", 1.0f);
-			tilegroup.Name = e->IntAttribute("name");
-			m_Map->AddGroup(tilegroup);
-
-			Log(YELLOW, "Loading group: " + tilegroup.ID);
-			for (tinyxml2::XMLElement* l = e->FirstChildElement(); l != nullptr; l = l->NextSiblingElement())
+			if (l->Value() == std::string("layer"))
 			{
-				if (l->Value() == std::string("layer"))
-				{
-					TileLayer tilelayer;
-					tilelayer.ID = l->IntAttribute("id", 0);
-					tilelayer.Name = l->Attribute("name");
-					tilelayer.Width = l->IntAttribute("width", 0);
-					tilelayer.Height = l->IntAttribute("height", 0);
-					tilelayer.OffsetX = l->IntAttribute("offsetx", 0);
-					tilelayer.OffsetY = l->IntAttribute("offsety", 0);
+				TileLayer tilelayer;
+				tilelayer.ID = l->IntAttribute("id", 0);
+				tilelayer.Name = l->Attribute("name");
+				tilelayer.Width = l->IntAttribute("width", 0);
+				tilelayer.Height = l->IntAttribute("height", 0);
+				tilelayer.OffsetX = l->IntAttribute("offsetx", 0);
+				tilelayer.OffsetY = l->IntAttribute("offsety", 0);
 
-					Log(YELLOW, "Loading tilelayer: " + std::to_string(tilelayer.ID), "\t");
-					m_Map->AddLayer(tilelayer);
+				Log(YELLOW, "Loading tilelayer: " + std::to_string(tilelayer.ID), "\t");
+				m_Map->AddLayer(tilelayer);
 
-					std::vector<std::vector<unsigned>> dataParsed = ParseLayerData(l, tilelayer);
+				std::vector<std::vector<unsigned>> dataParsed = ParseLayerData(l, tilelayer);
 
-					Log(GREEN, "SAVING DATA " + std::to_string(tilegroup.ID) + " - " + std::to_string(tilelayer.ID), "\t");
-					m_Map->AddRawData(tilegroup.ID, tilelayer.ID, dataParsed);
+				Log(GREEN, "SAVING DATA " + std::to_string(tilegroup.ID) + " - " + std::to_string(tilelayer.ID), "\t");
+				m_Map->AddRawData(tilegroup.ID, tilelayer.ID, dataParsed);
 
-					m_Map->AddFormattedData(tilegroup.ID, tilelayer.ID, FormatLayerData(tilegroup, tilelayer, dataParsed));
-				}
+				m_Map->AddFormattedData(tilegroup.ID, tilelayer.ID, FormatLayerData(tilegroup, tilelayer, dataParsed));
 			}
-
 		}
 	}
+	else
+	{
+		// If there are groups go by group -> layer
+		for (tinyxml2::XMLElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement())
+		{
+			if (e->Value() == std::string("group"))
+			{
+				TileGroup tilegroup;
+				tilegroup.ID = e->IntAttribute("id", 0);
+				tilegroup.Opacity = e->FloatAttribute("opacity", 1.0f);
+				tilegroup.Name = e->IntAttribute("name");
+				m_Map->AddGroup(tilegroup);
+
+				Log(YELLOW, "Loading group: " + tilegroup.ID);
+				for (tinyxml2::XMLElement* l = e->FirstChildElement(); l != nullptr; l = l->NextSiblingElement())
+				{
+					if (l->Value() == std::string("layer"))
+					{
+						TileLayer tilelayer;
+						tilelayer.ID = l->IntAttribute("id", 0);
+						tilelayer.Name = l->Attribute("name");
+						tilelayer.Width = l->IntAttribute("width", 0);
+						tilelayer.Height = l->IntAttribute("height", 0);
+						tilelayer.OffsetX = l->IntAttribute("offsetx", 0);
+						tilelayer.OffsetY = l->IntAttribute("offsety", 0);
+
+						Log(YELLOW, "Loading tilelayer: " + std::to_string(tilelayer.ID), "\t");
+						m_Map->AddLayer(tilelayer);
+
+						std::vector<std::vector<unsigned>> dataParsed = ParseLayerData(l, tilelayer);
+
+						Log(GREEN, "SAVING DATA " + std::to_string(tilegroup.ID) + " - " + std::to_string(tilelayer.ID), "\t");
+						m_Map->AddRawData(tilegroup.ID, tilelayer.ID, dataParsed);
+
+						m_Map->AddFormattedData(tilegroup.ID, tilelayer.ID, FormatLayerData(tilegroup, tilelayer, dataParsed));
+					}
+				}
+
+			}
+		}
+	}
+	
 
 	return status;
 }
