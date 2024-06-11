@@ -61,6 +61,8 @@ CollisionSide CollisionSystem::CheckCollision(const BoundingBox& a, const Boundi
 }
 void CollisionSystem::Update(float dt) 
 {
+    // TODO: Fix collisions with Tiled elements
+
     FOUND_COLLISION = false;
     auto wall_entities = gecs::ECS_Engine.entities().GetEntity<Wall>();
     auto player_entities = gecs::ECS_Engine.entities().GetEntity<Player>();

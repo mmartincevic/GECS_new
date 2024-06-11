@@ -130,7 +130,7 @@ TileError Tiller::Parse(std::string mapId, std::string source)
 				TileGroup tilegroup;
 				tilegroup.ID = e->IntAttribute("id", 0);
 				tilegroup.Opacity = e->FloatAttribute("opacity", 1.0f);
-				tilegroup.Name = e->IntAttribute("name");
+				tilegroup.Name = e->Attribute("name");
 				m_Map->AddGroup(tilegroup);
 
 				Log(YELLOW, "Loading group: " + tilegroup.ID);
@@ -174,7 +174,7 @@ unsigned extractTileID(unsigned value) {
 		ROTATED_HEXAGONAL_120_FLAG);
 }
 
-int getRotationForTileFlip(TileFlip flip)
+int getRotationForTileFlip(TileFlip const flip)
 {
 	switch (flip)
 	{
@@ -184,8 +184,6 @@ int getRotationForTileFlip(TileFlip flip)
 	case HEXAGONAL: return 120; // Hexagonal 120 degrees rotation
 	default: return 0; // No rotation for undefined cases
 	}
-
-	return 0;
 }
 
 std::vector<Tile> Tiller::FormatLayerData(TileGroup tileGroup, TileLayer tileLayer, std::vector<std::vector<unsigned>> rawData)

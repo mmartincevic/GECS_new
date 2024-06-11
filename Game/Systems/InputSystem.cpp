@@ -31,15 +31,19 @@ void InputSystem::PreUpdate(float dt)
         SDL_PumpEvents();
         SDL_Event event;
 
+        // TODO: Fix input system movement
         while (SDL_PollEvent(&event))
         {
+
+            // Add processing of ImGui keyboard and mouse
             ImGui_ImplSDL2_ProcessEvent(&event);
 
             if (event.type == SDL_QUIT or event.window.event == SDL_WINDOWEVENT_CLOSE) {
                 gecs::ECS_Engine.events().triggerEvent("GAME_QUIT", {});
                 return;
             }
-            else if (event.type == SDL_KEYDOWN)
+
+            if (event.type == SDL_KEYDOWN)
             {
                 switch (event.key.keysym.sym)
                 {
@@ -61,22 +65,17 @@ void InputSystem::PreUpdate(float dt)
                     break;
                 }
             }
-            else if (event.type == SDL_KEYUP)
+            
+            if (event.type == SDL_KEYUP)
             {
                 switch (event.key.keysym.sym)
                 {
-                    case SDLK_w:
+                    case SDLK_d:
                     case SDLK_RIGHT:
-                        playerEntity->PlayerRigidBody()->UnsetForceX();
-                        playerEntity->ToggleState();
-                        break;
                     case SDLK_LEFT:
                     case SDLK_a:
-                        playerEntity->PlayerRigidBody()->UnsetForceX();
-                        playerEntity->ToggleState();
-                        break;
                     case SDLK_UP:
-                    case SDLK_d:
+                    case SDLK_w:
                     case SDLK_DOWN:
                     case SDLK_s:
                         //playerEntity->PlayerRigidBody()->UnsetForce();
@@ -99,8 +98,6 @@ void InputSystem::PreUpdate(float dt)
 
 void InputSystem::PostUpdate(float dt) {};
 
-
-InputSystem::InputSystem() {};
 
 InputSystem::~InputSystem() 
 {

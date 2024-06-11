@@ -14,7 +14,7 @@ class InputSystem : public gecs::System<InputSystem>
 {
 	public:
 		//InputSystem(InputBuffer& inputBuffer) : m_InputBuffer(inputBuffer) {}
-		InputSystem();
+		InputSystem() = default;
 		~InputSystem();
 
 		virtual void PreUpdate(float dt) override;
