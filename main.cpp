@@ -27,7 +27,6 @@ int main(int argc, const char* args[])
 	g_GameInstance->InitializeSDL();
 	g_GameInstance->InitializePhysics();
 	g_GameInstance->InitializeECS();
-	g_GameInstance->InitializeImGui();
 
 	//// enter game main-loop
 	g_GameInstance->Run();

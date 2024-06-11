@@ -26,7 +26,6 @@ class Game : public gecs::FSM
 		void	InitializeSDL();
 		void	InitializeECS();
 		void	InitializePhysics();
-		void	InitializeImGui();
 		void	Run();
 
 	private:

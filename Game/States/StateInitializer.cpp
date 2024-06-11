@@ -64,7 +64,8 @@ void StateInitializer::Enter(gecs::FSM& stater)
 	gecs::ECS_Engine.components().AddEntityComponent(playerId, RigidBody(mComponent, playerId));
 
 
-	playerObj->ChangeState(std::make_shared<PlayerFallingState>());
+	//playerObj->ChangeState(std::make_shared<PlayerFallingState>());
+	playerObj->ChangeState(std::make_shared<PlayerIdleState>());
 	gecs::EntityId wall_small = gecs::ECS_Engine.entities().Create<Wall>();
 	gecs::ECS_Engine.components().AddEntityComponent(wall_small, Transform(mComponent, wall_small, Vector2D(50.0f, 700.0f), 1000.0f, 30.0f));
 	gecs::ECS_Engine.components().AddEntityComponent(wall_small, Texture(mComponent, wall_small, "wall_small"));
