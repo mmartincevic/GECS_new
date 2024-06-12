@@ -18,43 +18,55 @@
 
 #include "../Map/Tiller.h"
 
-
 void RenderSystem::Update(float dt)
 {
-	SDL_SetRenderDrawColor(SDL_Wrapper::getInstance().getRenderer(), 0, 0, 0, 255);
-	SDL_RenderClear(SDL_Wrapper::getInstance().getRenderer());
+    SDL_SetRenderDrawColor(SDL_Wrapper::getInstance().getRenderer(), 0, 0, 0, 255);
+    SDL_RenderClear(SDL_Wrapper::getInstance().getRenderer());
 
-	// Draw first scene background
-	for (auto imgLayer : World::Instance().BgLayers())
-	{
-		//imgLayer->Render();
-	}
+    // Draw first scene background
+    for (auto imgLayer : World::Instance().BgLayers())
+    {
+        //imgLayer->Render();
+    }
 
-	auto player_entity = gecs::ECS_Engine.entities().GetEntity<Player>();
-	for (auto player : player_entity)
-	{
-		player->Draw(dt);
-		player->DrawBoundingBox(true, 10.0f);
-	}
+    auto player_entity = gecs::ECS_Engine.entities().GetEntity<Player>();
+    for (auto player : player_entity)
+    {
+        player->Draw(dt);
+        player->DrawBoundingBox(true, 10.0f);
+    }
 
-	auto wall_entities = gecs::ECS_Engine.entities().GetEntity<Wall>();
-	for (auto wall : wall_entities)
-	{
-		wall->Draw(dt);
-		wall->DrawBoundingBox();
-	}
+    auto wall_entities = gecs::ECS_Engine.entities().GetEntity<Wall>();
+    for (auto wall : wall_entities)
+    {
+        wall->Draw(dt);
+        wall->DrawBoundingBox();
+    }
+
+    auto collidables = tiller::Tiller::Instance().Colliders();
+
+    for (auto tile : collidables)
+    {
+        SDL_Rect boundingBox;
+        boundingBox.x = tile.displayCol * tile.width;
+        boundingBox.y = tile.displayRow * tile.width;
+        boundingBox.w = tile.width;
+        boundingBox.h = tile.height;
+
+        SDL_RenderDrawRect(SDL_Wrapper::getInstance().getRenderer(), &boundingBox);
+    }
 
 
-	SDL_Rect camera = World::Instance().Camera()->GetViewBox();
+    SDL_Rect camera = World::Instance().Camera()->GetViewBox();
 
-	//MapParser::Instance().Maps("level2")->Render();
-	tiller::Tiller::Instance().Render();
+    //MapParser::Instance().Maps("level2")->Render();
+    tiller::Tiller::Instance().Render();
 
-	World::Instance().ImGui();
+    World::Instance().ImGui();
 
-	SDL_RenderCopy(SDL_Wrapper::getInstance().getRenderer(), nullptr, nullptr, &camera);
+    SDL_RenderCopy(SDL_Wrapper::getInstance().getRenderer(), nullptr, nullptr, &camera);
 
-	SDL_RenderPresent(SDL_Wrapper::getInstance().getRenderer());
+    SDL_RenderPresent(SDL_Wrapper::getInstance().getRenderer());
 };
 
 void RenderSystem::PreUpdate(float dt) {};

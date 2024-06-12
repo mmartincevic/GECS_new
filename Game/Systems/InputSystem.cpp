@@ -11,6 +11,8 @@
 #include "imgui/backends/imgui_impl_sdlrenderer2.h"
 
 #include "../Game/GameConfiguration.h"
+
+
 void InputSystem::Update(float dt)
 {
     inputBuffer.RemoveOldInputs(std::chrono::milliseconds(60));
@@ -127,7 +129,6 @@ void InputSystem::PreUpdate(float dt)
 };
 
 void InputSystem::PostUpdate(float dt) {};
-
 
 InputSystem::~InputSystem() 
 {

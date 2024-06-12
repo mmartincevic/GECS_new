@@ -14,6 +14,7 @@
 #include "../Game/States/Player/PlayerFallingState.h"
 #include "../Game/States/Player/PlayerStates.h"
 
+#include "../Map/Tile.h"
 #include "../Map/Tiller.h"
 
 bool IsColliding(const BoundingBox& a, const BoundingBox& b) {
@@ -21,6 +22,15 @@ bool IsColliding(const BoundingBox& a, const BoundingBox& b) {
         a.x + a.width > b.x &&
         a.y < b.y + b.height &&
         a.y + a.height > b.y);
+}
+
+BoundingBox TileBoundingBox(const tiller::Tile& tile) {
+    BoundingBox bbox;
+    bbox.x = tile.displayCol;
+    bbox.y = tile.displayRow;
+    bbox.width = tile.width;
+    bbox.height = tile.height;
+    return bbox;
 }
 
 CollisionSide CollisionSystem::CheckCollision(const BoundingBox& a, const BoundingBox& b) 
@@ -60,6 +70,7 @@ CollisionSide CollisionSystem::CheckCollision(const BoundingBox& a, const Boundi
         }
     }
 }
+
 void CollisionSystem::Update(float dt) 
 {
     // TODO: Fix collisions with Tiled elements
@@ -88,16 +99,27 @@ void CollisionSystem::Update(float dt)
             }
         }
 
+        
+
+        auto collidables = tiller::Tiller::Instance().Colliders();
+
+        for (auto tile : collidables)
+        {
+            BoundingBox tileBBox = TileBoundingBox(tile);
+            CollisionSide collisionSide = CheckCollision(tileBBox, playerBBox);
+
+            if (collisionSide != CollisionSide::NONE) {
+                //FOUND_COLLISION = true;
+                //player_entity->SetCollisionState(collisionSide); // set new collision side
+                int a = 2;
+            }
+        }
+
+
         if (!FOUND_COLLISION)
         {
             player->SetCollisionState(CollisionSide::NONE); // reset collision on each update if NONE found
         }
-    }
-    auto collidables = tiller::Tiller::Instance().Colliders();
-
-    for (auto coli : collidables)
-    {
-        
     }
 };
 
