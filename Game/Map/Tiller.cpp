@@ -136,6 +136,16 @@ TileError Tiller::Parse(std::string mapId, std::string source)
 				Log(YELLOW, "Loading group: " + tilegroup.ID);
 				for (tinyxml2::XMLElement* l = e->FirstChildElement(); l != nullptr; l = l->NextSiblingElement())
 				{
+					// check if has properties
+					if (l->Value() == std::string("properties"))
+					{
+						if (l->ChildElementCount() > 0)
+						{
+							tinyxml2::XMLElement* property = l->FirstChildElement();
+							tilegroup.Collider = property->BoolAttribute("value", false);
+						}
+					}
+
 					if (l->Value() == std::string("layer"))
 					{
 						TileLayer tilelayer;
@@ -233,6 +243,7 @@ std::vector<Tile> Tiller::FormatLayerData(TileGroup tileGroup, TileLayer tileLay
 				tile.imageSrc = m_Map->GetTileset(*firstgid).ImgSource;
 				tile.imageName = m_Map->GetTileset(*firstgid).Name;
 				tile.tilesetID = *firstgid;
+				tile.collider = tileGroup.Collider;
 
 				int finalRotation = 0;
 
@@ -252,6 +263,11 @@ std::vector<Tile> Tiller::FormatLayerData(TileGroup tileGroup, TileLayer tileLay
 
 				tile.rotation = finalRotation;
 
+				if (tileGroup.Collider)
+				{
+					m_Map->AddCollider(tile);
+				}
+				
 				fData.push_back(tile);
 			}
 		}

@@ -51,6 +51,9 @@ namespace tiller {
 
 			std::map<int, std::map<int, std::vector<Tile>>> ParsedData() { return m_ParsedData; } // not working
 
+			inline std::vector<Tile> ColliderTiles() { return m_Colliders; }
+			inline void AddCollider(Tile& const tile) { m_Colliders.push_back(tile); }
+
 		private:
 			int m_Width;
 			int m_Height;
@@ -67,6 +70,7 @@ namespace tiller {
 
 			std::map<int, std::map<int, std::vector<std::vector<unsigned>> > > m_MAP; // <GroupID <LAYERID, TILEID>>
 			std::map<int, std::map<int, std::vector<Tile>>> m_ParsedData; // <GroupID <LAYERID, TILE>>
+			std::vector<Tile> m_Colliders;
 	};
 
 };

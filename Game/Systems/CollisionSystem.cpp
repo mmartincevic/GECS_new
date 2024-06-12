@@ -14,6 +14,7 @@
 #include "../Game/States/Player/PlayerFallingState.h"
 #include "../Game/States/Player/PlayerStates.h"
 
+#include "../Map/Tiller.h"
 
 bool IsColliding(const BoundingBox& a, const BoundingBox& b) {
     return (a.x < b.x + b.width &&
@@ -91,11 +92,12 @@ void CollisionSystem::Update(float dt)
         {
             player->SetCollisionState(CollisionSide::NONE); // reset collision on each update if NONE found
         }
+    }
+    auto collidables = tiller::Tiller::Instance().Colliders();
 
-        if (player->GetState() != PlayerStates::FALLING && player->GetCollisionState() == CollisionSide::NONE)
-        {
-            //player->ChangeState(std::make_shared<PlayerFallingState>());
-        }
+    for (auto coli : collidables)
+    {
+        
     }
 };
 

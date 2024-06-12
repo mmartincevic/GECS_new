@@ -32,6 +32,7 @@ namespace tiller
 		int			rotation;
 		std::string imageSrc;
 		std::string imageName;
+		bool		collider;
 	};
 };
 

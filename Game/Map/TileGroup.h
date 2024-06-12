@@ -12,6 +12,7 @@ namespace tiller {
 		int ID;
 		float Opacity = 1.0f;
 		std::string Name;
+		bool Collider = false;
 	};
 
 };
