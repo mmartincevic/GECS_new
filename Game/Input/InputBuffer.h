@@ -19,7 +19,7 @@ class InputBuffer {
     public:
 
         void AddInput(SDL_Scancode key, bool using_combo = true) {
-            std::cout << "Adding input: " + std::string(SDL_GetKeyName(SDL_GetKeyFromScancode(key))) << std::endl;
+            gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "Adding input: " + std::string(SDL_GetKeyName(SDL_GetKeyFromScancode(key))));
             inputQueue.emplace_back(key);
             if (using_combo) {
                 inputQueueCombo.emplace_back(key);
@@ -113,7 +113,7 @@ class InputBuffer {
 
                 if (timeDifference >= duration.count()) 
                 {
-                    std::cout << "Removing input: " + std::string(SDL_GetKeyName(SDL_GetKeyFromScancode(queue.front().key))) << std::endl;
+                    gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "Removing input: " + std::string(SDL_GetKeyName(SDL_GetKeyFromScancode(queue.front().key))));
                     queue.pop_front();
                 }
                 else 

@@ -40,12 +40,12 @@ void PlayerJumpingState::HandleInput(Player* player, const InputBuffer inputBuff
         {
             switch (input)
             {
-            case SDL_SCANCODE_LEFT:
+           /* case SDL_SCANCODE_LEFT:
                 player->ChangeState(std::make_shared<PlayerWalkingLeftState>());
                 break;
             case SDL_SCANCODE_RIGHT:
                 player->ChangeState(std::make_shared<PlayerWalkingRightState>());
-                break;
+                break;*/
             }
         }
     }

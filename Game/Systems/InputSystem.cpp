@@ -10,9 +10,10 @@
 #include "imgui/backends/imgui_impl_sdl2.h"
 #include "imgui/backends/imgui_impl_sdlrenderer2.h"
 
+#include "../Game/GameConfiguration.h"
 void InputSystem::Update(float dt)
 {
-    inputBuffer.RemoveOldInputs(std::chrono::milliseconds(0));
+    inputBuffer.RemoveOldInputs(std::chrono::milliseconds(60));
     inputBuffer.RemoveOldComboInputs(std::chrono::milliseconds(300));
     auto players = gecs::ECS_Engine.entities().GetEntity<Player>();
     for (auto player : players)
@@ -31,6 +32,25 @@ void InputSystem::PreUpdate(float dt)
         SDL_PumpEvents();
         SDL_Event event;
 
+        const Uint8* keyboard_state_array = SDL_GetKeyboardState(NULL);
+
+        if (keyboard_state_array[SDL_SCANCODE_UP] || keyboard_state_array[SDL_SCANCODE_W])
+        {
+            inputBuffer.AddInput(SDL_SCANCODE_UP);
+        }
+
+        if (keyboard_state_array[SDL_SCANCODE_RIGHT] || keyboard_state_array[SDL_SCANCODE_D])
+        {
+            inputBuffer.AddInput(SDL_SCANCODE_RIGHT);
+        }
+
+        if (keyboard_state_array[SDL_SCANCODE_LEFT] || keyboard_state_array[SDL_SCANCODE_A])
+        {
+            inputBuffer.AddInput(SDL_SCANCODE_LEFT);
+        }
+
+
+
         // TODO: Fix input system movement
         while (SDL_PollEvent(&event))
         {
@@ -43,7 +63,7 @@ void InputSystem::PreUpdate(float dt)
                 return;
             }
 
-            if (event.type == SDL_KEYDOWN)
+            /*if (event.type == SDL_KEYDOWN)
             {
                 switch (event.key.keysym.sym)
                 {
@@ -53,6 +73,8 @@ void InputSystem::PreUpdate(float dt)
                     break;
                 case SDLK_RIGHT:
                 case SDLK_d:
+                    std::cout << "=========> ADDDD RIGHT" << std::endl;
+
                     inputBuffer.AddInput(SDL_SCANCODE_RIGHT);
                     break;
                 case SDLK_LEFT:
@@ -64,7 +86,7 @@ void InputSystem::PreUpdate(float dt)
                     inputBuffer.AddInput(SDL_SCANCODE_DOWN);
                     break;
                 }
-            }
+            }*/
             
             if (event.type == SDL_KEYUP)
             {
