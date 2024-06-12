@@ -12,7 +12,10 @@ void PlayerIdleState::Enter(Player* player) {
     gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "IDLE");
 }
 
-void PlayerIdleState::Toggle(Player* player) {}
+void PlayerIdleState::Toggle(Player* player) 
+{
+    //player->PlayerRigidBody()->UnsetForceX();
+}
 
 void PlayerIdleState::HandleInput(Player* player, const InputBuffer inputBuffer) 
 {

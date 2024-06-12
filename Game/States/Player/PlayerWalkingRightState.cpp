@@ -44,9 +44,6 @@ void PlayerWalkingRightState::Toggle(Player* player)
 void PlayerWalkingRightState::Update(Player* player, float deltaTime) 
 {
     player->PlayerRigidBody()->ApplyForceX(PLAYER_SPEED);
-    player->PlayerRigidBody()->Update(deltaTime);
-    player->PlayerTransform()->UpdatePositionX(player->PlayerRigidBody()->Position());
-
 }
 
 void PlayerWalkingRightState::Render(Player* player) {

@@ -87,6 +87,15 @@ class InputBuffer {
             return true; // All inputs match the combo
         }
 
+        // Remove specific key from both queues
+        void RemoveInput(SDL_Scancode key, bool using_combo = false) {
+            RemoveSpecificInputFromQueue(inputQueue, key);
+            if (using_combo)
+            {
+                RemoveSpecificInputFromQueue(inputQueueCombo, key);
+            }
+        }
+
     private:
         std::deque<InputEvent> inputQueue;
         std::deque<InputEvent> inputQueueCombo;
@@ -112,6 +121,17 @@ class InputBuffer {
                     break;
                 }
             }
+        }
+
+
+        // Method to remove specific input from a given queue
+        void RemoveSpecificInputFromQueue(std::deque<InputEvent>& queue, SDL_Scancode key) {
+            queue.erase(
+                std::remove_if(queue.begin(), queue.end(), [key](const InputEvent& event) {
+                    return event.key == key;
+                    }),
+                queue.end()
+            );
         }
 };
 

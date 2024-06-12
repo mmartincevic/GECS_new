@@ -44,10 +44,10 @@ void StateInitializer::Enter(gecs::FSM& stater)
 
 
 	gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "Initializing STATE Class");
-	gecs::ECS_Engine.systems().addSystem<PhysicsSystem>();
 	gecs::ECS_Engine.systems().addSystem<CollisionSystem>();
 	gecs::ECS_Engine.systems().addSystem<RenderSystem>();
 	gecs::ECS_Engine.systems().addSystem<InputSystem>();
+	gecs::ECS_Engine.systems().addSystem<PhysicsSystem>();
 	gecs::ECS_Engine.systems().addSystem<CameraSystem>();
 
 

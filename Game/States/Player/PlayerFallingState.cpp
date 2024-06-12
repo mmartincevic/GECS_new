@@ -12,24 +12,23 @@
 
 void PlayerFallingState::Enter(Player* player) {
     // Set the texture for walking state
-    gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "I'm fallllliiiiing");
+    player->PlayerRigidBody()->UnsetForceY();
+    gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "Falling state");
 }
 
-void PlayerFallingState::Toggle(Player* player) {}
+void PlayerFallingState::Toggle(Player* player)
+{
+    player->PlayerRigidBody()->UnsetForceX();
+    player->ChangeState(std::make_shared<PlayerIdleState>());
+}
 
 void PlayerFallingState::HandleInput(Player* player, const InputBuffer inputBuffer) {}
 
-void PlayerFallingState::Update(Player* player, float deltaTime) {
-    if (player->GetCollisionState() == CollisionSide::NONE && player->GetCollisionState() != CollisionSide::BOTTOM) 
+void PlayerFallingState::Update(Player* player, float deltaTime)
+{
+    if (player->GetCollisionState() != CollisionSide::NONE)
     {
-        player->PlayerRigidBody()->UnsetForceY();
-        gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "FALLING");
-        player->PlayerRigidBody()->Update(deltaTime);
-        player->PlayerTransform()->UpdatePosition(player->PlayerRigidBody()->Position());
-    } 
-    else
-    {
-        player->ChangeState(std::make_shared<PlayerIdleState>());
+        Toggle(player);
     }
 }
 

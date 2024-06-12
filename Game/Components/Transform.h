@@ -30,10 +30,7 @@ class Transform : public gecs::Component<Transform>
         inline float Height() const { return m_Height; }
         
         inline void UpdatePosition(Vector2D position) { m_Position += position; }
-        inline void UpdatePositionX(Vector2D position) 
-        { 
-            m_Position.x += position.x; 
-        }
+        inline void UpdatePositionX(Vector2D position) { m_Position.x += position.x; }
         inline void UpdatePositionY(Vector2D position) { m_Position.y += position.y; }
 
         BoundingBox GetBoundingBox() {

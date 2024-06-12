@@ -70,19 +70,27 @@ void InputSystem::PreUpdate(float dt)
             {
                 switch (event.key.keysym.sym)
                 {
-                    case SDLK_d:
-                    case SDLK_RIGHT:
-                    case SDLK_LEFT:
-                    case SDLK_a:
-                    case SDLK_UP:
-                    case SDLK_w:
-                    case SDLK_DOWN:
-                    case SDLK_s:
-                        //playerEntity->PlayerRigidBody()->UnsetForce();
-                        playerEntity->ToggleState();
-                        break;
+                case SDLK_UP:
+                case SDLK_w:
+                    inputBuffer.RemoveInput(SDL_SCANCODE_UP);
+                    playerEntity->ToggleState();
+                    break;
+                case SDLK_RIGHT:
+                case SDLK_d:
+                    inputBuffer.RemoveInput(SDL_SCANCODE_RIGHT);
+                    playerEntity->ToggleState();
+                    break;
+                case SDLK_LEFT:
+                case SDLK_a:
+                    inputBuffer.RemoveInput(SDL_SCANCODE_LEFT);
+                    playerEntity->ToggleState();
+                    break;
+                case SDLK_DOWN:
+                case SDLK_s:
+                    inputBuffer.RemoveInput(SDL_SCANCODE_DOWN);
+                    playerEntity->ToggleState();
+                    break;
                 }
-
             }
         }
 

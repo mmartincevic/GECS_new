@@ -13,16 +13,22 @@ PhysicsSystem::~PhysicsSystem() {};
 
 void PhysicsSystem::Update(float dt)
 {
-	//auto player_entity = gecs::ECS_Engine.entities().GetEntity<Player>();
-	//Player* playerEntity = player_entity.front();
-	//
-	//if (playerEntity != nullptr)
-	//{
-	//	/*if (playerEntity->GetPLayerStateID() == "IDLE")
-	//	{
-	//		playerEntity->ChangeState(new PlayerFallingState());
-	//	}*/
-	//}
+	auto entities = gecs::ECS_Engine.entities().GetEntity<Player>();
+
+	for (auto player : entities)
+	{
+		if (player->GetCollisionState() == CollisionSide::NONE)
+		{
+			player->PlayerRigidBody()->EnableGravity();
+		}
+		else if (player->GetCollisionState() == CollisionSide::BOTTOM)
+		{
+			player->PlayerRigidBody()->DisableGravity();
+		}
+
+		player->PlayerTransform()->UpdatePosition(player->PlayerRigidBody()->Position());
+		player->PlayerRigidBody()->Update(dt);
+	}
 };
 
 void PhysicsSystem::PreUpdate(float dt) {};
