@@ -11,6 +11,7 @@
 #include "imgui/backends/imgui_impl_sdlrenderer2.h"
 
 #include "../Game/GameConfiguration.h"
+#include "../World/World.h"
 
 
 void InputSystem::Update(float dt)
@@ -65,30 +66,16 @@ void InputSystem::PreUpdate(float dt)
                 return;
             }
 
-            /*if (event.type == SDL_KEYDOWN)
+            if (event.type == SDL_KEYDOWN)
             {
                 switch (event.key.keysym.sym)
                 {
-                case SDLK_UP:
-                case SDLK_w:
-                    inputBuffer.AddInput(SDL_SCANCODE_UP);
-                    break;
-                case SDLK_RIGHT:
-                case SDLK_d:
-                    std::cout << "=========> ADDDD RIGHT" << std::endl;
-
-                    inputBuffer.AddInput(SDL_SCANCODE_RIGHT);
-                    break;
-                case SDLK_LEFT:
-                case SDLK_a:
-                    inputBuffer.AddInput(SDL_SCANCODE_LEFT);
-                    break;
-                case SDLK_DOWN:
-                case SDLK_s:
-                    inputBuffer.AddInput(SDL_SCANCODE_DOWN);
+                case SDLK_F11:
+                    //bool show_demo_window = true;
+                    World::Instance().ToggleImGui();
                     break;
                 }
-            }*/
+            }
             
             if (event.type == SDL_KEYUP)
             {
@@ -128,9 +115,7 @@ void InputSystem::PreUpdate(float dt)
     }
 };
 
-void InputSystem::PostUpdate(float dt) {};
-
-InputSystem::~InputSystem() 
+void InputSystem::Clear() 
 {
     inputBuffer.Clear();
-};
+}

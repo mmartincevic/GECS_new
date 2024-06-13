@@ -33,3 +33,4 @@ void PhysicsSystem::Update(float dt)
 
 void PhysicsSystem::PreUpdate(float dt) {};
 void PhysicsSystem::PostUpdate(float dt) {};
+void PhysicsSystem::Clear() {};

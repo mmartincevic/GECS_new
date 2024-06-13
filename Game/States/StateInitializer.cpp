@@ -5,6 +5,7 @@
 #include "../Systems/InputSystem.h"
 #include "../Systems/CollisionSystem.h"
 #include "../Systems/CameraSystem.h"
+#include "../Systems/ImGuiSystem.h"
 #include "../ECS/definitions.h"
 #include "../Components/Drawable.h"
 #include "../Components/Transform.h"
@@ -49,6 +50,7 @@ void StateInitializer::Enter(gecs::FSM& stater)
     gecs::ECS_Engine.systems().addSystem<InputSystem>();
     gecs::ECS_Engine.systems().addSystem<PhysicsSystem>();
     gecs::ECS_Engine.systems().addSystem<CameraSystem>();
+    gecs::ECS_Engine.systems().addSystem<ImGuiSystem>();
 
 
     gecs::ComponentTypeId mComponent = gecs::ComponentTypeId().make(gecs::ComponentTypes::RENDERABLES);
@@ -90,7 +92,9 @@ void StateInitializer::Enter(gecs::FSM& stater)
     World::Instance().AddLayer(new ImageLayer("level_road", 0, 700, 0.5, 0.3, 0.3));
 
 
-    tiller::Tiller::Instance().Load("Resources/ECS/level3/", "testlevel");
+
+    TextureManager::Instance().ShowBoundingBox();
+    tiller::Tiller::Instance().Load("Resources/ECS/level3/", "test_collider");
     auto tileSets = tiller::Tiller::Instance().TileSet();
 
     for (auto tileset : tileSets)

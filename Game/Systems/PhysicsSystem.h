@@ -18,5 +18,6 @@ class PhysicsSystem : public gecs::System<PhysicsSystem>
 		virtual void PreUpdate(float dt) override;
 		virtual void Update(float dt) override;
 		virtual void PostUpdate(float dt) override;
+		virtual void Clear() override;
 };
 #endif

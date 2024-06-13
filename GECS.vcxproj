@@ -159,6 +159,7 @@
     <ClCompile Include="Game\States\Player\PlayerWalkingRightState.cpp" />
     <ClCompile Include="Game\Systems\CameraSystem.cpp" />
     <ClCompile Include="Game\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="Game\Systems\ImGuiSystem.cpp" />
     <ClCompile Include="Game\Systems\InputSystem.cpp" />
     <ClCompile Include="Game\States\MainState.cpp" />
     <ClCompile Include="Game\Systems\PhysicsSystem.cpp" />
@@ -234,6 +235,7 @@
     <ClInclude Include="Game\Systems\CameraSystem.h" />
     <ClInclude Include="Game\Systems\CollisionSide.h" />
     <ClInclude Include="Game\Systems\CollisionSystem.h" />
+    <ClInclude Include="Game\Systems\ImGuiSystem.h" />
     <ClInclude Include="Game\Systems\InputSystem.h" />
     <ClInclude Include="Game\Components\RigidBody.h" />
     <ClInclude Include="Game\Components\TextureResource.h" />

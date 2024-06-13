@@ -15,6 +15,7 @@ namespace gecs {
 			virtual void PreUpdate(float dt) override {}
 			virtual void Update(float dt) override {}
 			virtual void PostUpdate(float dt) override {}
+			virtual void Clear() override {}
 	protected:
 
 		System()

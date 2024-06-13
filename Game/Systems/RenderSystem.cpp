@@ -43,26 +43,10 @@ void RenderSystem::Update(float dt)
         wall->DrawBoundingBox();
     }
 
-    auto collidables = tiller::Tiller::Instance().Colliders();
-
-    for (auto tile : collidables)
-    {
-        SDL_Rect boundingBox;
-        boundingBox.x = tile.displayCol * tile.width;
-        boundingBox.y = tile.displayRow * tile.width;
-        boundingBox.w = tile.width;
-        boundingBox.h = tile.height;
-
-        SDL_RenderDrawRect(SDL_Wrapper::getInstance().getRenderer(), &boundingBox);
-    }
-
-
     SDL_Rect camera = World::Instance().Camera()->GetViewBox();
 
     //MapParser::Instance().Maps("level2")->Render();
     tiller::Tiller::Instance().Render();
-
-    World::Instance().ImGui();
 
     SDL_RenderCopy(SDL_Wrapper::getInstance().getRenderer(), nullptr, nullptr, &camera);
 
@@ -71,5 +55,6 @@ void RenderSystem::Update(float dt)
 
 void RenderSystem::PreUpdate(float dt) {};
 void RenderSystem::PostUpdate(float dt) {};
+void RenderSystem::Clear() {};
 RenderSystem::RenderSystem() {};
 RenderSystem::~RenderSystem() {};

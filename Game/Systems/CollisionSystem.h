@@ -20,6 +20,7 @@ class CollisionSystem : public gecs::System<CollisionSystem>
 		virtual void PreUpdate(float dt) override;
 		virtual void Update(float dt) override;
 		virtual void PostUpdate(float dt) override;
+		virtual void Clear() override;
 		CollisionSide CheckCollision(const BoundingBox& a, const BoundingBox& b);
 	private:
 		bool FOUND_COLLISION = false;

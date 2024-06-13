@@ -11,12 +11,13 @@
 class CameraSystem : public gecs::System<CameraSystem>
 {
 	public:
-		CameraSystem();
-		~CameraSystem();
+		CameraSystem() = default;
+		~CameraSystem() = default;
 
-		virtual void PreUpdate(float dt) override;
+		virtual void PreUpdate(float dt) override {};
 		virtual void Update(float dt) override;
-		virtual void PostUpdate(float dt) override;
+		virtual void PostUpdate(float dt) override {};
+		virtual void Clear() override {};
 
 };
 #endif

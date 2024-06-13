@@ -125,5 +125,6 @@ void CollisionSystem::Update(float dt)
 
 void CollisionSystem::PreUpdate(float dt) {};
 void CollisionSystem::PostUpdate(float dt) {};
+void CollisionSystem::Clear() {};
 CollisionSystem::~CollisionSystem() {};
 CollisionSystem::CollisionSystem() {};

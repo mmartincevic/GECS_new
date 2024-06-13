@@ -77,7 +77,8 @@ void TextureManager::Draw(std::string textureId, int x, int y,
 }
 
 
-void TextureManager::DrawTile(std::string tilesetId, int width, int height, int x, int y, int srcx, int srcy, int frame, int rotation, float opacity, float ration, SDL_RendererFlip flip)
+void TextureManager::DrawTile(std::string tilesetId, int width, int height, int x, int y, int srcx, 
+	int srcy, int frame, int rotation, float opacity, bool collidable, float ration, SDL_RendererFlip flip)
 {
 	if (opacity < 1)
 	{
@@ -85,9 +86,16 @@ void TextureManager::DrawTile(std::string tilesetId, int width, int height, int 
 		SDL_SetTextureAlphaMod(m_TextureMap[tilesetId], alpha);
 	}
 	
+	
 	Vector2D cameraPos = World::Instance().Camera()->Position() * ration;
-	SDL_Rect dstRect = { (x * width) - cameraPos.x, (y * width) - cameraPos.y, width, height };
+	SDL_Rect dstRect = { (x * width) - cameraPos.x, (y * width), width, height };
 	SDL_Rect srcRect = { srcx * width, srcy * width, width, height };
+
+	if (m_DrawBoundingBox && collidable)
+	{
+		SDL_RenderDrawRect(SDL_Wrapper::getInstance().getRenderer(), &dstRect);
+	}
+
 	SDL_RenderCopyEx(SDL_Wrapper::getInstance().getRenderer(), m_TextureMap[tilesetId], &srcRect, &dstRect, rotation, nullptr, flip);
 }
 

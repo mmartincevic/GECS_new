@@ -3,9 +3,6 @@
 #include "../Objects/Player.h"
 
 
-CameraSystem::CameraSystem() {};
-CameraSystem::~CameraSystem() {};
-
 void CameraSystem::Update(float dt)
 {
 	auto player_entity = gecs::ECS_Engine.entities().GetEntity<Player>();
@@ -17,6 +14,3 @@ void CameraSystem::Update(float dt)
 		World::Instance().Camera()->Update(player->PlayerTransform()->Origin());
 	}
 };
-
-void CameraSystem::PreUpdate(float dt) {};
-void CameraSystem::PostUpdate(float dt) {};

@@ -36,7 +36,7 @@ void Tiller::Render()
                     tile.imageName, tile.width, tile.height, 
                     tile.displayCol, tile.displayRow,
                     tile.matrixCol, tile.matrixRow,
-                    1, tile.rotation, tile.opacity);
+                    1, tile.rotation, tile.opacity, tile.collider);
             }
         }
     }

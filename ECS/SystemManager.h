@@ -38,7 +38,14 @@ namespace gecs {
 
             void Update(float dt_ms);
             inline void Clear() { 
-                //systems.clear(); 
+                //systems.clear();
+                for (auto system : systems)
+                {
+                    if (system.second != nullptr)
+                    {
+                        system.second->Clear();
+                    }
+                }
             }
 
         private:
