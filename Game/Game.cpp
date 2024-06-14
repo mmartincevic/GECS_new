@@ -89,7 +89,7 @@ void Game::Run()
         //	<Game Name> - <GameState> (<fps>)
         char buffer[256]{ 0 };
         sprintf_s(buffer, "%s - %s (%.2f fps)", this->m_GameTitle, this->GetCurrentState()->GetStateType(), this->m_FPS.GetFPS());
-        SDL_SetWindowTitle(SDL_Wrapper::getInstance().getWindow(), buffer);
+        gecs::ECS_Engine.resources().Manager<SDLRender>()->SetWindowTitle(buffer);
 
         if (deltaTime < TargetFrameTime) {
             std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(TargetFrameTime - deltaTime)));

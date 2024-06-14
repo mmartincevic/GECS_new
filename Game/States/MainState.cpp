@@ -5,9 +5,9 @@
 #include "../Components/Transform.h"
 #include "../Components/Mesh.h"
 #include "../Components/Texture.h"
-#include "../Utils/SDL_Wrapper.h"
 #include "../Objects/Player.h"
 #include "../ECS/Timer.h"
+#include "../Resources/SDLRender.h"
 
 MainState::MainState() {}
 MainState::~MainState() {}
@@ -19,8 +19,7 @@ void MainState::Enter(gecs::FSM& stater)
 
 void MainState::UpdateState(gecs::FSM& stater)
 {
-	SDL_Wrapper::getInstance().ClearWindow();
-	
+	gecs::ECS_Engine.resources().Manager<SDLRender>()->ClearWindow();
 }
 
 void MainState::Exit(gecs::FSM& stater)

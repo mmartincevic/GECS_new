@@ -51,6 +51,8 @@ public:
     void TextureOpacity(SDL_Texture* texture, Uint8 alpha) { }
 
     void UpdateCameraPosition();
+    void SetWindowTitle(char title[256]);
+    void ClearWindow();
 
     SDL_Texture* LoadTexture(std::string textureId, std::string filename);
 

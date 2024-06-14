@@ -107,6 +107,17 @@ void SDLRender::Render()
     SDL_RenderPresent(m_Render);
 }
 
+
+void SDLRender::SetWindowTitle(char title[256])
+{
+    SDL_SetWindowTitle(m_Window, title);
+}
+
+void SDLRender::ClearWindow()
+{
+    SDL_RenderClear(m_Render);
+}
+
 void SDLRender::Clear()
 {
     gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "GECS : Clearing resource - SDLRender.");
