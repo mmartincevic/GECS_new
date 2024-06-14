@@ -6,7 +6,6 @@
 #include "../Components/BodyComponent.h"
 #include "../Components/RigidBody.h"
 #include "../Components/DynamicBody.h"
-#include "../TextureManager.h"
 #include "../Objects/Player.h"
 #include "../Objects/Wall.h"
 #include "../Events/CollisionEvent.h"
@@ -26,8 +25,8 @@ bool IsColliding(const BoundingBox& a, const BoundingBox& b) {
 
 BoundingBox TileBoundingBox(const tiller::Tile& tile) {
     BoundingBox bbox;
-    bbox.x = tile.displayCol;
-    bbox.y = tile.displayRow;
+    bbox.x = tile.displayCol * tile.width;
+    bbox.y = tile.displayRow * tile.height;
     bbox.width = tile.width;
     bbox.height = tile.height;
     return bbox;
@@ -78,6 +77,7 @@ void CollisionSystem::Update(float dt)
     FOUND_COLLISION = false;
     auto wall_entities = gecs::ECS_Engine.entities().GetEntity<Wall>();
     auto player_entities = gecs::ECS_Engine.entities().GetEntity<Player>();
+    std::vector<tiller::Tile> tilecoliders = tiller::Tiller::Instance().Colliders();
 
     for (auto player : player_entities)
     {   
@@ -99,19 +99,14 @@ void CollisionSystem::Update(float dt)
             }
         }
 
-        
-
-        auto collidables = tiller::Tiller::Instance().Colliders();
-
-        for (auto tile : collidables)
+        for (auto tile : tilecoliders)
         {
             BoundingBox tileBBox = TileBoundingBox(tile);
             CollisionSide collisionSide = CheckCollision(tileBBox, playerBBox);
 
             if (collisionSide != CollisionSide::NONE) {
-                //FOUND_COLLISION = true;
-                //player_entity->SetCollisionState(collisionSide); // set new collision side
-                int a = 2;
+                FOUND_COLLISION = true;
+                player_entity->SetCollisionState(collisionSide); // set new collision side
             }
         }
 
@@ -122,9 +117,3 @@ void CollisionSystem::Update(float dt)
         }
     }
 };
-
-void CollisionSystem::PreUpdate(float dt) {};
-void CollisionSystem::PostUpdate(float dt) {};
-void CollisionSystem::Clear() {};
-CollisionSystem::~CollisionSystem() {};
-CollisionSystem::CollisionSystem() {};

@@ -7,7 +7,10 @@
 #include <vector>
 #include <string>
 
-#include "../TextureManager.h"
+#include "../Resources/SDLTexture.h"
+
+#include "../Resources/SDLImgui.h"
+#include "TillerImgui.h"
 
 using namespace tiller;
 
@@ -20,8 +23,15 @@ TileError Tiller::Load(std::string filePath, std::string tmxName)
     return Parse(tmxName, fullPath);
 }
 
+void Tiller::RegisterImguiWindow()
+{
+    gecs::ECS_Engine.resources().Manager<SDLImgui>()->AddImguiWindow(std::make_shared<TillerImgui>());
+}
+
 void Tiller::Render()
 {
+    std::shared_ptr<SDLTexture> texture = gecs::ECS_Engine.resources().Manager<SDLTexture>();
+
     for (auto group : m_Map->ParsedData())
     {
         int groupId = group.first;
@@ -32,8 +42,13 @@ void Tiller::Render()
 
             for (Tile tile : layer.second)
             {
-                TextureManager::Instance().DrawTile(
+                /*TextureManager::Instance().DrawTile(
                     tile.imageName, tile.width, tile.height, 
+                    tile.displayCol, tile.displayRow,
+                    tile.matrixCol, tile.matrixRow,
+                    1, tile.rotation, tile.opacity, tile.collider);*/
+                texture->DrawTile(
+                    tile.imageName, tile.width, tile.height,
                     tile.displayCol, tile.displayRow,
                     tile.matrixCol, tile.matrixRow,
                     1, tile.rotation, tile.opacity, tile.collider);
@@ -136,7 +151,6 @@ TileError Tiller::Parse(std::string mapId, std::string source)
                 Log(YELLOW, "Loading group: " + tilegroup.ID);
                 for (tinyxml2::XMLElement* l = e->FirstChildElement(); l != nullptr; l = l->NextSiblingElement())
                 {
-                    // check if has properties
                     if (l->Value() == std::string("properties"))
                     {
                         if (l->ChildElementCount() > 0)
@@ -144,7 +158,7 @@ TileError Tiller::Parse(std::string mapId, std::string source)
                             tinyxml2::XMLElement* property = l->FirstChildElement();
                             tilegroup.Collider = property->BoolAttribute("value", false);
                         }
-                    }
+                     }
 
                     if (l->Value() == std::string("layer"))
                     {
@@ -243,7 +257,7 @@ std::vector<Tile> Tiller::FormatLayerData(TileGroup tileGroup, TileLayer tileLay
                 tile.imageSrc = m_Map->GetTileset(*firstgid).ImgSource;
                 tile.imageName = m_Map->GetTileset(*firstgid).Name;
                 tile.tilesetID = *firstgid;
-                tile.collider = tileGroup.Collider;
+                tile.collider = tileGroup.Collider || tileLayer.Collider;
 
                 int finalRotation = 0;
 
@@ -263,7 +277,7 @@ std::vector<Tile> Tiller::FormatLayerData(TileGroup tileGroup, TileLayer tileLay
 
                 tile.rotation = finalRotation;
 
-                if (tileGroup.Collider)
+                if (tileGroup.Collider || tileLayer.Collider)
                 {
                     m_Map->AddCollider(tile);
                 }
@@ -281,6 +295,21 @@ std::vector<std::vector<unsigned>> Tiller::ParseLayerData(tinyxml2::XMLElement* 
     std::vector<std::vector<unsigned>> dataParsed(layer.Height, std::vector<unsigned>(layer.Width, 0));
 
     for (tinyxml2::XMLElement* e = xmlLayer->FirstChildElement(); e != nullptr; e = e->NextSiblingElement()) {
+
+        // check if has properties
+        if (e->Value() == std::string("properties"))
+        {
+            if (e->ChildElementCount() > 0)
+            {
+                tinyxml2::XMLElement* property = e->FirstChildElement();
+
+                if (property->Name() == "collider")
+                {
+                    layer.Collider = property->BoolAttribute("value", false);
+                }
+            }
+        }
+
         if (strcmp(e->Value(), "data") == 0) {
             data = e;
             break;

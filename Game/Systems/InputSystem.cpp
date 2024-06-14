@@ -37,23 +37,6 @@ void InputSystem::PreUpdate(float dt)
 
         const Uint8* keyboard_state_array = SDL_GetKeyboardState(NULL);
 
-        if (keyboard_state_array[SDL_SCANCODE_UP] || keyboard_state_array[SDL_SCANCODE_W])
-        {
-            inputBuffer.AddInput(SDL_SCANCODE_UP);
-        }
-
-        if (keyboard_state_array[SDL_SCANCODE_RIGHT] || keyboard_state_array[SDL_SCANCODE_D])
-        {
-            inputBuffer.AddInput(SDL_SCANCODE_RIGHT);
-        }
-
-        if (keyboard_state_array[SDL_SCANCODE_LEFT] || keyboard_state_array[SDL_SCANCODE_A])
-        {
-            inputBuffer.AddInput(SDL_SCANCODE_LEFT);
-        }
-
-
-
         // TODO: Fix input system movement
         while (SDL_PollEvent(&event))
         {
@@ -66,12 +49,27 @@ void InputSystem::PreUpdate(float dt)
                 return;
             }
 
+            if (keyboard_state_array[SDL_SCANCODE_UP] || keyboard_state_array[SDL_SCANCODE_W])
+            {
+                inputBuffer.AddInput(SDL_SCANCODE_UP);
+            }
+
+            if (keyboard_state_array[SDL_SCANCODE_RIGHT] || keyboard_state_array[SDL_SCANCODE_D])
+            {
+                std::cout << "Idemo right" << std::endl;
+                inputBuffer.AddInput(SDL_SCANCODE_RIGHT);
+            }
+
+            if (keyboard_state_array[SDL_SCANCODE_LEFT] || keyboard_state_array[SDL_SCANCODE_A])
+            {
+                inputBuffer.AddInput(SDL_SCANCODE_LEFT);
+            }
+
             if (event.type == SDL_KEYDOWN)
             {
                 switch (event.key.keysym.sym)
                 {
                 case SDLK_F11:
-                    //bool show_demo_window = true;
                     World::Instance().ToggleImGui();
                     break;
                 }

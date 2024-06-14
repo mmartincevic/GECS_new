@@ -39,6 +39,7 @@ class Player : public gecs::Entity {
         void SetCollisionState(CollisionSide collisionSide);
         CollisionSide GetCollisionState() const;
 
+        void RegisterImguiWindow();
 
         Transform*  PlayerTransform();
         RigidBody* PlayerRigidBody();

@@ -5,7 +5,6 @@
 #include "../Components/Transform.h"
 #include "../Components/Mesh.h"
 #include "../Components/Texture.h"
-#include "../TextureManager.h"
 #include "../Utils/SDL_Wrapper.h"
 #include "../Objects/Player.h"
 #include "../ECS/Timer.h"

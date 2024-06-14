@@ -9,7 +9,6 @@
 #include "../Components/BodyComponent.h"
 #include "../Components/RigidBody.h"
 #include "../Components/DynamicBody.h"
-#include "../TextureManager.h"
 #include "../Objects/Player.h"
 #include "../Objects/Wall.h"
 
@@ -18,11 +17,21 @@
 
 #include "../Map/Tiller.h"
 
+#include "../Resources/SDLRender.h"
+#include "../Resources/SDLImgui.h"
+
+void RenderSystem::PreUpdate(float dt) 
+{
+    gecs::ECS_Engine.resources().Manager<SDLRender>()->Cleanup();
+};
+
 void RenderSystem::Update(float dt)
 {
-    SDL_SetRenderDrawColor(SDL_Wrapper::getInstance().getRenderer(), 0, 0, 0, 255);
-    SDL_RenderClear(SDL_Wrapper::getInstance().getRenderer());
+    gecs::ECS_Engine.resources().Manager<SDLImgui>()->Update();
+}
 
+void RenderSystem::Draw(float dt)
+{
     // Draw first scene background
     for (auto imgLayer : World::Instance().BgLayers())
     {
@@ -43,18 +52,10 @@ void RenderSystem::Update(float dt)
         wall->DrawBoundingBox();
     }
 
-    SDL_Rect camera = World::Instance().Camera()->GetViewBox();
 
     //MapParser::Instance().Maps("level2")->Render();
     tiller::Tiller::Instance().Render();
-
-    SDL_RenderCopy(SDL_Wrapper::getInstance().getRenderer(), nullptr, nullptr, &camera);
-
-    SDL_RenderPresent(SDL_Wrapper::getInstance().getRenderer());
+    gecs::ECS_Engine.resources().Manager<SDLRender>()->UpdateCameraPosition();
+    gecs::ECS_Engine.resources().Manager<SDLImgui>()->Render();
+    gecs::ECS_Engine.resources().Manager<SDLRender>()->Render();
 };
-
-void RenderSystem::PreUpdate(float dt) {};
-void RenderSystem::PostUpdate(float dt) {};
-void RenderSystem::Clear() {};
-RenderSystem::RenderSystem() {};
-RenderSystem::~RenderSystem() {};

@@ -150,8 +150,13 @@
     <ClCompile Include="Game\Map\TileMap.cpp" />
     <ClCompile Include="Game\Map\Tileset.cpp" />
     <ClCompile Include="Game\Map\Tiller.cpp" />
+    <ClCompile Include="Game\Map\TillerImgui.cpp" />
     <ClCompile Include="Game\Objects\Player.cpp" />
     <ClCompile Include="Game\Objects\Wall.cpp" />
+    <ClCompile Include="Game\Resources\SDLCamera.cpp" />
+    <ClCompile Include="Game\Resources\SDLImgui.cpp" />
+    <ClCompile Include="Game\Resources\SDLRender.cpp" />
+    <ClCompile Include="Game\Resources\SDLTexture.cpp" />
     <ClCompile Include="Game\States\Player\PlayerFallingState.cpp" />
     <ClCompile Include="Game\States\Player\PlayerIdleState.cpp" />
     <ClCompile Include="Game\States\Player\PlayerJumpingState.cpp" />
@@ -159,11 +164,9 @@
     <ClCompile Include="Game\States\Player\PlayerWalkingRightState.cpp" />
     <ClCompile Include="Game\Systems\CameraSystem.cpp" />
     <ClCompile Include="Game\Systems\CollisionSystem.cpp" />
-    <ClCompile Include="Game\Systems\ImGuiSystem.cpp" />
     <ClCompile Include="Game\Systems\InputSystem.cpp" />
     <ClCompile Include="Game\States\MainState.cpp" />
     <ClCompile Include="Game\Systems\PhysicsSystem.cpp" />
-    <ClCompile Include="Game\TextureManager.cpp" />
     <ClCompile Include="ECS\XMLSettingsParser.cpp" />
     <ClCompile Include="ECS\XMLSettingsParser.h" />
     <ClCompile Include="Game\Components\Drawable.cpp" />
@@ -179,7 +182,6 @@
     <ClCompile Include="Game\Utils\Timer.cpp" />
     <ClCompile Include="Game\Utils\Vector2D.cpp" />
     <ClCompile Include="Game\World\World.cpp" />
-    <ClCompile Include="Game\World\WorldCamera.cpp" />
     <ClCompile Include="include\imgui\backends\imgui_impl_sdl2.cpp" />
     <ClCompile Include="include\imgui\backends\imgui_impl_sdlrenderer2.cpp" />
     <ClCompile Include="include\imgui\imgui.cpp" />
@@ -192,6 +194,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\API.h" />
+    <ClInclude Include="ECS\IResourceParams.h" />
+    <ClInclude Include="ECS\ResourceManager.h" />
+    <ClInclude Include="ECS\IResource.h" />
+    <ClInclude Include="ECS\Resource.h" />
+    <ClInclude Include="ECS\Renderer.h" />
     <ClInclude Include="ECS\Component.h" />
     <ClInclude Include="ECS\ComponentManager.h" />
     <ClInclude Include="ECS\ComponentMap.h" />
@@ -202,7 +209,9 @@
     <ClInclude Include="ECS\Event.h" />
     <ClInclude Include="ECS\EventDispatcher.h" />
     <ClInclude Include="ECS\FSM\FState.h" />
+    <ClInclude Include="ECS\GException.h" />
     <ClInclude Include="ECS\helpers.h" />
+    <ClInclude Include="ECS\IRenderer.h" />
     <ClInclude Include="ECS\IComponent.h" />
     <ClInclude Include="ECS\IdFactory.h" />
     <ClInclude Include="ECS\ISystem.h" />
@@ -213,6 +222,7 @@
     <ClInclude Include="Game\Components\BoundingBox.h" />
     <ClInclude Include="Game\Components\DynamicBody.h" />
     <ClInclude Include="Game\Components\GroundBody.h" />
+    <ClInclude Include="Game\Components\ObjectColor.h" />
     <ClInclude Include="Game\Events\CollisionEvent.h" />
     <ClInclude Include="Game\Handlers\ImageLayer.h" />
     <ClInclude Include="Game\Input\InputBuffer.h" />
@@ -224,7 +234,13 @@
     <ClInclude Include="Game\Map\Tileset.h" />
     <ClInclude Include="Game\Map\Tiller.h" />
     <ClInclude Include="Game\Map\TillerError.h" />
+    <ClInclude Include="Game\Map\TillerImgui.h" />
     <ClInclude Include="Game\Objects\GameObject.h" />
+    <ClInclude Include="Game\Objects\PlayerImgui.h" />
+    <ClInclude Include="Game\Resources\SDLCamera.h" />
+    <ClInclude Include="Game\Resources\SDLImgui.h" />
+    <ClInclude Include="Game\Resources\SDLRender.h" />
+    <ClInclude Include="Game\Resources\SDLTexture.h" />
     <ClInclude Include="Game\States\Player\PlayerFallingState.h" />
     <ClInclude Include="Game\States\Player\PlayerIdleState.h" />
     <ClInclude Include="Game\States\Player\PlayerJumpingState.h" />
@@ -235,7 +251,6 @@
     <ClInclude Include="Game\Systems\CameraSystem.h" />
     <ClInclude Include="Game\Systems\CollisionSide.h" />
     <ClInclude Include="Game\Systems\CollisionSystem.h" />
-    <ClInclude Include="Game\Systems\ImGuiSystem.h" />
     <ClInclude Include="Game\Systems\InputSystem.h" />
     <ClInclude Include="Game\Components\RigidBody.h" />
     <ClInclude Include="Game\Components\TextureResource.h" />
@@ -243,7 +258,6 @@
     <ClInclude Include="Game\Objects\Wall.h" />
     <ClInclude Include="Game\States\MainState.h" />
     <ClInclude Include="Game\Systems\PhysicsSystem.h" />
-    <ClInclude Include="Game\TextureManager.h" />
     <ClInclude Include="Game\Components\Mesh.h" />
     <ClInclude Include="ECS\System.h" />
     <ClInclude Include="ECS\SystemManager.h" />
@@ -264,7 +278,6 @@
     <ClInclude Include="Game\Utils\SDL_Wrapper.h" />
     <ClInclude Include="Game\Utils\Timer.h" />
     <ClInclude Include="Game\Utils\Vector2D.h" />
-    <ClInclude Include="Game\World\WorldCamera.h" />
     <ClInclude Include="Game\World\World.h" />
     <ClInclude Include="include\tinyxml2\tinyxml2.h" />
   </ItemGroup>

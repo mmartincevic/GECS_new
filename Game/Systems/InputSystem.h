@@ -20,6 +20,7 @@ class InputSystem : public gecs::System<InputSystem>
         virtual void PreUpdate(float dt) override;
         virtual void Update(float dt) override;
         virtual void PostUpdate(float dt) override {};
+        virtual void Draw(float dt) override {};
         virtual void Clear() override;
 
     protected:

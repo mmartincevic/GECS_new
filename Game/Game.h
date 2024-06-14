@@ -19,28 +19,26 @@
 
 class Game : public gecs::FSM
 {
-	public:
-		Game(const char* name = "Game Name");
+    public:
+        Game(const char* name = "Game Name");
 
-		void	Initialize(int width, int height, bool fullscreen = false);
-		void	InitializeSDL();
-		void	InitializeECS();
-		void	InitializePhysics();
-		void	Run();
+        void	Initialize(int width, int height, bool fullscreen = false);
+        void	InitializeECS();
+        void	Run();
 
-	private:
-		void	Terminate(const gecs::Event& event);
+    private:
+        void	Terminate(const gecs::Event& event);
 
-	private:
-		int			m_WindowPosX;
-		int			m_WindowPosY;
-		int			m_WindowWidth;
-		int			m_WindowHeight;
-		bool		m_Fullscreen;
-		const char* m_GameTitle;
-		float		m_DeltaTime;
-		FPS			m_FPS;
-		bool		m_RUN = false;
+    private:
+        int			m_WindowPosX;
+        int			m_WindowPosY;
+        int			m_WindowWidth;
+        int			m_WindowHeight;
+        bool		m_Fullscreen;
+        const char* m_GameTitle;
+        float		m_DeltaTime;
+        FPS			m_FPS;
+        bool		m_RUN = false;
 
 };
 #endif // __APPLICATION_H__

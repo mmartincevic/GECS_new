@@ -1,16 +1,6 @@
 #include "World.h"
 
 
-WorldCamera* World::Camera()
-{
-	if (m_Camera == nullptr)
-	{
-		m_Camera = new WorldCamera();
-	}
-
-	return m_Camera;
-}
-
 //void World::GECS_ImGui(bool* p_open)
 //{
 //	IMGUI_CHECKVERSION();

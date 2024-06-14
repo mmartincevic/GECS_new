@@ -4,7 +4,6 @@
 #pragma once
 
 #include "../Utils/SDL_Wrapper.h"
-#include "WorldCamera.h"
 #include <vector>
 
 #include "../Handlers/ImageLayer.h"
@@ -27,7 +26,6 @@ class World {
         World(const World&) = delete;
         void operator=(const World&) = delete;
 
-        WorldCamera* Camera();
 
         inline std::vector<ImageLayer*> BgLayers() { return m_BgLayers; }
         void AddLayer(ImageLayer* layer) { m_BgLayers.push_back(layer); }
@@ -36,7 +34,6 @@ class World {
         inline bool ImGuiVisible() const { return m_ShowImGui; }
 
     private:
-        WorldCamera* m_Camera  = nullptr;
         std::vector<ImageLayer*> m_BgLayers;
         bool m_ShowImGui = false;
         

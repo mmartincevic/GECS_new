@@ -132,9 +132,6 @@
     <ClCompile Include="ECS\IType.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="Game\TextureManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Utils\CBox2DDebugRender.cpp">
       <Filter>Source Files\Game\Utils</Filter>
     </ClCompile>
@@ -177,9 +174,6 @@
     <ClCompile Include="Game\World\World.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\World\WorldCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Systems\CameraSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -216,7 +210,19 @@
     <ClCompile Include="include\imgui\backends\imgui_impl_sdlrenderer2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Systems\ImGuiSystem.cpp">
+    <ClCompile Include="Game\Resources\SDLRender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Resources\SDLTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Resources\SDLCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Resources\SDLImgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Map\TillerImgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -323,9 +329,6 @@
     <ClInclude Include="Game\Components\Texture.h">
       <Filter>Header Files\Game\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Game\TextureManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Components\TextureResource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -413,9 +416,6 @@
     <ClInclude Include="Game\Utils\Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\World\WorldCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Systems\CameraSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -446,7 +446,46 @@
     <ClInclude Include="Game\Map\Tiller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Systems\ImGuiSystem.h">
+    <ClInclude Include="ECS\IRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\GException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Resources\SDLRender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\ResourceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\IResource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Resources\SDLTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\IResourceParams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Resources\SDLCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\ObjectColor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Resources\SDLImgui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\PlayerImgui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Map\TillerImgui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,13 +1,14 @@
 #pragma once
 
 class ISystem {
-	public:
-		virtual ~ISystem();
-		virtual void PreUpdate(float dt) = 0;
-		virtual void Update(float dt) = 0;
-		virtual void PostUpdate(float dt) = 0;
-		virtual void Clear() = 0;
+    public:
+        virtual ~ISystem();
+        virtual void PreUpdate(float dt) = 0;
+        virtual void Update(float dt) = 0;
+        virtual void PostUpdate(float dt) = 0;
+        virtual void Draw(float dt) = 0;
+        virtual void Clear() = 0;
 
-	protected:
-		ISystem();
+    protected:
+        ISystem();
 };

@@ -3,9 +3,16 @@
 #include "../Game/Input/InputBuffer.h"
 #include "../Utils/SDL_Wrapper.h"
 #include "../States/Player/PlayerIdleState.h"
-#include "../TextureManager.h"
 #include "../Events/CollisionEvent.h"
 #include "../World/World.h"
+
+#include "../Resources/SDLRender.h"
+#include "../Resources/SDLTexture.h"
+#include "../Resources/SDLCamera.h"
+#include "../Resources/SDLImgui.h"
+#include "../Components/ObjectColor.h"
+
+#include "PlayerImgui.h"
 
 Player::Player(gecs::EntityId _id)
     : currentState(nullptr), 
@@ -71,21 +78,18 @@ bool Player::IsKeyPressed(SDL_Keycode key) {
     return state[scancode];
 }
 
+// TODO : Fix frame drawing
 void Player::Draw(float dt)
 {
     auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(this->GetID());
     auto textureComponent = gecs::ECS_Engine.components().GetComponentForEntity<Texture>(this->GetID());
     int frame = ((int)dt / 10) % 7;
 
-    /*TextureManager::Instance().DrawFrame(
-        SDL_Wrapper::getInstance().getRenderer(), textureComponent->getTextureId(),
-        transformComponent->GetPosition()->x, transformComponent->GetPosition()->y,
-        transformComponent->GetWidth(), transformComponent->GetHeight(), 0, frame);*/
-    TextureManager::Instance().Draw(
-        SDL_Wrapper::getInstance().getRenderer(), textureComponent->getTextureId(),
-        transformComponent->Position().x, transformComponent->Position().y,
-        transformComponent->Width(), transformComponent->Height(), 0);
+    std::shared_ptr<SDLTexture> texture = gecs::ECS_Engine.resources().Manager<SDLTexture>();
 
+    texture->Draw(textureComponent->getTextureId(),
+        transformComponent->Position().x, transformComponent->Position().y,
+        transformComponent->Width(), transformComponent->Height());
 }
 
 BoundingBox Player::GetCollisionBox(float dt) 
@@ -104,21 +108,18 @@ BoundingBox Player::GetBoundingBox()
 
 void Player::DrawBoundingBox(bool draw_collision_box, float dt) 
 {
-    // Set the draw color (RGBA)
-    SDL_SetRenderDrawColor(SDL_Wrapper::getInstance().getRenderer(), 255, 0, 0, 255);  // Red color
-    //auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(this->GetID());
-
-    Vector2D cameraPos = World::Instance().Camera()->Position();
     BoundingBox bbox = (draw_collision_box) ? GetCollisionBox(dt) : GetBoundingBox();
-    //// Create a rectangle to represent the bounding box
-    SDL_Rect boundingBox;
-    boundingBox.x = bbox.x - cameraPos.x;
-    boundingBox.y = bbox.y - cameraPos.y;
-    boundingBox.w = bbox.width;
-    boundingBox.h = bbox.height;
 
-    // Draw the rectangle outline
-    SDL_RenderDrawRect(SDL_Wrapper::getInstance().getRenderer(), &boundingBox);
+    Vector2D cameraPos = gecs::ECS_Engine.resources().Manager<SDLCamera>()->Position();
+    //bbox.x += cameraPos.x;
+    bbox.y += cameraPos.y;
+
+    ObjectColor boxColor;
+    boxColor.r = 255;
+    boxColor.g = 0;
+    boxColor.b = 0;
+    boxColor.a = 255;
+    gecs::ECS_Engine.resources().Manager<SDLRender>()->DrawRect(bbox, boxColor);
 }
 
 
@@ -150,21 +151,7 @@ RigidBody* Player::PlayerRigidBody()
 }
 
 
-void Player::HandleCollision(const CollisionEvent& event) {
-    // Example collision handling logic
-    //auto& transform = GetComponent<TransformComponent>();
-    //auto& velocity = GetComponent<VelocityComponent>();
-    //auto& state = GetComponent<StateComponent>();
-
-    //if (event.otherEntity.HasComponent<GroundComponent>()) {
-    //    if (state.state == PlayerState::Falling || state.state == PlayerState::Jumping) {
-    //        // Collision with the ground, stop vertical movement
-    //        velocity.vy = 0;
-    //        state.state = PlayerState::Idle;
-    //        transform.y = event.otherEntity.GetComponent<TransformComponent>().y - transform.height;
-    //    }
-    //}
-}
+void Player::HandleCollision(const CollisionEvent& event) {}
 
 void Player::RegisterEvents() {
     /*gecs::ECS_Engine.events().subscribe("COLLISION", [this](const EventData& data) {
@@ -173,4 +160,10 @@ void Player::RegisterEvents() {
             HandleCollision(event);
         }
         });*/
+}
+
+
+void Player::RegisterImguiWindow()
+{
+    gecs::ECS_Engine.resources().Manager<SDLImgui>()->AddImguiWindow(std::make_shared<PlayerImgui>(this));
 }

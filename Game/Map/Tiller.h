@@ -55,7 +55,11 @@ namespace tiller {
             inline std::map<int, Tileset>& TileSet() { return m_Map->TileSet(); }
 
             inline TileMap* Map() { return m_Map; }
-            inline std::vector<Tile> Colliders() { return m_Map->ColliderTiles(); }
+            std::vector<Tile> Colliders() { return m_Map->ColliderTiles(); }
+
+            void RegisterImguiWindow();
+
+            inline std::map<int, std::map<int, std::vector<Tile>>> ParsedData() { return m_Map->ParsedData(); }
 
         private:
             TileError Parse(std::string mapId, std::string);

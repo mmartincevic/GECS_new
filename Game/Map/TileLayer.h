@@ -7,15 +7,16 @@
 
 namespace tiller {
 
-	struct TileLayer
-	{
-		int ID;
-		std::string Name;
-		int Width;
-		int Height;
-		int OffsetX;
-		int OffsetY;
-	};
+    struct TileLayer
+    {
+        int		ID;
+        std::string Name;
+        int		Width;
+        int		Height;
+        int		OffsetX;
+        int		OffsetY;
+        bool	Collider;
+    };
 
 };
 

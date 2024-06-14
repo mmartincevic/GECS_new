@@ -20,12 +20,9 @@
 
 int main(int argc, const char* args[])
 {
-	//std::string gameTitle = parser.getSetting("game.name");
 	Game* g_GameInstance = new Game(GAME_TITLE);
 
 	g_GameInstance->Initialize(GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT, GAME_WINDOW_FULLSCREEN);
-	g_GameInstance->InitializeSDL();
-	g_GameInstance->InitializePhysics();
 	g_GameInstance->InitializeECS();
 
 	//// enter game main-loop

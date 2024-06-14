@@ -37,6 +37,8 @@ namespace gecs {
 
 
             void Update(float dt_ms);
+            void Draw(float dt_ms);
+
             inline void Clear() { 
                 //systems.clear();
                 for (auto system : systems)
