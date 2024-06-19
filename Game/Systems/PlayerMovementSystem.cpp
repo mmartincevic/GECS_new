@@ -39,7 +39,7 @@ void PlayerMovementSystem::Update(float dt)
                 }
                 else
                 {
-                    position.y = player->PlayerJumping()->Position().y;
+                   //position.y = player->PlayerJumping()->Position().y;
                 }
             }
 

@@ -139,6 +139,7 @@
     <ClCompile Include="ECS\API.cpp" />
     <ClCompile Include="ECS\ComponentManager.cpp" />
     <ClCompile Include="ECS\Engine.cpp" />
+    <ClCompile Include="ECS\EventDispatcher.cpp" />
     <ClCompile Include="ECS\FSM\FSM.cpp" />
     <ClCompile Include="ECS\FSM\FState.cpp" />
     <ClCompile Include="ECS\IComponent.cpp" />
@@ -175,6 +176,7 @@
     <ClCompile Include="Game\FPS.cpp" />
     <ClCompile Include="Game\States\StateInitializer.cpp" />
     <ClCompile Include="ECS\ISystem.cpp" />
+    <ClCompile Include="Game\Systems\PlayerMovementSystem.cpp" />
     <ClCompile Include="Game\Systems\RenderSystem.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Game\Utils\CBox2DDebugRender.cpp" />
@@ -218,13 +220,16 @@
     <ClInclude Include="ECS\IType.h" />
     <ClInclude Include="ECS\Logger.h" />
     <ClInclude Include="ECS\Timer.h" />
-    <ClInclude Include="Game\Components\BodyComponent.h" />
+    <ClInclude Include="Game\Components\Collider.h" />
     <ClInclude Include="Game\Components\BoundingBox.h" />
     <ClInclude Include="Game\Components\DynamicBody.h" />
     <ClInclude Include="Game\Components\GroundBody.h" />
+    <ClInclude Include="Game\Components\Jumping.h" />
     <ClInclude Include="Game\Components\ObjectColor.h" />
     <ClInclude Include="Game\Events\CollisionEvent.h" />
+    <ClInclude Include="Game\Events\GameEvent.h" />
     <ClInclude Include="Game\Handlers\ImageLayer.h" />
+    <ClInclude Include="Game\ImGui\GameImGui.h" />
     <ClInclude Include="Game\Input\InputBuffer.h" />
     <ClInclude Include="Game\Map\Tile.h" />
     <ClInclude Include="Game\Map\TileException.h" />
@@ -236,7 +241,7 @@
     <ClInclude Include="Game\Map\TillerError.h" />
     <ClInclude Include="Game\Map\TillerImgui.h" />
     <ClInclude Include="Game\Objects\GameObject.h" />
-    <ClInclude Include="Game\Objects\PlayerImgui.h" />
+    <ClInclude Include="Game\ImGui\PlayerImgui.h" />
     <ClInclude Include="Game\Resources\SDLCamera.h" />
     <ClInclude Include="Game\Resources\SDLImgui.h" />
     <ClInclude Include="Game\Resources\SDLRender.h" />
@@ -270,12 +275,12 @@
     <ClInclude Include="Game\FPS.h" />
     <ClInclude Include="Game\GameConfiguration.h" />
     <ClInclude Include="Game\States\StateInitializer.h" />
+    <ClInclude Include="Game\Systems\PlayerMovementSystem.h" />
     <ClInclude Include="Game\Systems\RenderSystem.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Game\Utils\CBox2DDebugRender.h" />
     <ClInclude Include="Game\Utils\GameHelper.h" />
     <ClInclude Include="Game\Utils\Rectangle.h" />
-    <ClInclude Include="Game\Utils\SDL_Wrapper.h" />
     <ClInclude Include="Game\Utils\Timer.h" />
     <ClInclude Include="Game\Utils\Vector2D.h" />
     <ClInclude Include="Game\World\World.h" />

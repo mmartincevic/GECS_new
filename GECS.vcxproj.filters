@@ -225,6 +225,12 @@
     <ClCompile Include="Game\Map\TillerImgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Systems\PlayerMovementSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ECS\EventDispatcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\API.h">
@@ -347,7 +353,7 @@
     <ClInclude Include="Game\Utils\CBox2DDebugRender.h">
       <Filter>Header Files\Game\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Components\BodyComponent.h">
+    <ClInclude Include="Game\Components\Collider.h">
       <Filter>Header Files\Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="Game\Components\DynamicBody.h">
@@ -364,9 +370,6 @@
     </ClInclude>
     <ClInclude Include="Game\Components\RigidBody.h">
       <Filter>Header Files\Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Utils\SDL_Wrapper.h">
-      <Filter>Header Files\Game\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Game\Input\InputBuffer.h">
       <Filter>Header Files\Game\Input</Filter>
@@ -482,10 +485,22 @@
     <ClInclude Include="Game\Resources\SDLImgui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\PlayerImgui.h">
+    <ClInclude Include="Game\ImGui\PlayerImgui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Map\TillerImgui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Events\GameEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Systems\PlayerMovementSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\Jumping.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ImGui\GameImGui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

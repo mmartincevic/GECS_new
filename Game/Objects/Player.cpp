@@ -65,13 +65,10 @@ void Player::HandleInput(const InputBuffer inputBuffer) {
 }
 
 void Player::ToggleState() {
-    PlayerRigidBody()->UnsetForce();
     currentState->Toggle(this);
 }
 
 void Player::Update(float deltaTime) {
-    PlayerRigidBody()->UnsetForce();
-
     if (currentState) {
         currentState->Update(this, deltaTime);
     }

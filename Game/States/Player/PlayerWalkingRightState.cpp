@@ -38,19 +38,15 @@ void PlayerWalkingRightState::HandleInput(Player* player, const InputBuffer inpu
 
 void PlayerWalkingRightState::Toggle(Player* player)
 {
-    player->PlayerRigidBody()->UnsetForceX();
     player->ChangeState(std::make_shared<PlayerIdleState>());
 }
 
 void PlayerWalkingRightState::Update(Player* player, float deltaTime) 
 {
+    player->PlayerRigidBody()->UnsetForceX();
     if (!player->PlayerCollider()->HasCollisions() || !player->PlayerCollider()->isCollisionSidePresent(CollisionSide::RIGHT))
     {
         player->PlayerRigidBody()->ApplyForceX(PLAYER_SPEED);
-    }
-    else
-    {
-        player->PlayerRigidBody()->UnsetForceX();
     }
 }
 
