@@ -1,7 +1,6 @@
 #include "Player.h"
 
 #include "../Game/Input/InputBuffer.h"
-#include "../Utils/SDL_Wrapper.h"
 #include "../States/Player/PlayerIdleState.h"
 #include "../Events/CollisionEvent.h"
 #include "../World/World.h"
@@ -12,7 +11,20 @@
 #include "../Resources/SDLImgui.h"
 #include "../Components/ObjectColor.h"
 
-#include "PlayerImgui.h"
+#include "../ImGui/PlayerImgui.h"
+
+
+std::map<PlayerStates, std::string> PlayerStatesTranslate
+{
+    { PlayerStates::NONE, "Unknown" },
+    { PlayerStates::IDLE, "IDLE" },
+    { PlayerStates::JUMPING, "JUMPING" },
+    { PlayerStates::FALLING, "FALLING" },
+    { PlayerStates::RIGHT, "RIGHT" },
+    { PlayerStates::LEFT, "LEFT" },
+    { PlayerStates::CROUCH, "CROUCH" },
+};
+
 
 Player::Player(gecs::EntityId _id)
     : currentState(nullptr), 
@@ -23,16 +35,6 @@ Player::Player(gecs::EntityId _id)
 {}
 
 
-void Player::SetCollisionState(CollisionSide collisionSide) 
-{ 
-    m_Collisioning = collisionSide; 
-}
-
-CollisionSide Player::GetCollisionState() const
-{ 
-    return m_Collisioning; 
-}
-
 PlayerStates Player::GetState()
 {
     if (currentState != nullptr)
@@ -41,6 +43,12 @@ PlayerStates Player::GetState()
     }
 
     return PlayerStates::NONE;
+}
+
+std::string Player::GetStateTranslate()
+{
+
+    return PlayerStatesTranslate[this->GetState()];
 }
 
 void Player::ChangeState(std::shared_ptr<PlayerState> newState) {
@@ -57,10 +65,13 @@ void Player::HandleInput(const InputBuffer inputBuffer) {
 }
 
 void Player::ToggleState() {
+    PlayerRigidBody()->UnsetForce();
     currentState->Toggle(this);
 }
 
 void Player::Update(float deltaTime) {
+    PlayerRigidBody()->UnsetForce();
+
     if (currentState) {
         currentState->Update(this, deltaTime);
     }
@@ -72,11 +83,11 @@ void Player::Render() {
     }
 }
 
-bool Player::IsKeyPressed(SDL_Keycode key) {
-    const Uint8* state = SDL_GetKeyboardState(NULL);
-    SDL_Scancode scancode = SDL_GetScancodeFromKey(key);
-    return state[scancode];
-}
+//bool Player::IsKeyPressed(SDL_Keycode key) {
+//    const Uint8* state = SDL_GetKeyboardState(NULL);
+//    SDL_Scancode scancode = SDL_GetScancodeFromKey(key);
+//    return state[scancode];
+//}
 
 // TODO : Fix frame drawing
 void Player::Draw(float dt)
@@ -132,6 +143,16 @@ Texture* Player::PlayerTexture()
     return m_PlayerTextureComponent;
 }
 
+
+Jumping* Player::PlayerJumping()
+{
+    if (m_PlayerJumpingComponent == nullptr)
+    {
+        m_PlayerJumpingComponent = gecs::ECS_Engine.components().GetComponentForEntity<Jumping>(GetID()).get();
+    }
+    return m_PlayerJumpingComponent;
+}
+
 Transform* Player::PlayerTransform()
 {
     if (m_PlayerTransformComponent == nullptr)
@@ -150,6 +171,15 @@ RigidBody* Player::PlayerRigidBody()
     return m_PlayerRigidBodyComponent;
 }
 
+Collider* Player::PlayerCollider()
+{
+    if (m_PlayerRigidColliderComponent == nullptr)
+    {
+        m_PlayerRigidColliderComponent = gecs::ECS_Engine.components().GetComponentForEntity<Collider>(GetID()).get();
+    }
+    return m_PlayerRigidColliderComponent;
+}
+
 
 void Player::HandleCollision(const CollisionEvent& event) {}
 
@@ -161,7 +191,6 @@ void Player::RegisterEvents() {
         }
         });*/
 }
-
 
 void Player::RegisterImguiWindow()
 {

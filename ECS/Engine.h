@@ -78,6 +78,8 @@ namespace gecs {
             void Terminate();
             void Clear();
             inline bool IsRunning() { return ENGINE_RUN; }
+            inline void Stop() { ENGINE_RUN = false; }
+            inline void Start() { ENGINE_RUN = true; }
 
         private:
             std::unique_ptr<ComponentManager>	components_;

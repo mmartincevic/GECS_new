@@ -1,12 +1,9 @@
 
 #include <iostream>
 #include "RenderSystem.h"
-
-#include "../Utils/SDL_Wrapper.h"
 #include "../Components/Transform.h"
 #include "../Components/Drawable.h"
 #include "../Components/Texture.h"
-#include "../Components/BodyComponent.h"
 #include "../Components/RigidBody.h"
 #include "../Components/DynamicBody.h"
 #include "../Objects/Player.h"

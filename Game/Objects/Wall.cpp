@@ -1,5 +1,4 @@
 #include "Wall.h"
-#include "../Utils/SDL_Wrapper.h"
 #include "../Components/Transform.h"
 #include "../Components/Texture.h"
 #include "../World/World.h"

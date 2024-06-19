@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "../Utils/SDL_Wrapper.h"
 #include <vector>
 
 #include "../Handlers/ImageLayer.h"

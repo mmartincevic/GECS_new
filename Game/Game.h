@@ -13,11 +13,14 @@
 #include "GameConfiguration.h"
 #include "FPS.h"
 
+#include "Events/GameEvent.h"
+#include "../ECS/EventDispatcher.h"
+
 // to prevent:
 // Error	LNK2019	unresolved external symbol SDL_main referenced in function main_utf8
 #undef main 
 
-class Game : public gecs::FSM
+class Game : public gecs::FSM, public gecs::Receiver
 {
     public:
         Game(const char* name = "Game Name");
@@ -26,8 +29,14 @@ class Game : public gecs::FSM
         void	InitializeECS();
         void	Run();
 
+        inline uint32_t FrameCounter() const { return m_FrameCount; }
+        inline bool IsPaused() const { return m_GamePaused; }
+        inline void TogglePause() { m_GamePaused = !m_GamePaused; }
+        inline bool IsStepFrame() const { return m_StepFrame; }
+        inline void NextFrame() { m_StepFrame = true; }
+
     private:
-        void	Terminate(const gecs::Event& event);
+        void	Terminate(GameEvent& event);
 
     private:
         int			m_WindowPosX;
@@ -37,8 +46,12 @@ class Game : public gecs::FSM
         bool		m_Fullscreen;
         const char* m_GameTitle;
         float		m_DeltaTime;
+
+        uint32_t    m_FrameCount;
+        bool        m_GamePaused = false;
+        bool        m_StepFrame = false;
+
         FPS			m_FPS;
-        bool		m_RUN = false;
 
 };
 #endif // __APPLICATION_H__

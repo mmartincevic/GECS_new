@@ -12,17 +12,12 @@
 
 #include "../Game/GameConfiguration.h"
 #include "../World/World.h"
-
+#include "../Events/GameEvent.h"
 
 void InputSystem::Update(float dt)
 {
     inputBuffer.RemoveOldInputs(std::chrono::milliseconds(60));
     inputBuffer.RemoveOldComboInputs(std::chrono::milliseconds(300));
-    auto players = gecs::ECS_Engine.entities().GetEntity<Player>();
-    for (auto player : players)
-    {
-        player->Update(dt);
-    }
 };
 
 void InputSystem::PreUpdate(float dt)
@@ -40,12 +35,12 @@ void InputSystem::PreUpdate(float dt)
         // TODO: Fix input system movement
         while (SDL_PollEvent(&event))
         {
-
             // Add processing of ImGui keyboard and mouse
             ImGui_ImplSDL2_ProcessEvent(&event);
 
             if (event.type == SDL_QUIT or event.window.event == SDL_WINDOWEVENT_CLOSE) {
-                gecs::ECS_Engine.events().triggerEvent("GAME_QUIT", {});
+                GameEvent gameEvent;
+                gecs::ECS_Engine.events().notify("GAME_QUIT", gameEvent);
                 return;
             }
 
@@ -56,7 +51,6 @@ void InputSystem::PreUpdate(float dt)
 
             if (keyboard_state_array[SDL_SCANCODE_RIGHT] || keyboard_state_array[SDL_SCANCODE_D])
             {
-                std::cout << "Idemo right" << std::endl;
                 inputBuffer.AddInput(SDL_SCANCODE_RIGHT);
             }
 

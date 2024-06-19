@@ -3,7 +3,6 @@
 #include "../Components/Transform.h"
 #include "../Components/Drawable.h"
 #include "../Components/Texture.h"
-#include "../Components/BodyComponent.h"
 #include "../Components/RigidBody.h"
 #include "../Components/DynamicBody.h"
 #include "../Objects/Player.h"
@@ -72,21 +71,20 @@ CollisionSide CollisionSystem::CheckCollision(const BoundingBox& a, const Boundi
 
 void CollisionSystem::Update(float dt) 
 {
-    // TODO: Fix collisions with Tiled elements
-
-    FOUND_COLLISION = false;
     auto wall_entities = gecs::ECS_Engine.entities().GetEntity<Wall>();
     auto player_entities = gecs::ECS_Engine.entities().GetEntity<Player>();
     std::vector<tiller::Tile> tilecoliders = tiller::Tiller::Instance().Colliders();
 
-    for (auto player : player_entities)
+    std::vector<CollisionSide> collisionMemory;
+
+    for (auto& player : player_entities)
     {   
         auto player_entity = player_entities.front();
         auto playerTransformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(player->GetID());
 
         BoundingBox playerBBox = player_entity->GetCollisionBox(10.0f);
 
-        for (auto wall : wall_entities)
+        for (auto& wall : wall_entities)
         {
             auto entityTransformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(wall->GetID());
 
@@ -94,26 +92,26 @@ void CollisionSystem::Update(float dt)
             CollisionSide collisionSide = CheckCollision(wallBBox, playerBBox);
 
             if (collisionSide != CollisionSide::NONE) {
-                FOUND_COLLISION = true;
-                player_entity->SetCollisionState(collisionSide); // set new collision side
+
+                // TODO: Debugging collision - remove later
+                /*if (collisionSide == CollisionSide::LEFT) std::cout << "Collisioning LEFT" << std::endl;
+                if (collisionSide == CollisionSide::RIGHT) std::cout << "Collisioning RIGHT" << std::endl;
+                if (collisionSide == CollisionSide::TOP) std::cout << "Collisioning TOP" << std::endl;
+                if (collisionSide == CollisionSide::BOTTOM) std::cout << "Collisioning BOTTOM" << std::endl;*/
+                collisionMemory.push_back(collisionSide);
             }
         }
 
-        for (auto tile : tilecoliders)
+        for (auto& tile : tilecoliders)
         {
             BoundingBox tileBBox = TileBoundingBox(tile);
             CollisionSide collisionSide = CheckCollision(tileBBox, playerBBox);
 
             if (collisionSide != CollisionSide::NONE) {
-                FOUND_COLLISION = true;
-                player_entity->SetCollisionState(collisionSide); // set new collision side
+                collisionMemory.push_back(collisionSide);
             }
         }
 
-
-        if (!FOUND_COLLISION)
-        {
-            player->SetCollisionState(CollisionSide::NONE); // reset collision on each update if NONE found
-        }
+        player_entity->PlayerCollider()->UpdateCollisions(collisionMemory);
     }
 };

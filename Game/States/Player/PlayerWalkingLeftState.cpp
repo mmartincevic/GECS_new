@@ -5,8 +5,10 @@
 
 #include "../Game/Objects/Player.h"
 #include "../Game/GameConfiguration.h"
+
 #include "../Game/Components/Transform.h"
 #include "../Game/Components/RigidBody.h"
+#include "../Game/Components/Collider.h"
 
 void PlayerWalkingLeftState::Enter(Player* player) {
     // Set the texture for walking state
@@ -42,11 +44,17 @@ void PlayerWalkingLeftState::Toggle(Player* player)
 
 void PlayerWalkingLeftState::Update(Player* player, float deltaTime) 
 {
-    player->PlayerRigidBody()->ApplyForceX(-PLAYER_SPEED);
-    /*player->PlayerRigidBody()->Update(deltaTime);
-    player->PlayerTransform()->UpdatePositionX(player->PlayerRigidBody()->Position());*/
+    if (!player->PlayerCollider()->HasCollisions() || !player->PlayerCollider()->isCollisionSidePresent(CollisionSide::LEFT))
+    {
+        player->PlayerRigidBody()->ApplyForceX(-PLAYER_SPEED);
+    }
+    else
+    {
+        player->PlayerRigidBody()->UnsetForceX();
+    }
 }
 
-void PlayerWalkingLeftState::Render(Player* player) {
+void PlayerWalkingLeftState::Render(Player* player) 
+{
     // Render walking texture
 }

@@ -4,10 +4,23 @@
 #pragma once
 
 namespace gecs {
-	
-	struct Event {
-		virtual ~Event() = default;
+
+	class IEvent
+	{
+	public:
+		virtual ~IEvent() = default;
 	};
+
+	template<typename T>
+	class Event : public IEvent
+	{};
+
+
+	class EngineEvent : public Event<EngineEvent>
+	{};
+	/*struct Event {
+		virtual ~Event() = default;
+	};*/
 };
 
 #endif

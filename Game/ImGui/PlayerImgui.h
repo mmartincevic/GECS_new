@@ -24,9 +24,16 @@ public:
         Vector2D playerPosition = m_Player->PlayerTransform()->Origin();
         float pos[2] = { playerPosition.x, playerPosition.y };
 
+        ImGui::SeparatorText("PLAYER General:");
+
         ImGui::Text("Player entity ID: %d", m_Player->GetID());
+        std::string state = m_Player->GetStateTranslate();
+        ImGui::Text("Player state: %s", state.c_str());
+
         ImGui::Text("Player entity position X: %f", playerPosition.x);
         ImGui::Text("Player entity position Y: %f", playerPosition.y);
+
+        ImGui::SeparatorText("PLAYER Position:");
 
         ImGuiInputTextFlags flags = ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll;
         if (ImGui::InputFloat2("Position", pos,"%.3f", flags)) {
@@ -34,23 +41,36 @@ public:
             m_Player->PlayerTransform()->SetPositionY(pos[1]);
         }
 
-
         // Add your settings and content for the Camera Settings window here
-        ImGui::Text("This is the Camera Settings window.");
+        //ImGui::Text("This is the Camera Settings window.");
         
-        ImGui::SeparatorText("ABOUT THIS DEMO:");
-        ImGui::BulletText("See the ShowDemoWindow() code in imgui_demo.cpp. <- you are here!");
-        static int i0 = 123;
-        ImGui::InputInt("input int", &i0);
+        //ImGui::SeparatorText("ABOUT THIS DEMO:");
+        //ImGui::BulletText("See the ShowDemoWindow() code in imgui_demo.cpp. <- you are here!");
+        static int playerx = m_Player->PlayerTransform()->Position().x;
+        if (ImGui::InputInt("PlayerPosition X", &playerx))
+        {
+            m_Player->PlayerTransform()->SetPositionX(playerx);
+        }
 
-        static int always_on = 0;
+        static int playery = m_Player->PlayerTransform()->Position().y;
+        if (ImGui::InputInt("PlayerPosition Y", &playery))
+        {
+            m_Player->PlayerTransform()->SetPositionY(playery);
+        }
+
+        /*static int always_on = 0;
         ImGui::RadioButton("Off", &always_on, 0);
         ImGui::SameLine();
         ImGui::RadioButton("Always On (Simple)", &always_on, 1);
         ImGui::SameLine();
-        ImGui::RadioButton("Always On (Advanced)", &always_on, 2);
+        ImGui::RadioButton("Always On (Advanced)", &always_on, 2);*/
 
-       
+        ImGui::SeparatorText("Cheats:");
+
+        if (ImGui::Button("Reset Player Position")) {
+            m_Player->PlayerTransform()->SetPositionX(100);
+            m_Player->PlayerTransform()->SetPositionY(100);
+        }
 
         ImGui::End();
     }

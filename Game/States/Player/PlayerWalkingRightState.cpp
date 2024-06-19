@@ -7,6 +7,7 @@
 #include "../Game/Objects/Player.h"
 #include "../Game/GameConfiguration.h"
 #include "../Game/Components/Transform.h"
+#include "../Game/Components/Collider.h"
 
 
 void PlayerWalkingRightState::Enter(Player* player) {
@@ -43,7 +44,14 @@ void PlayerWalkingRightState::Toggle(Player* player)
 
 void PlayerWalkingRightState::Update(Player* player, float deltaTime) 
 {
-    player->PlayerRigidBody()->ApplyForceX(PLAYER_SPEED);
+    if (!player->PlayerCollider()->HasCollisions() || !player->PlayerCollider()->isCollisionSidePresent(CollisionSide::RIGHT))
+    {
+        player->PlayerRigidBody()->ApplyForceX(PLAYER_SPEED);
+    }
+    else
+    {
+        player->PlayerRigidBody()->UnsetForceX();
+    }
 }
 
 void PlayerWalkingRightState::Render(Player* player) {

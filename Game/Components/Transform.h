@@ -14,8 +14,16 @@ class Transform : public gecs::Component<Transform>
         Transform(gecs::ComponentTypeId typeId, gecs::EntityId ownerId, Vector2D vector2d, float width, float height)
             : gecs::Component<Transform>(typeId, ownerId), m_Position(vector2d), m_Width(width), m_Height(height)  {}
        
-
+        // Position
         inline Vector2D Position() const { return m_Position; }
+        inline void SetPositionX(float newX) { m_Position.x = newX; }
+        inline void SetPositionY(float newY) { m_Position.y = newY; }
+        inline void SetPosition(Vector2D position) { m_Position = position; }
+        inline void UpdatePosition(Vector2D position) { m_Position += position; }
+        inline void UpdatePositionX(Vector2D position) { m_Position.x += position.x; }
+        inline void UpdatePositionY(Vector2D position) { m_Position.y += position.y; }
+
+
         inline Vector2D Origin() const
         {
             Vector2D origin;
@@ -24,14 +32,13 @@ class Transform : public gecs::Component<Transform>
 
             return origin;
         }
-        inline void SetPositionX(float newX) { m_Position.x = newX; }
-        inline void SetPositionY(float newY) { m_Position.y = newY; }
+        
+        // Width and height
         inline float Width() const { return m_Width; }
         inline float Height() const { return m_Height; }
+        inline void SetWidth(float width) { m_Width = width; }
+        inline void SetHeight(float height) { m_Width = height; }
         
-        inline void UpdatePosition(Vector2D position) { m_Position += position; }
-        inline void UpdatePositionX(Vector2D position) { m_Position.x += position.x; }
-        inline void UpdatePositionY(Vector2D position) { m_Position.y += position.y; }
 
         BoundingBox GetBoundingBox() {
             BoundingBox bbox;
@@ -43,7 +50,6 @@ class Transform : public gecs::Component<Transform>
         }
 
     protected:
-        // TODO: Does this needs to be a pointer? I guess not :)
         Vector2D m_Position;
         float m_Width;
         float m_Height;

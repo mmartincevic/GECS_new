@@ -11,12 +11,10 @@
 #include "../Components/BoundingBox.h"
 #include "../Systems/CollisionSide.h"
 
-struct CollisionEvent : public gecs::Event {
+struct CollisionEvent : public gecs::Event<CollisionEvent> {
         BoundingBox player;
         BoundingBox entity;
         CollisionSide side;
-
-        CollisionEvent() {}
 };
 
 #endif

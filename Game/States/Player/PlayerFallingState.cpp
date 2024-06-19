@@ -6,6 +6,7 @@
 #include "../Game/GameConfiguration.h"
 #include "../Game/Components/Transform.h"
 #include "../Game/Components/RigidBody.h"
+#include "../Game/Components/Collider.h"
 #include "../Game/Systems/CollisionSide.h"  
 #include "../Game/States/Player/PlayerStates.h"
 
@@ -26,7 +27,8 @@ void PlayerFallingState::HandleInput(Player* player, const InputBuffer inputBuff
 
 void PlayerFallingState::Update(Player* player, float deltaTime)
 {
-    if (player->GetCollisionState() != CollisionSide::NONE)
+
+    if (player->PlayerCollider()->HasCollisions() && player->PlayerCollider()->isCollisionSidePresent(CollisionSide::BOTTOM))
     {
         Toggle(player);
     }

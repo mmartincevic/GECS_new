@@ -3,9 +3,6 @@
 
 #pragma once
 
-#include <SDL.h> 
-//#include <SDL_image.h>
-
 #include "../ECS/API.h"
 #include "../ECS/ECS.h"
 
@@ -15,8 +12,8 @@
 class StateInitializer : public gecs::FState
 {
 	public:
-		StateInitializer();
-		~StateInitializer();
+		StateInitializer() = default;
+		~StateInitializer() = default;
 		const char* GetStateType();
 		void Enter(gecs::FSM& stater) override;
 		void UpdateState(gecs::FSM& stater) override;

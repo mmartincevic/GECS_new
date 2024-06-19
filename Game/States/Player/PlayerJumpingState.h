@@ -30,5 +30,8 @@ class PlayerJumpingState : public PlayerState {
         float       m_JumpDuration;
         bool        m_IsJumping;
         float       m_InitialY;
+        float       m_FinalY;
+        float       m_InitialJumpVelocity;
+        bool        m_Jumped;
 };
 #endif

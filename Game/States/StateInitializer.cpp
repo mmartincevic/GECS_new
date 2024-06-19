@@ -5,15 +5,19 @@
 #include "../Systems/InputSystem.h"
 #include "../Systems/CollisionSystem.h"
 #include "../Systems/CameraSystem.h"
+#include "../Systems/PlayerMovementSystem.h"
 #include "../ECS/definitions.h"
+
+
 #include "../Components/Drawable.h"
 #include "../Components/Transform.h"
 #include "../Components/Mesh.h"
 #include "../Components/Texture.h"
-#include "../Components/BodyComponent.h"
+#include "../Components/Collider.h"
 #include "../Components/RigidBody.h"
 #include "../Components/DynamicBody.h"
-#include "../Utils/SDL_Wrapper.h"
+#include "../Components/Jumping.h"
+
 #include "../Objects/Player.h"
 #include "../Objects/Wall.h"
 #include "../ECS/Timer.h"
@@ -35,8 +39,6 @@
 
 #define IMG_PATH "Resources/ECS/gecslogo.png"
 
-StateInitializer::StateInitializer() {}
-StateInitializer::~StateInitializer() {}
 const float delay = 4000.0f;
 
 void StateInitializer::Enter(gecs::FSM& stater)
@@ -49,6 +51,7 @@ void StateInitializer::Enter(gecs::FSM& stater)
     gecs::ECS_Engine.systems().addSystem<InputSystem>();
     gecs::ECS_Engine.systems().addSystem<PhysicsSystem>();
     gecs::ECS_Engine.systems().addSystem<CameraSystem>();
+    gecs::ECS_Engine.systems().addSystem<PlayerMovementSystem>();
 
     gecs::ComponentTypeId mComponent = gecs::ComponentTypeId().make(gecs::ComponentTypes::RENDERABLES);
     gecs::EntityId playerId = gecs::ECS_Engine.entities().Create<Player>();
@@ -60,6 +63,8 @@ void StateInitializer::Enter(gecs::FSM& stater)
     //gecs::ECS_Engine.components().AddEntityComponent(playerId, DynamicBody(mComponent, playerId, 1000.0f, 200.0f, 100.0f, 200.0f, 0.0f));
     gecs::ECS_Engine.components().AddEntityComponent(playerId, DynamicBody(mComponent, playerId));
     gecs::ECS_Engine.components().AddEntityComponent(playerId, RigidBody(mComponent, playerId));
+    gecs::ECS_Engine.components().AddEntityComponent(playerId, Collider(mComponent, playerId));
+    gecs::ECS_Engine.components().AddEntityComponent(playerId, Jumping(mComponent, playerId));
     playerObj->ChangeState(std::make_shared<PlayerIdleState>());
 
     playerObj->RegisterImguiWindow();

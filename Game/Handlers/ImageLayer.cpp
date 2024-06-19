@@ -1,5 +1,4 @@
 #include "ImageLayer.h"
-#include "../Utils/SDL_Wrapper.h"
 #include "../Resources/SDLTexture.h"
 
 ImageLayer::ImageLayer(std::string textureId, int x, int y, float scrollRatio, float scalex, float scaley, bool repeat)

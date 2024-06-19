@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "Utils/SDL_Wrapper.h"
 #include "World/World.h"
 #include "Utils/Timer.h"
 
@@ -7,6 +6,9 @@
 #include "Resources/SDLTexture.h"
 #include "Resources/SDLCamera.h"
 #include "Resources/SDLImgui.h"
+
+#include "Systems/RenderSystem.h"
+#include "ImGui/GameImGui.h"
 
 Game::Game(const char* name) :
     m_GameTitle(name),
@@ -41,6 +43,11 @@ void Game::InitializeECS()
     gecs::ECS_Engine.resources().Initialize();
 
     SetNextState<StateInitializer>();
+
+    gecs::ECS_Engine.resources().Manager<SDLImgui>()->AddImguiWindow(std::make_shared<GameImGui>(this));
+
+    gecs::ECS_Engine.events().subscribe<GameEvent>("GAME_QUIT", this, &Game::Terminate);
+    gecs::ECS_Engine.Start();
 };
 
 void Game::Initialize(int width, int height, bool fullscreen)
@@ -48,7 +55,6 @@ void Game::Initialize(int width, int height, bool fullscreen)
     m_WindowWidth	= width;
     m_WindowHeight	= height;
     m_Fullscreen	= fullscreen;
-    m_RUN			= TRUE;
 };
 
 double OldTime = 0.0;
@@ -57,54 +63,70 @@ double DeltaTime = 0.0;
 
 void Game::Run()
 {
-    if (!m_RUN) return;
-    gecs::ECS_Engine.events().subscribe("GAME_QUIT", this, &Game::Terminate);
-
+    if (!gecs::ECS_Engine.IsRunning())
+    {
+        return;
+    }
     const float TargetFrameTime = 6.67f;
     //const float TargetFrameTime = 1.5f;
     auto lastTime = std::chrono::steady_clock::now();
 
     // Run application
-    //while (SDL_Wrapper::getInstance().getWindow() != nullptr)
     while(gecs::ECS_Engine.IsRunning())
     {
         // TODO: Fix Delta time calcs
         auto currentTime = std::chrono::steady_clock::now();
         float deltaTime = std::chrono::duration<float, std::milli>(currentTime - lastTime).count();
-        
-        /*if (SDL_Wrapper::getInstance().getWindow() == nullptr)
-            return;*/
-
-
         float dT = Timer::Instance().DeltaTime();
-        gecs::ECS_Engine.Update(dT);
-        gecs::ECS_Engine.Draw(dT);
 
-        //	// Update FPS counter
-        this->m_DeltaTime = this->m_FPS.Update();
+        if (!IsPaused() || IsStepFrame())
+        {
+            m_FrameCount++;
 
-        // Update the Game State
-        this->UpdateState();
+            gecs::ECS_Engine.Update(dT);
+            gecs::ECS_Engine.Draw(dT);
 
-        //	<Game Name> - <GameState> (<fps>)
-        char buffer[256]{ 0 };
-        sprintf_s(buffer, "%s - %s (%.2f fps)", this->m_GameTitle, this->GetCurrentState()->GetStateType(), this->m_FPS.GetFPS());
-        gecs::ECS_Engine.resources().Manager<SDLRender>()->SetWindowTitle(buffer);
+            //	// Update FPS counter
+            this->m_DeltaTime = this->m_FPS.Update();
 
-        if (deltaTime < TargetFrameTime) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(TargetFrameTime - deltaTime)));
+            // Update the Game State
+            this->UpdateState();
+
+            //	<Game Name> - <GameState> (<fps>)
+            char buffer[256]{ 0 };
+            sprintf_s(buffer, "%s - %s (%.2f fps)", this->m_GameTitle, this->GetCurrentState()->GetStateType(), this->m_FPS.GetFPS());
+            gecs::ECS_Engine.resources().Manager<SDLRender>()->SetWindowTitle(buffer);
+
+            if (deltaTime < TargetFrameTime) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(TargetFrameTime - deltaTime)));
+            }
+
+            lastTime = currentTime;
+            Timer::Instance().Tick();
+
+            m_StepFrame = false;
         }
-
-        lastTime = currentTime;
-        Timer::Instance().Tick();
+        else
+        {
+            // This here is hack to freeze game and run frame by frame
+            // For this we need to process SDL_Event for ImGui and rendering system
+            SDL_PumpEvents();
+            SDL_Event event;
+            while (SDL_PollEvent(&event))
+            {
+                // Add processing of ImGui keyboard and mouse
+                ImGui_ImplSDL2_ProcessEvent(&event);
+            }
+            gecs::ECS_Engine.systems().getSystem<RenderSystem>()->PreUpdate(dT);
+            gecs::ECS_Engine.systems().getSystem<RenderSystem>()->Update(dT);
+            gecs::ECS_Engine.systems().getSystem<RenderSystem>()->Draw(dT);
+        }
     };
 };
 
 
-void Game::Terminate(const gecs::Event& event)
+void Game::Terminate(GameEvent& event)
 {
-    m_RUN = FALSE; // Set NO RUN FOR GAME
-
     // Terminate ECS
     gecs::Terminate();
 };

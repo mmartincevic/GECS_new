@@ -15,11 +15,13 @@ namespace gecs {
     {
         // TODO: Handle Termination
         gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "GECS : Terminating engine.");
-        gecs::ECS_Engine.Terminate();
+        gecs::ECS_Engine.Stop();
 
+        gecs::ECS_Engine.events().Clear();
 
         std::this_thread::sleep_for(std::chrono::seconds(1));
         gecs::ECS_Engine.Clear();
+
         // TODO: Fix this please
         //gecs::ECS_Engine.Renderer()->Cleanup();
 

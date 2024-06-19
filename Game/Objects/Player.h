@@ -11,6 +11,8 @@
 #include "../Components/Transform.h"
 #include "../Components/RigidBody.h"
 #include "../Components/Texture.h"
+#include "../Components/Collider.h"
+#include "../Components/Jumping.h"
 
 class Player : public gecs::Entity {
     public:
@@ -19,6 +21,7 @@ class Player : public gecs::Entity {
 
         void ChangeState(std::shared_ptr<PlayerState> newState);
         PlayerStates GetState();
+        std::string GetStateTranslate();
         BoundingBox GetCollisionBox(float delta = 2.0f);
         BoundingBox GetBoundingBox();
 
@@ -34,24 +37,23 @@ class Player : public gecs::Entity {
 
         void Render();
 
-        bool IsKeyPressed(SDL_Keycode key);
-
-        void SetCollisionState(CollisionSide collisionSide);
-        CollisionSide GetCollisionState() const;
-
         void RegisterImguiWindow();
 
-        Transform*  PlayerTransform();
-        RigidBody* PlayerRigidBody();
-        Texture*   PlayerTexture();
+        // Helpers to get Player components
+        Transform*          PlayerTransform();
+        RigidBody*          PlayerRigidBody();
+        Texture*            PlayerTexture();
+        Collider*           PlayerCollider();
+        Jumping*            PlayerJumping();
 
     protected:
-        std::shared_ptr<PlayerState> currentState;
-        bool movementKeyPressed                                 = false;
-        CollisionSide               m_Collisioning              = CollisionSide::NONE;
-        Transform*                  m_PlayerTransformComponent  = nullptr;
-        RigidBody*                  m_PlayerRigidBodyComponent  = nullptr;
-        Texture*                    m_PlayerTextureComponent    = nullptr;
+        std::shared_ptr<PlayerState>    currentState;
+
+        Transform*                      m_PlayerTransformComponent  = nullptr;
+        RigidBody*                      m_PlayerRigidBodyComponent  = nullptr;
+        Collider*                       m_PlayerRigidColliderComponent = nullptr;
+        Texture*                        m_PlayerTextureComponent    = nullptr;
+        Jumping*                        m_PlayerJumpingComponent = nullptr;
 };
 
 #endif // __ECS_ENTITY_H__
