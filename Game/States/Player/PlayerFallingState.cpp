@@ -21,9 +21,7 @@ void PlayerFallingState::Toggle(Player* player)
     player->ChangeState(std::make_shared<PlayerIdleState>());
 }
 
-void PlayerFallingState::HandleInput(Player* player, const InputBuffer inputBuffer)
-{
-}
+void PlayerFallingState::HandleInput(Player* player, const InputManager& inputManager) {}
 
 void PlayerFallingState::Update(Player* player, float deltaTime)
 {

@@ -14,14 +14,66 @@
 #include "../World/World.h"
 #include "../Events/GameEvent.h"
 
-void InputSystem::Update(float dt)
+
+
+void InputSystem::HandleKeyPress(SDL_Scancode key)
 {
-    inputBuffer.RemoveOldInputs(std::chrono::milliseconds(60));
-    inputBuffer.RemoveOldComboInputs(std::chrono::milliseconds(300));
-};
+    switch (key)
+    {
+        case SDL_SCANCODE_UP:
+        case SDL_SCANCODE_W:
+            inputManager.KeyPress(SDL_SCANCODE_UP);
+            break;
+        case SDL_SCANCODE_RIGHT:
+        case SDL_SCANCODE_D:
+            inputManager.KeyPress(SDL_SCANCODE_RIGHT);
+            break;
+        case SDL_SCANCODE_LEFT:
+        case SDL_SCANCODE_A:
+            inputManager.KeyPress(SDL_SCANCODE_LEFT);
+            break;
+        case SDL_SCANCODE_DOWN:
+        case SDL_SCANCODE_S:
+            inputManager.KeyPress(SDL_SCANCODE_DOWN);
+            break;
+    }
+}
+
+// Handle key release events
+void InputSystem::HandleKeyRelease(SDL_Scancode key)
+{
+    switch (key)
+    {
+        case SDL_SCANCODE_UP:
+        case SDL_SCANCODE_W:
+            inputManager.KeyRelease(SDL_SCANCODE_UP);
+            break;
+        case SDL_SCANCODE_RIGHT:
+        case SDL_SCANCODE_D:
+            inputManager.KeyRelease(SDL_SCANCODE_RIGHT);
+            break;
+        case SDL_SCANCODE_LEFT:
+        case SDL_SCANCODE_A:
+            inputManager.KeyRelease(SDL_SCANCODE_LEFT);
+            break;
+        case SDL_SCANCODE_DOWN:
+        case SDL_SCANCODE_S:
+            inputManager.KeyRelease(SDL_SCANCODE_DOWN);
+            break;
+    }
+}
+
 
 void InputSystem::PreUpdate(float dt)
 {
+    inputBuffer.RemoveOldInputs(std::chrono::milliseconds(0));
+    inputBuffer.Clear();
+    inputBuffer.RemoveOldComboInputs(std::chrono::milliseconds(300));
+};
+
+void InputSystem::Update(float dt)
+{
+    inputManager.ReleaseKeys();
     auto player_entity = gecs::ECS_Engine.entities().GetEntity<Player>();
 
     if (!player_entity.empty()) {
@@ -30,9 +82,27 @@ void InputSystem::PreUpdate(float dt)
         SDL_PumpEvents();
         SDL_Event event;
 
+
         const Uint8* keyboard_state_array = SDL_GetKeyboardState(NULL);
 
-        // TODO: Fix input system movement
+        //if (keyboard_state_array[SDL_SCANCODE_UP] || keyboard_state_array[SDL_SCANCODE_W])
+        //{
+        //    /*std::cout << "Got input up" << std::endl;
+        //    inputBuffer.AddInput(SDL_SCANCODE_UP);*/
+        //}
+
+        //if (keyboard_state_array[SDL_SCANCODE_RIGHT] || keyboard_state_array[SDL_SCANCODE_D])
+        //{
+        //    /*std::cout << "Got input RIGHT" << inputBuffer.GetSize() << std::endl;
+        //    inputBuffer.AddInput(SDL_SCANCODE_RIGHT);*/
+        //}
+
+        //if (keyboard_state_array[SDL_SCANCODE_LEFT] || keyboard_state_array[SDL_SCANCODE_A])
+        //{
+        //    /*std::cout << "Got input LEFT" << inputBuffer.GetSize() << std::endl;
+        //    inputBuffer.AddInput(SDL_SCANCODE_LEFT);*/
+        //}
+        
         while (SDL_PollEvent(&event))
         {
             // Add processing of ImGui keyboard and mouse
@@ -44,23 +114,9 @@ void InputSystem::PreUpdate(float dt)
                 return;
             }
 
-            if (keyboard_state_array[SDL_SCANCODE_UP] || keyboard_state_array[SDL_SCANCODE_W])
-            {
-                inputBuffer.AddInput(SDL_SCANCODE_UP);
-            }
-
-            if (keyboard_state_array[SDL_SCANCODE_RIGHT] || keyboard_state_array[SDL_SCANCODE_D])
-            {
-                inputBuffer.AddInput(SDL_SCANCODE_RIGHT);
-            }
-
-            if (keyboard_state_array[SDL_SCANCODE_LEFT] || keyboard_state_array[SDL_SCANCODE_A])
-            {
-                inputBuffer.AddInput(SDL_SCANCODE_LEFT);
-            }
-
             if (event.type == SDL_KEYDOWN)
             {
+                HandleKeyPress(event.key.keysym.scancode);
                 switch (event.key.keysym.sym)
                 {
                 case SDLK_F11:
@@ -71,27 +127,25 @@ void InputSystem::PreUpdate(float dt)
             
             if (event.type == SDL_KEYUP)
             {
+                HandleKeyRelease(event.key.keysym.scancode);
+
                 switch (event.key.keysym.sym)
                 {
                 case SDLK_UP:
                 case SDLK_w:
                     inputBuffer.RemoveInput(SDL_SCANCODE_UP);
-                    playerEntity->ToggleState();
                     break;
                 case SDLK_RIGHT:
                 case SDLK_d:
                     inputBuffer.RemoveInput(SDL_SCANCODE_RIGHT);
-                    playerEntity->ToggleState();
                     break;
                 case SDLK_LEFT:
                 case SDLK_a:
                     inputBuffer.RemoveInput(SDL_SCANCODE_LEFT);
-                    playerEntity->ToggleState();
                     break;
                 case SDLK_DOWN:
                 case SDLK_s:
                     inputBuffer.RemoveInput(SDL_SCANCODE_DOWN);
-                    playerEntity->ToggleState();
                     break;
                 }
             }
@@ -103,7 +157,7 @@ void InputSystem::PreUpdate(float dt)
             inputBuffer.ClearCombo();
         }
 
-        playerEntity->HandleInput(inputBuffer);
+        playerEntity->HandleInput(inputManager);
     }
 };
 

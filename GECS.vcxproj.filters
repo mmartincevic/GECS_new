@@ -503,6 +503,9 @@
     <ClInclude Include="Game\ImGui\GameImGui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Input\InputManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="config\settings.xml" />

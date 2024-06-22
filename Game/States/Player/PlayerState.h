@@ -7,7 +7,7 @@
 #include "../ECS/ECS.h"
 #include "../ECS/Uncopiable.h"
 
-#include "../Game/Input/InputBuffer.h"
+#include "../Game/Input/InputManager.h"
 #include "PlayerStates.h"
 
 class Player;
@@ -16,7 +16,7 @@ class PlayerState : public gecs::Uncopiable
 {
     public:
         virtual void Enter(Player* player) = 0;
-        virtual void HandleInput(Player* player, const InputBuffer inputBuffer) = 0;
+        virtual void HandleInput(Player* player, const InputManager& inputManager) = 0;
         virtual void Update(Player* player, float deltaTime) = 0;
         virtual void Toggle(Player* player) = 0;
         virtual void Render(Player* player) = 0;

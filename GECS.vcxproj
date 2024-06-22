@@ -231,6 +231,7 @@
     <ClInclude Include="Game\Handlers\ImageLayer.h" />
     <ClInclude Include="Game\ImGui\GameImGui.h" />
     <ClInclude Include="Game\Input\InputBuffer.h" />
+    <ClInclude Include="Game\Input\InputManager.h" />
     <ClInclude Include="Game\Map\Tile.h" />
     <ClInclude Include="Game\Map\TileException.h" />
     <ClInclude Include="Game\Map\TileGroup.h" />

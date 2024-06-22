@@ -37,6 +37,8 @@ public:
     inline void ShowBoundingBox() { m_DrawBoundingBox = true; }
     inline void HideBoundingBox() { m_DrawBoundingBox = false; }
 
+    SDL_Texture* Texture(std::string textureId) { return m_TextureMap[textureId]; }
+
 private:
     SDLTextureParams                        m_Params;
     std::shared_ptr<SDLRender>              m_Render;

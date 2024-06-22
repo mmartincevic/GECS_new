@@ -9,6 +9,7 @@
 #include "../ECS/System.h"
 
 #include "../Input/InputBuffer.h"
+#include "../Input/InputManager.h"
 
 class InputSystem : public gecs::System<InputSystem>
 {
@@ -23,7 +24,13 @@ class InputSystem : public gecs::System<InputSystem>
         virtual void Draw(float dt) override {};
         virtual void Clear() override;
 
+
+        void HandleKeyPress(SDL_Scancode key);
+        void HandleKeyRelease(SDL_Scancode key);
+
+
     protected:
         InputBuffer inputBuffer;
+        InputManager inputManager;
 };
 #endif

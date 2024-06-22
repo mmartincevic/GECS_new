@@ -25,7 +25,7 @@ class Player : public gecs::Entity {
         BoundingBox GetCollisionBox(float delta = 2.0f);
         BoundingBox GetBoundingBox();
 
-        void HandleInput(const InputBuffer inputBuffer);
+        void HandleInput(const InputManager& inputManager);
         void ToggleState();
 
         void Update(float deltaTime);

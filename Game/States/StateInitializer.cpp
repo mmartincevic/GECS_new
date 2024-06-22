@@ -70,7 +70,7 @@ void StateInitializer::Enter(gecs::FSM& stater)
     playerObj->RegisterImguiWindow();
 
     gecs::EntityId wall_small = gecs::ECS_Engine.entities().Create<Wall>();
-    gecs::ECS_Engine.components().AddEntityComponent(wall_small, Transform(mComponent, wall_small, Vector2D(50.0f, 700.0f), 1000.0f, 30.0f));
+    gecs::ECS_Engine.components().AddEntityComponent(wall_small, Transform(mComponent, wall_small, Vector2D(50.0f, 700.0f), 15000.0f, 30.0f));
     gecs::ECS_Engine.components().AddEntityComponent(wall_small, Texture(mComponent, wall_small, "wall_small"));
     //gecs::ECS_Engine.components().AddEntityComponent(wall_small, RigidBody(mComponent, wall_small));
 
@@ -78,22 +78,33 @@ void StateInitializer::Enter(gecs::FSM& stater)
     auto textureManager = gecs::ECS_Engine.resources().Manager<SDLTexture>();
     textureManager->Load("warrior", "Resources/ECS/warrior.png");
     textureManager->Load("wall_small", "Resources/ECS/wall_horizontal.png");
-    textureManager->Load("level_sky", "Resources/ECS/level1/sky.png");
+
+   /* textureManager->Load("level_sky", "Resources/ECS/level1/sky.png");
     textureManager->Load("level_building_behind", "Resources/ECS/level1/building_behind.png");
     textureManager->Load("level_building", "Resources/ECS/level1/building.png");
     textureManager->Load("level_ruins", "Resources/ECS/level1/ruins.png");
     textureManager->Load("level_smoke", "Resources/ECS/level1/smoke.png");
-    textureManager->Load("level_road", "Resources/ECS/level1/road.png");
+    textureManager->Load("level_road", "Resources/ECS/level1/road.png");*/
 
+    textureManager->Load("scene_background", "Resources/ECS/level3/scene/background.png");
+    textureManager->Load("scene_background_top", "Resources/ECS/level3/scene/backgroundtop.png");
+    textureManager->Load("scene_layer1", "Resources/ECS/level3/scene/layer1.png");
+    textureManager->Load("scene_layer2", "Resources/ECS/level3/scene/layer2.png");
+    textureManager->Load("scene_layer3", "Resources/ECS/level3/scene/layer3.png");
+    textureManager->Load("scene_layer4", "Resources/ECS/level3/scene/layer4.png");
+    textureManager->Load("scene_layer5", "Resources/ECS/level3/scene/layer5.png");
+    textureManager->Load("scene_layer6", "Resources/ECS/level3/scene/layer6.png");
+    textureManager->Load("scene_layer7", "Resources/ECS/level3/scene/layer7.png");
 
-    World::Instance().AddLayer(new ImageLayer("level_sky", 0, 0, 0.1, 0.4, 0.4));
-    World::Instance().AddLayer(new ImageLayer("level_building_behind", 0, 200, 0.3, 0.6, 0.3));
-    World::Instance().AddLayer(new ImageLayer("level_building", 0, 200, 0.3, 0.3, 0.3));
-    World::Instance().AddLayer(new ImageLayer("level_ruins", 0, 450, 0.4, 0.3, 03));
-    World::Instance().AddLayer(new ImageLayer("level_smoke", 0, 500, 0.4, 0.3, 0.3));
-    World::Instance().AddLayer(new ImageLayer("level_road", 0, 700, 0.5, 0.3, 0.3));
-
-
+   World::Instance().AddLayer(SceneLayer::BACKGROUND, std::make_unique<ImageLayer>("scene_background", 0, 0, 0.1, 0.4, 0.4));
+   /* World::Instance().AddLayer(SceneLayer::BACKGROUND, std::make_unique<ImageLayer>("scene_background_top", 0, 200, 0.3, 0.6, 0.3));
+    World::Instance().AddLayer(SceneLayer::BACKGROUND, std::make_unique<ImageLayer>("scene_layer1", 0, 200, 0.3, 0.3, 0.3));
+    World::Instance().AddLayer(SceneLayer::BACKGROUND, std::make_unique<ImageLayer>("scene_layer2", 0, 450, 0.4, 0.3, 03));
+    World::Instance().AddLayer(SceneLayer::BACKGROUND, std::make_unique<ImageLayer>("scene_layer3", 0, 500, 0.4, 0.3, 0.3));
+    World::Instance().AddLayer(SceneLayer::BACKGROUND, std::make_unique<ImageLayer>("scene_layer4", 0, 700, 0.5, 0.3, 0.3));
+    World::Instance().AddLayer(SceneLayer::BACKGROUND, std::make_unique<ImageLayer>("scene_layer5", 0, 700, 0.5, 0.3, 0.3));
+    World::Instance().AddLayer(SceneLayer::BACKGROUND, std::make_unique<ImageLayer>("scene_layer6", 0, 700, 0.5, 0.3, 0.3));
+    World::Instance().AddLayer(SceneLayer::BACKGROUND, std::make_unique<ImageLayer>("scene_layer7", 0, 700, 0.5, 0.3, 0.3));*/
 
     textureManager->ShowBoundingBox();
 

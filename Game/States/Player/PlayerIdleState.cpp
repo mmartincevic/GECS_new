@@ -13,14 +13,33 @@ void PlayerIdleState::Enter(Player* player) {
     gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "IDLE");
 }
 
-void PlayerIdleState::Toggle(Player* player) 
-{
-    //player->PlayerRigidBody()->UnsetForceX();
-}
+void PlayerIdleState::Toggle(Player* player) {}
 
-void PlayerIdleState::HandleInput(Player* player, const InputBuffer inputBuffer) 
+void PlayerIdleState::HandleInput(Player* player, const InputManager& inputManager)
 {
-    if (!inputBuffer.IsEmpty())
+
+    if (inputManager.IsAnyKeyPressed())
+    {
+        for (auto& input : inputManager.KeysPressed())
+        {
+            switch (input)
+            {
+                case SDL_SCANCODE_UP:
+                    player->ChangeState(std::make_shared<PlayerJumpingState>());
+                    return;
+                    break;
+                case SDL_SCANCODE_RIGHT:
+                    player->ChangeState(std::make_shared<PlayerWalkingRightState>());
+                    return;
+                    break;
+                case SDL_SCANCODE_LEFT:
+                    player->ChangeState(std::make_shared<PlayerWalkingLeftState>());
+                    return;
+                    break;
+            }
+        }
+    }
+    /*if (!inputBuffer.IsEmpty())
     {
         std::vector<SDL_Scancode> inputs = inputBuffer.GetInputs();
 
@@ -30,16 +49,19 @@ void PlayerIdleState::HandleInput(Player* player, const InputBuffer inputBuffer)
             {
                 case SDL_SCANCODE_UP:
                     player->ChangeState(std::make_shared<PlayerJumpingState>());
+                    return;
                     break;
                 case SDL_SCANCODE_RIGHT:
                     player->ChangeState(std::make_shared<PlayerWalkingRightState>());
+                    return;
                     break;
                 case SDL_SCANCODE_LEFT:
                     player->ChangeState(std::make_shared<PlayerWalkingLeftState>());
+                    return;
                     break;
             }
         }
-    }
+    }*/
 }
 
 void PlayerIdleState::Update(Player* player, float deltaTime) {

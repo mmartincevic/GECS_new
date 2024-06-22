@@ -15,21 +15,12 @@ void PlayerJumpingState::Enter(Player* player) {
     // Log entering jump state
     gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "Player is Jumping");
     player->PlayerRigidBody()->UnsetForceY();
-
     m_JumpTime = 30.0f;
     m_IsJumping = true;
     m_JumpForce = PLAYER_JUMPING_SPEED;
 }
 
-void PlayerJumpingState::HandleInput(Player* player, const InputBuffer inputBuffer) {
-    if (!inputBuffer.IsEmpty()) {
-        std::vector<SDL_Scancode> inputs = inputBuffer.GetInputs();
-
-        for (auto input : inputs) {
-            // Process inputs if needed, e.g., for directional changes mid-air
-        }
-    }
-}
+void PlayerJumpingState::HandleInput(Player* player, const InputManager& inputManager) {}
 
 void PlayerJumpingState::Toggle(Player* player) {
     if (!m_IsJumping) {

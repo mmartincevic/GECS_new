@@ -47,8 +47,7 @@ void PlayerMovementSystem::Update(float dt)
             {
                 if (position.x < currentPosition.x) { position.x = currentPosition.x; }
             }
-
-            if (player->PlayerCollider()->isCollisionSidePresent(CollisionSide::RIGHT))
+            else if (player->PlayerCollider()->isCollisionSidePresent(CollisionSide::RIGHT))
             {
                 if (position.x > currentPosition.x) { position.x = currentPosition.x; }
             }

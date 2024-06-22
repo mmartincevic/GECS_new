@@ -1,6 +1,7 @@
 #include "Player.h"
 
 #include "../Game/Input/InputBuffer.h"
+#include "../Game/Input/InputManager.h"
 #include "../States/Player/PlayerIdleState.h"
 #include "../Events/CollisionEvent.h"
 #include "../World/World.h"
@@ -54,13 +55,14 @@ std::string Player::GetStateTranslate()
 void Player::ChangeState(std::shared_ptr<PlayerState> newState) {
     if (currentState != nullptr && currentState == newState) { return; }
     //delete currentState;
+
     currentState = newState;
     currentState->Enter(this);
 }
 
-void Player::HandleInput(const InputBuffer inputBuffer) {
+void Player::HandleInput(const InputManager& inputManager) {
     if (currentState) {
-        currentState->HandleInput(this, inputBuffer);
+        currentState->HandleInput(this, inputManager);
     }
 }
 

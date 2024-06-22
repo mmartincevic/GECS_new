@@ -15,29 +15,37 @@ void PlayerWalkingRightState::Enter(Player* player) {
     gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "WALKING RIGHT ");
 }
 
-void PlayerWalkingRightState::HandleInput(Player* player, const InputBuffer inputBuffer)
+void PlayerWalkingRightState::HandleInput(Player* player, const InputManager& inputManager)
 {
-    if (!inputBuffer.IsEmpty())
-    {
-        std::vector<SDL_Scancode> inputs = inputBuffer.GetInputs();
 
-        for (auto input : inputs)
+    if (inputManager.IsAnyKeyPressed())
+    {
+        if (inputManager.IsKeyPressed(SDL_SCANCODE_UP))
         {
-            switch (input)
-            {
-                case SDL_SCANCODE_UP:
-                    player->ChangeState(std::make_shared<PlayerJumpingState>());
-                    break;
-                case SDL_SCANCODE_LEFT:
-                    player->ChangeState(std::make_shared<PlayerWalkingLeftState>());
-                    break;
-            }
+            player->ChangeState(std::make_shared<PlayerJumpingState>());
+            return;
+        }
+
+        if (inputManager.IsKeyPressed(SDL_SCANCODE_RIGHT))
+        {
+            return;
+        }
+
+        if (inputManager.IsKeyPressed(SDL_SCANCODE_LEFT))
+        {
+            player->ChangeState(std::make_shared<PlayerWalkingLeftState>());
+            return;
         }
     }
+
+
+    player->PlayerRigidBody()->UnsetForceX();
+    Toggle(player);
 }
 
 void PlayerWalkingRightState::Toggle(Player* player)
 {
+    std::cout << "Toggling FROM RIGHT" << std::endl;
     player->ChangeState(std::make_shared<PlayerIdleState>());
 }
 

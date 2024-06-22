@@ -15,29 +15,37 @@ void PlayerWalkingLeftState::Enter(Player* player) {
     gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "WALKING LEFT");
 }
 
-void PlayerWalkingLeftState::HandleInput(Player* player, const InputBuffer inputBuffer)
+void PlayerWalkingLeftState::HandleInput(Player* player, const InputManager& inputManager)
 {
-    if (!inputBuffer.IsEmpty())
+    if (inputManager.IsAnyKeyPressed())
     {
-        std::vector<SDL_Scancode> inputs = inputBuffer.GetInputs();
 
-        for (auto input : inputs)
+        if (inputManager.IsKeyPressed(SDL_SCANCODE_UP))
         {
-            switch (input)
-            {
-                case SDL_SCANCODE_UP:
-                    player->ChangeState(std::make_shared<PlayerJumpingState>());
-                    break;
-                case SDL_SCANCODE_RIGHT:
-                    player->ChangeState(std::make_shared<PlayerWalkingRightState>());
-                    break;
-            }
+            player->ChangeState(std::make_shared<PlayerJumpingState>());
+            return;
+        }
+
+        if (inputManager.IsKeyPressed(SDL_SCANCODE_LEFT))
+        {
+            return;
+        }
+
+        if (inputManager.IsKeyPressed(SDL_SCANCODE_RIGHT))
+        {
+            player->ChangeState(std::make_shared<PlayerWalkingRightState>());
+            return;
         }
     }
+
+
+    player->PlayerRigidBody()->UnsetForceX();
+    Toggle(player);
 }
 
 void PlayerWalkingLeftState::Toggle(Player* player)
 {
+    std::cout << "Toggling FROM LEFT" << std::endl;
     player->ChangeState(std::make_shared<PlayerIdleState>());
 }
 
@@ -50,7 +58,4 @@ void PlayerWalkingLeftState::Update(Player* player, float deltaTime)
     }
 }
 
-void PlayerWalkingLeftState::Render(Player* player) 
-{
-    // Render walking texture
-}
+void PlayerWalkingLeftState::Render(Player* player)  {}

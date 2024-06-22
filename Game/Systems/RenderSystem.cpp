@@ -30,27 +30,25 @@ void RenderSystem::Update(float dt)
 void RenderSystem::Draw(float dt)
 {
     // Draw first scene background
-    for (auto imgLayer : World::Instance().BgLayers())
+    for (const auto& imgLayer : World::Instance().GetLayers(SceneLayer::BACKGROUND))
     {
-        //imgLayer->Render();
+        imgLayer->Render();
     }
 
     auto player_entity = gecs::ECS_Engine.entities().GetEntity<Player>();
-    for (auto player : player_entity)
+    for (auto& player : player_entity)
     {
         player->Draw(dt);
         player->DrawBoundingBox(true, 10.0f);
     }
 
     auto wall_entities = gecs::ECS_Engine.entities().GetEntity<Wall>();
-    for (auto wall : wall_entities)
+    for (auto& wall : wall_entities)
     {
         wall->Draw(dt);
         wall->DrawBoundingBox();
     }
 
-
-    //MapParser::Instance().Maps("level2")->Render();
     tiller::Tiller::Instance().Render();
     gecs::ECS_Engine.resources().Manager<SDLRender>()->UpdateCameraPosition();
     gecs::ECS_Engine.resources().Manager<SDLImgui>()->Render();
