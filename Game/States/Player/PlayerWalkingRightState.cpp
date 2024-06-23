@@ -13,6 +13,8 @@
 void PlayerWalkingRightState::Enter(Player* player) {
     // Set the texture for walking state
     gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "WALKING RIGHT ");
+    player->PlayerTexture()->SetTextureId("warrior_walk");
+    player->PlayerTexture()->UnFlip();
 }
 
 void PlayerWalkingRightState::HandleInput(Player* player, const InputManager& inputManager)

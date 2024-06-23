@@ -11,6 +11,7 @@ void PlayerIdleState::Enter(Player* player) {
     // No movement logic for idle state
     player->PlayerRigidBody()->UnsetForce();
     gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "IDLE");
+    player->PlayerTexture()->SetTextureId("warrior");
 }
 
 void PlayerIdleState::Toggle(Player* player) {}

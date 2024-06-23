@@ -39,7 +39,7 @@ void RenderSystem::Draw(float dt)
     for (auto& player : player_entity)
     {
         player->Draw(dt);
-        player->DrawBoundingBox(true, 10.0f);
+        //player->DrawBoundingBox(true, 10.0f);
     }
 
     auto wall_entities = gecs::ECS_Engine.entities().GetEntity<Wall>();

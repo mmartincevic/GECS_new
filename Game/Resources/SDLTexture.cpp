@@ -10,17 +10,31 @@ void SDLTexture::Draw(std::string textureId, int x, int y,
     Vector2D cameraPos = m_Camera->Position() * ratio;
     SDL_Rect srcRect = { 0, 0, width, height };
     SDL_Rect dstRect = { x - cameraPos.x, y, width * scalex, height * scaley };
+
     //SDL_RenderCopyEx(m_Render, m_TextureMap[textureId], &srcRect, &dstRect, angle, nullptr, flip);
     m_Render->DrawTexture(m_TextureMap[textureId], &srcRect, &dstRect, angle, nullptr, flip);
 }
 
 
-void SDLTexture::DrawFrame(std::string textureId, int x, int y, int width,
+void SDLTexture::DrawFrame(std::string textureId, Vector2D position, int width,
     int height, int row, int frame, double angle, SDL_RendererFlip flip)
 {
-    SDL_Rect srcRect = { width * frame, height * row, width, height };
-    SDL_Rect dstRect = { x, y, width, height };
-    //SDL_RenderCopyEx(m_Render, m_TextureMap[textureId], &srcRect, &dstRect, 0, nullptr, flip);
+
+    Vector2D cameraPos = m_Camera->Position();
+    SDL_Rect srcRect = { width * frame, height * (row -1), width, height };
+
+    std::cout << "Camera pos : " << position.x << " - " << position.x - cameraPos.x << " - " << cameraPos.x << std::endl;
+
+    float x = 0;
+    if (cameraPos.x == 0)
+    {
+        x = position.x;
+    }
+    else
+    {
+        x = 448.0f;
+    }
+    SDL_Rect dstRect = { position.x - cameraPos.x, position.y - cameraPos.y, width, height };
     m_Render->DrawTexture(m_TextureMap[textureId], &srcRect, &dstRect, angle, nullptr, flip);
 }
 

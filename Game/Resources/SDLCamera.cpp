@@ -6,8 +6,8 @@
 
 void SDLCamera::Update(Vector2D targetPosition)
 {
-    m_ViewBox.x = targetPosition.x - GAME_WINDOW_WIDTH / 2;
-    m_ViewBox.y = targetPosition.y - GAME_WINDOW_HEIGHT / 2;
+    m_ViewBox.x = targetPosition.x - 1024.0f / 2;
+    m_ViewBox.y = targetPosition.y - 960.0f / 2;
 
     if (m_ViewBox.x < 0)
     {
@@ -32,15 +32,10 @@ void SDLCamera::Update(Vector2D targetPosition)
     m_Position = Vector2D(m_ViewBox.x, m_ViewBox.y);
 }
 
-void SDLCamera::Initialize()
-{
-    //m_Render = gecs::ECS_Engine.resources().Manager<SDLRender>()->Renderer();
-}
-
+void SDLCamera::Initialize() {}
 void SDLCamera::Cleanup() {}
 
 void SDLCamera::Clear() 
 {
     gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "GECS : Clearing resource - SDLCamera.");
-    delete m_Target;
 }

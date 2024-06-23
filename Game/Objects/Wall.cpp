@@ -12,20 +12,23 @@ void Wall::Draw(float dt)
     auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(this->GetID());
     auto textureComponent = gecs::ECS_Engine.components().GetComponentForEntity<Texture>(this->GetID());
 
-    std::shared_ptr<SDLTexture> texture = gecs::ECS_Engine.resources().Manager<SDLTexture>();
+    TextureResource resource = Component<Texture>()->GetActiveResource();
 
-    texture->Draw(textureComponent->getTextureId(),
+    gecs::ECS_Engine.resources().Manager<SDLTexture>()->Draw(resource.m_ResourceId,
         transformComponent->Position().x, transformComponent->Position().y,
-        transformComponent->Width(), transformComponent->Height());
+        transformComponent->Width(), transformComponent->Height(),
+        textureComponent->ScaleX(), textureComponent->ScaleY());
 }
 
 void Wall::DrawBoundingBox()
 {
     BoundingBox bbox = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(this->GetID())->GetBoundingBox();
-    
+    auto textureComponent = gecs::ECS_Engine.components().GetComponentForEntity<Texture>(this->GetID());
     Vector2D cameraPos = gecs::ECS_Engine.resources().Manager<SDLCamera>()->Position();
    // bbox.x -= cameraPos.x;
     bbox.y += cameraPos.y;
+    bbox.width *= textureComponent->ScaleX();
+    bbox.height *= textureComponent->ScaleY();
 
     ObjectColor boxColor;
     boxColor.r = 255;

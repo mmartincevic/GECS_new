@@ -26,7 +26,7 @@ public:
     void Drop(const std::string& textureId);
 
     void Draw(std::string textureId, int x, int y, int width, int height, float scalex = 1.0f, float scaley = 1.0f, float ration = 1.0f, double angle = 0.0f, SDL_RendererFlip flip = SDL_FLIP_NONE);
-    void DrawFrame(std::string textureId, int x, int y, int width, int height, int row, int frame, double angle = 0.0f, SDL_RendererFlip flip = SDL_FLIP_NONE);
+    void DrawFrame(std::string textureId, Vector2D position, int width, int height, int row, int frame, double angle = 0.0f, SDL_RendererFlip flip = SDL_FLIP_NONE);
     void DrawTile(std::string tilesetId, int width, int height, int x, int y, int srcx, int srcy, int frame, int rotation = 0, float opacity = 1.0f, bool collidable = false, float ration = 1.0f, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
 

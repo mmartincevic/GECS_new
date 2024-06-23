@@ -42,11 +42,6 @@ void Tiller::Render()
 
             for (Tile tile : layer.second)
             {
-                /*TextureManager::Instance().DrawTile(
-                    tile.imageName, tile.width, tile.height, 
-                    tile.displayCol, tile.displayRow,
-                    tile.matrixCol, tile.matrixRow,
-                    1, tile.rotation, tile.opacity, tile.collider);*/
                 texture->DrawTile(
                     tile.imageName, tile.width, tile.height,
                     tile.displayCol, tile.displayRow,
@@ -122,6 +117,7 @@ TileError Tiller::Parse(std::string mapId, std::string source)
                 tilelayer.Height = l->IntAttribute("height", 0);
                 tilelayer.OffsetX = l->IntAttribute("offsetx", 0);
                 tilelayer.OffsetY = l->IntAttribute("offsety", 0);
+                tilegroup.Opacity = l->FloatAttribute("opacity", 1);
 
                 Log(YELLOW, "Loading tilelayer: " + std::to_string(tilelayer.ID), "\t");
                 m_Map->AddLayer(tilelayer);
@@ -237,6 +233,11 @@ std::vector<Tile> Tiller::FormatLayerData(TileGroup tileGroup, TileLayer tileLay
 
 
                 auto firstgid = m_Map->FindFirstGid(global_tile_id);
+
+                if (firstgid == std::nullopt)
+                {
+                    firstgid = 1;
+                }
 
                 Tile tile;
                 tile.gID = gId;

@@ -1,0 +1,53 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "materials.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "materials.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 5148,
+                "y": 474.6666666666666
+            }
+        },
+        "materials.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "scene.tmx": {
+            "scale": 0.19287109375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 290.3493670886073,
+                "y": 1135.473417721519
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/djomla/Desktop/gecsnew/GECS/Resources/ECS/level3/scene2",
+    "map.height": 60,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 800,
+    "openFiles": [
+        "materials.tmx",
+        "materials.tsx"
+    ],
+    "project": "gecstile.tiled-project",
+    "recentFiles": [
+        "materials.tsx",
+        "materials.tmx",
+        "scene.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

@@ -82,24 +82,17 @@ void Player::Render() {
     }
 }
 
-//bool Player::IsKeyPressed(SDL_Keycode key) {
-//    const Uint8* state = SDL_GetKeyboardState(NULL);
-//    SDL_Scancode scancode = SDL_GetScancodeFromKey(key);
-//    return state[scancode];
-//}
-
-// TODO : Fix frame drawing
 void Player::Draw(float dt)
 {
     auto transformComponent = gecs::ECS_Engine.components().GetComponentForEntity<Transform>(this->GetID());
     auto textureComponent = gecs::ECS_Engine.components().GetComponentForEntity<Texture>(this->GetID());
-    int frame = ((int)dt / 10) % 7;
 
-    std::shared_ptr<SDLTexture> texture = gecs::ECS_Engine.resources().Manager<SDLTexture>();
+    TextureResource resource = textureComponent->GetActiveResource();
 
-    texture->Draw(textureComponent->getTextureId(),
-        transformComponent->Position().x, transformComponent->Position().y,
-        transformComponent->Width(), transformComponent->Height());
+    int frame = (SDL_GetTicks()/ 200) % resource.m_ResourceFrames;
+
+    gecs::ECS_Engine.resources().Manager<SDLTexture>()->DrawFrame(resource.m_ResourceId, transformComponent->Origin(),
+        transformComponent->Width(), transformComponent->Height(), 1, frame, 0.0f, textureComponent->Flip() ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 }
 
 BoundingBox Player::GetCollisionBox(float dt) 
@@ -182,14 +175,7 @@ Collider* Player::PlayerCollider()
 
 void Player::HandleCollision(const CollisionEvent& event) {}
 
-void Player::RegisterEvents() {
-    /*gecs::ECS_Engine.events().subscribe("COLLISION", [this](const EventData& data) {
-        const auto& event = std::get<CollisionEvent>(data);
-        if (event.entityA == *this || event.entityB == *this) {
-            HandleCollision(event);
-        }
-        });*/
-}
+void Player::RegisterEvents() {}
 
 void Player::RegisterImguiWindow()
 {

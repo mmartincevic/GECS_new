@@ -29,7 +29,6 @@ class Transform : public gecs::Component<Transform>
             Vector2D origin;
             origin.x = m_Position.x + m_Width / 2;
             origin.y = m_Position.y + m_Height / 2;
-
             return origin;
         }
         

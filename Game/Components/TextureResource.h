@@ -9,5 +9,6 @@ struct TextureResource
 {
 	std::string m_ResourceId;
 	std::string m_ResourcePath;
+	int			m_ResourceFrames;
 };
 #endif // C_TEXTURE_H__

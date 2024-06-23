@@ -19,6 +19,12 @@ void ImageLayer::Render() const
     textureManager->Draw(m_TextureId, m_OffsetX, m_OffsetY,
         m_ImgWidth, m_ImgHeight, m_ScaleX, m_ScaleY, m_ScrollRatio, 0);
 
+    if (m_Repeat)
+    {
+        textureManager->Draw(m_TextureId, m_OffsetX + m_ImgWidth * m_ScaleX, m_OffsetY,
+            m_ImgWidth, m_ImgHeight, m_ScaleX, m_ScaleY, m_ScrollRatio, 0);
+    }
+
 }
 
 void ImageLayer::QueryImage(std::string textureId)

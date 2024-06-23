@@ -38,7 +38,7 @@ public:
     inline void MoveY(float y) { m_Position.y = y; }
     inline void SetSceneLimit(int width, int height) { m_Params.screenWidth = width; m_Params.screenHeight = height; }
 
-    inline void SetTarget(Vector2D* target) { m_Target = target; }
+    inline void SetTarget(Vector2D target) { m_Target = target; }
 
     Vector2D Position() const { return m_Position; }
 
@@ -47,7 +47,7 @@ private:
     SDLCameraParams     m_Params;
     SDL_Rect            m_ViewBox;
     Vector2D            m_Position;
-    Vector2D*           m_Target = nullptr;
+    Vector2D            m_Target;
 
     int                 m_SceneWidth;
     int                 m_SceneHeight;

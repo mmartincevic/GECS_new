@@ -15,9 +15,10 @@ void PlayerJumpingState::Enter(Player* player) {
     // Log entering jump state
     gecs::ECS_Engine.logger().Log(gecs::LogType::GECS_INFO, "Player is Jumping");
     player->PlayerRigidBody()->UnsetForceY();
-    m_JumpTime = 30.0f;
+    m_JumpTime = 20.0f;
     m_IsJumping = true;
     m_JumpForce = PLAYER_JUMPING_SPEED;
+    player->PlayerTexture()->SetTextureId("warrior_jump");
 }
 
 void PlayerJumpingState::HandleInput(Player* player, const InputManager& inputManager) {}
